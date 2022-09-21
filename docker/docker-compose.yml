@@ -11,8 +11,16 @@ services:
             - php-customer
             - php-client
             - php-admin
+            - php-api
         networks:
             - glc
+    php-api:
+      build: ./docker/php-fpm
+      volumes:
+        - ./src:/usr/src/app
+        - ./src/.env.api:/usr/src/app/.env
+      networks:
+        - glc
     php-customer:
         build: ./docker/php-fpm
         volumes:

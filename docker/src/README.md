@@ -73,6 +73,7 @@ make composer-install
 docker-compose exec php-customer php artisan key:generate --ansi
 docker-compose exec php-client php artisan key:generate --ansi
 docker-compose exec php-admin php artisan key:generate --ansi
+docker-compose exec php-api php artisan key:generate --ansi
 ```
 ### 7. hostsを設定
 ```shell
