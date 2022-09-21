@@ -1,0 +1,41 @@
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# For IDE
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.idea
+.vscode
+.project
+
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# For Package Management System
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+/node_modules
+npm-debug.log
+/vendor
+/resources/sass/master/node_modules/
+
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# For Project
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.phpunit.result.cache
+_ide_helper.php
+.htaccess
+.env
+
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# For Vagrant
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+/user-customizations.sh
+/Homestead.yaml
+.vagrant
+*.pem
+mysql_backup
+postgres_backup
+z_infra
+z_vagrant
+.env.vagrant
+Vagrantfile
+
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# Test file
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+/public/test.php

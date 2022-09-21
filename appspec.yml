@@ -1,0 +1,16 @@
+version: 0.0
+os: linux
+files:
+   - source: /
+     destination: /var/www
+hooks:
+  AfterInstall:
+    - location: scripts/change_permissions.sh
+      timeout: 300
+      runas: root
+    - location: scripts/init.sh
+      timeout: 300
+      runas: root
+    - location: scripts/env.sh
+      timeout: 300
+      runas: root
