@@ -39,7 +39,7 @@ services:
         build: ./docker/php-fpm
         volumes:
             - ./src:/usr/src/app
-            - ./src/.env.admin:/usr/src/app/.env
+            - ./src/.env.master:/usr/src/app/.env
         networks:
             - glc
     node:
