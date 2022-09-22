@@ -1,0 +1,64 @@
+{
+    "name": "glc",
+    "description": "",
+    "require": {
+        "php": "^8.0",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-pdo": "*",
+        "aws/aws-sdk-php": "^3.183",
+        "diglactic/laravel-breadcrumbs": "^7.0",
+        "doctrine/dbal": "^3.2",
+        "fideloper/proxy": "^4.4",
+        "fruitcake/laravel-cors": "^v2.0",
+        "guzzlehttp/guzzle": "^7.2",
+        "laravel/framework": "^v8.31",
+        "laravel/passport": "^10.1",
+        "laravel/tinker": "^v2.6",
+        "laravel/ui": "^v3.2",
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "mikehaertl/phpwkhtmltopdf": "^2.5.0",
+        "predis/predis": "^v1.1",
+        "simplesoftwareio/simple-qrcode": "^4.2.0"
+    },
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "^v2.9",
+        "barryvdh/laravel-debugbar": "^3.5",
+        "facade/ignition": "^2.5",
+        "fzaninotto/faker": "^v1.9",
+        "laravel/homestead": "^v12.1",
+        "mockery/mockery": "^1.4",
+        "nunomaduro/collision": "^v5.2",
+        "phpunit/phpunit": "^9.3"
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "GLC\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        },
+        "files": [
+            "app/Platform/funcs.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
