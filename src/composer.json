@@ -1,5 +1,5 @@
 {
-    "name": "glc",
+    "name": "glc/glc",
     "description": "",
     "require": {
         "php": "^8.0",
