@@ -56,7 +56,7 @@ openssl dhparam 2048 -out docker/nginx/files/ssl/dhparam.pem
 cp .env.docker .env
 cp src/.env.customer.dev src/.env.customer
 cp src/.env.client.dev src/.env.client
-cp src/.env.admin.dev src/.env.admin
+cp src/.env.master.dev src/.env.master
 ```
 ### 4. Docker環境を構築
 ```shell
