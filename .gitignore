@@ -11,6 +11,7 @@
 /src/node_modules
 npm-debug.log
 /vendor
+src/vendor
 /resources/sass/master/node_modules/
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

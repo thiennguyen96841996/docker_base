@@ -193,7 +193,7 @@ return [
          */
         GLC\Platform\Bootstrap\Providers\PackageServiceProvider::class,
         GLC\Platform\Broadcasting\Providers\PackageServiceProvider::class,
-        GLC\Platform\Event\Providers\PackageServiceProvider::class,
+//        GLC\Platform\Event\Providers\PackageServiceProvider::class,
 //        GLC\Master\Routing\Providers\RouteServiceProvider::class,
 //        Laravel\Passport\PassportServiceProvider::class,// TODO エラーになるので一旦コメントアウト
     ],
