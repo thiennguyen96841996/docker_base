@@ -18,7 +18,7 @@
         "laravel/ui": "^v3.2",
         "league/flysystem-aws-s3-v3": "^1.0",
         "mikehaertl/phpwkhtmltopdf": "^2.5.0",
-        "predis/predis": "^v1.1",
+        "predis/predis": "^2.0",
         "simplesoftwareio/simple-qrcode": "^4.2.0"
     },
     "require-dev": {

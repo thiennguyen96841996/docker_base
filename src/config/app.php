@@ -177,7 +177,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,//TODO 必要に応じて消すかも
+//        Barryvdh\Debugbar\ServiceProvider::class,//TODO 必要に応じて消すかも
         Diglactic\Breadcrumbs\ServiceProvider::class,
         /*
          * Package Service Providers...

@@ -3,7 +3,7 @@
 |-------------|------------------------------------------------------------|------------|
 | Customer    | [https://customer.dev.glc](https://customer.dev.glc) |            |
 | Client      | [https://client.dev.glc](https://client.dev.glc)     |            |
-| Admin       | [https://admin.dev.glc](https://admin.dev.glc)       |            |
+| Admin       | [https://master.dev.glc](https://master.dev.glc)       |            |
 | mailcatcher | [http://localhost:1080](http://localhost:1080)             | 疑似メールボックス  |
 | minio       | [http://localhost:9001](http://localhost:9001)             | S3互換のストレージ |
 
@@ -168,7 +168,7 @@ make helper-generate
 
 | 項目                | 設定値                                                          |
 |-------------------|--------------------------------------------------------------|
-| Name              | customer.dev.glc<br>client.dev.glc<br>admin.dev.glc |
+| Name              | customer.dev.glc<br>client.dev.glc<br>master.dev.glc |
 | Port              | 443                                                          |
 | Debugger          | xdebug                                                       |
 | Use path mappings | チェックを入れる                                                     |
@@ -180,9 +180,9 @@ make helper-generate
 
 | 項目                      | 設定値                                                          |
 |-------------------------|--------------------------------------------------------------|
-| Name                    | customer.dev.glc<br>client.dev.glc<br>admin.dev.glc |
+| Name                    | customer.dev.glc<br>client.dev.glc<br>master.dev.glc |
 | Filter debug connection | チェックを入れる                                                     |
-| Server                  | customer.dev.glc<br>client.dev.glc<br>admin.dev.glc |
+| Server                  | customer.dev.glc<br>client.dev.glc<br>master.dev.glc |
 | IDE Key                 | PHPSTORM                                                     |
 
 ※ 3サイト分作成する

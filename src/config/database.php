@@ -1,5 +1,6 @@
 <?php
 use GLC\Platform\Database\Definitions\DatabaseDefs;
+use Illuminate\Support\Str;
 
 return [
     /*
@@ -165,48 +166,76 @@ return [
     | such as APC or Memcached. Laravel makes it easy to dig right in.
     |
     */
-    'redis' => [
-        'client'  => env('REDIS_CLIENT'),
-//        'options' => [
-//            'cluster' => env('REDIS_CLUSTER'),
-//            'prefix'  => env('REDIS_PREFIX'),
+//    'redis' => [
+//        'client'  => env('REDIS_CLIENT'),
+////        'options' => [
+////            'cluster' => env('REDIS_CLUSTER'),
+////            'prefix'  => env('REDIS_PREFIX'),
+////        ],
+//        'default' => [
+////            'url'      => env('REDIS_URL'),
+//            'host'     => env('REDIS_HOST'),
+//            'password' => env('REDIS_PASSWORD'),
+//            'port'     => env('REDIS_PORT'),
+//            'database' => DatabaseDefs::REDIS_DB_NUMBER_DEFAULT,
 //        ],
-        'default' => [
+//        /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//         * For Session
+//         * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+//        'session' => [
 //            'url'      => env('REDIS_URL'),
-            'host'     => env('REDIS_HOST'),
-            'password' => env('REDIS_PASSWORD'),
-            'port'     => env('REDIS_PORT'),
-            'database' => DatabaseDefs::REDIS_DB_NUMBER_DEFAULT,
+//            'host'     => env('REDIS_HOST'),
+//            'password' => env('REDIS_PASSWORD'),
+//            'port'     => env('REDIS_PORT'),
+//            'database' => DatabaseDefs::REDIS_DB_NUMBER_SESSION,
+//        ],
+//        /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//         * For Application Cache
+//         * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+//        'cache' => [
+//            'url'      => env('REDIS_URL'),
+//            'host'     => env('DATA_CACHE_HOST'),
+//            'password' => env('REDIS_PASSWORD'),
+//            'port'     => env('REDIS_PORT'),
+//            'database' => DatabaseDefs::REDIS_DB_NUMBER_CACHE,
+//        ],
+//        /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//         * For Queue
+//         * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+//        'queue' => [
+//            'url'      => env('REDIS_URL'),
+//            'host'     => env('REDIS_HOST'),
+//            'password' => env('REDIS_PASSWORD'),
+//            'port'     => env('REDIS_PORT'),
+//            'database' => DatabaseDefs::REDIS_DB_NUMBER_QUEUE,
+//        ],
+//    ],
+    'redis' => [
+
+        'client' => env('REDIS_CLIENT', 'phpredis'),
+
+        'options' => [
+            'cluster' => env('REDIS_CLUSTER', 'redis'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
         ],
-        /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-         * For Session
-         * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-        'session' => [
-            'url'      => env('REDIS_URL'),
-            'host'     => env('REDIS_HOST'),
+
+        'default' => [
+            'url' => env('REDIS_URL'),
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD'),
-            'port'     => env('REDIS_PORT'),
-            'database' => DatabaseDefs::REDIS_DB_NUMBER_SESSION,
+            'port' => env('REDIS_PORT', '6379'),
+            'database' => env('REDIS_DB', '0'),
         ],
-        /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-         * For Application Cache
-         * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+
         'cache' => [
-            'url'      => env('REDIS_URL'),
-            'host'     => env('DATA_CACHE_HOST'),
+            'url' => env('REDIS_URL'),
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD'),
-            'port'     => env('REDIS_PORT'),
-            'database' => DatabaseDefs::REDIS_DB_NUMBER_CACHE,
+            'port' => env('REDIS_PORT', '6379'),
+            'database' => env('REDIS_CACHE_DB', '1'),
         ],
-        /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-         * For Queue
-         * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-        'queue' => [
-            'url'      => env('REDIS_URL'),
-            'host'     => env('REDIS_HOST'),
-            'password' => env('REDIS_PASSWORD'),
-            'port'     => env('REDIS_PORT'),
-            'database' => DatabaseDefs::REDIS_DB_NUMBER_QUEUE,
-        ],
+
     ],
 ];
