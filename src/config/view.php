@@ -12,7 +12,7 @@ return [
     |
     */
     'paths' => [
-        resource_path('views'),
+        resource_path(env('VIEW_BASE_BLADE_PATH'))
     ],
 
     /*

@@ -1,9 +1,9 @@
 # Guide
 |             | URL                                                        | Remarks    |
 |-------------|------------------------------------------------------------|------------|
-| Customer    | [https://customer.dev.glc](https://customer.dev.glc) |            |
-| Client      | [https://client.dev.glc](https://client.dev.glc)     |            |
-| Admin       | [https://master.dev.glc](https://master.dev.glc)       |            |
+| Customer    | [https://customer.dev.speedy](https://customer.dev.speedy) |            |
+| Client      | [https://client.dev.speedy](https://client.dev.speedy)     |            |
+| Admin       | [https://admin.dev.speedy](https://admin.dev.speedy)       |            |
 | mailcatcher | [http://localhost:1080](http://localhost:1080)             | 疑似メールボックス  |
 | minio       | [http://localhost:9001](http://localhost:9001)             | S3互換のストレージ |
 
@@ -41,14 +41,14 @@ MacでDocker環境を構築・管理するGUIツール。
 ## 導入手順
 ### 1. Gitリポジトリのクローン
 ```shell
-git clone https://github.com/ChinIndival/laravel_base
+git clone git@github.com:ChinIndival/laravel_base.git
 cd laravel_base
 ```
 ### 2. SSL証明書を作成
 ```shell
-mkcert -cert-file docker/nginx/files/ssl/_wild.dev.glc.crt.pem \
-       -key-file docker/nginx/files/ssl/_wild.dev.glc.key.pem \
-       "*.dev.glc"
+mkcert -cert-file docker/nginx/files/ssl/_wild.dev.speedy.crt.pem \
+       -key-file docker/nginx/files/ssl/_wild.dev.speedy.key.pem \
+       "*.dev.speedy"
 openssl dhparam 2048 -out docker/nginx/files/ssl/dhparam.pem
 ```
 ### 3. Docker用のenvファイルを作成
@@ -56,7 +56,7 @@ openssl dhparam 2048 -out docker/nginx/files/ssl/dhparam.pem
 cp .env.docker .env
 cp src/.env.customer.dev src/.env.customer
 cp src/.env.client.dev src/.env.client
-cp src/.env.master.dev src/.env.master
+cp src/.env.admin.dev src/.env.admin
 ```
 ### 4. Docker環境を構築
 ```shell
@@ -73,7 +73,6 @@ make composer-install
 docker-compose exec php-customer php artisan key:generate --ansi
 docker-compose exec php-client php artisan key:generate --ansi
 docker-compose exec php-admin php artisan key:generate --ansi
-docker-compose exec php-api php artisan key:generate --ansi
 ```
 ### 7. hostsを設定
 ```shell
@@ -84,10 +83,10 @@ sudo vim /etc/hosts
 ```shell
 # ID / PASSWORD は.env.dockerを参照
 # Default: ID = minio / PASSWORD = minio_admin
-mc alias set glc http://localhost:9000 minio minio_admin --api S3v4
-mc mb glc/customer
-mc mb glc/client
-mc mb glc/admin
+mc alias set speedy http://localhost:9000 minio minio_admin --api S3v4
+mc mb speedy/customer
+mc mb speedy/client
+mc mb speedy/admin
 ```
 ### 9. マイグレーションの実行
 ```shell
@@ -142,7 +141,7 @@ make helper-generate
 | Authentication | User & Password      |
 | User           | root                 |
 | Password       | .env.dockerで指定しているもの |
-| schemasタブ      | glc               |
+| schemasタブ      | speedy               |
 
 (Menu: PhpStorm -> Preferences -> Language & Frameworks -> SQL Dialects)
 
@@ -155,7 +154,7 @@ make helper-generate
 
 | 項目              | 設定値     |
 |-----------------|---------|
-| Project mapping | glc  |
+| Project mapping | speedy  |
 
 ## xdebug
 (Menu: PhpStorm -> Preferences -> PHP -> Debug -> Xdebug)
@@ -168,7 +167,7 @@ make helper-generate
 
 | 項目                | 設定値                                                          |
 |-------------------|--------------------------------------------------------------|
-| Name              | customer.dev.glc<br>client.dev.glc<br>master.dev.glc |
+| Name              | customer.dev.speedy<br>client.dev.speedy<br>admin.dev.speedy |
 | Port              | 443                                                          |
 | Debugger          | xdebug                                                       |
 | Use path mappings | チェックを入れる                                                     |
@@ -180,9 +179,9 @@ make helper-generate
 
 | 項目                      | 設定値                                                          |
 |-------------------------|--------------------------------------------------------------|
-| Name                    | customer.dev.glc<br>client.dev.glc<br>master.dev.glc |
+| Name                    | customer.dev.speedy<br>client.dev.speedy<br>admin.dev.speedy |
 | Filter debug connection | チェックを入れる                                                     |
-| Server                  | customer.dev.glc<br>client.dev.glc<br>master.dev.glc |
+| Server                  | customer.dev.speedy<br>client.dev.speedy<br>admin.dev.speedy |
 | IDE Key                 | PHPSTORM                                                     |
 
 ※ 3サイト分作成する

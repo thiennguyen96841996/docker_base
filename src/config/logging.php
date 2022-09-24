@@ -1,6 +1,7 @@
 <?php
-use GLC\Platform\Log\Formatters\BasicFormatter;
-use GLC\Platform\Log\Formatters\SqlFormatter;
+use Monolog\Handler\NullHandler;
+use App\Common\Log\Formatter\BasicFormatter;
+use App\Common\Log\Formatter\SqlFormatter;
 
 return [
     /*
@@ -13,7 +14,19 @@ return [
     | one of the channels defined in the "channels" configuration array.
     |
     */
-    'default' => env('LOG_CHANNEL'),
+    'default' => env('LOG_CHANNEL', 'stack'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Deprecations Log Channel
+    |--------------------------------------------------------------------------
+    |
+    | This option controls the log channel that should be used to log warnings
+    | regarding deprecated PHP and library features. This allows you to get
+    | your application ready for upcoming major versions of dependencies.
+    |
+    */
+    'deprecations' => env('LOG_DEPRECATIONS_CHANNEL', 'null'),
 
     /*
     |--------------------------------------------------------------------------
@@ -32,76 +45,51 @@ return [
     'channels' => [
         'stack' => [
             'driver'            => 'stack',
-            'channels'          => [ 'basic' ],
+            'channels'          => ['basic', 'error', 'fatal'],
             'ignore_exceptions' => false,
         ],
-        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        // 基本チャンネル
-        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         'basic' => [
-            'driver' => 'daily',
-            'days'   => 28,
-            'path'   => storage_path('logs/laravel.log'),
-            'level'  => 'info',
-            'tap'    => [ BasicFormatter::class ]
+            'driver'     => 'daily',
+            'path'       => storage_path('logs/laravel.log'),
+            'level'      => env('LOG_LEVEL_CHANNEL_BASIC', 'debug'),
+            'days'       => 7,
+            'permission' => 0664,
+            'tap'        => [ BasicFormatter::class ]
         ],
-        'statistic' => [
-            'driver' => 'daily',
-            'days'   => 7,
-            'path'   => storage_path('logs/statistic.log'),
-            'level'  => 'info',
-            'tap'    => [ BasicFormatter::class ]
-        ],
-        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        // 実行されたSQLを出力するチャンネル
-        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        'sql' => [
-            'driver' => 'daily',
-            'days'   => 3,
-            'path'   => storage_path('logs/sql.log'),
-            'level'  => 'info',
-            'tap'    => [ SqlFormatter::class ]
-        ],
-        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        // APIアクセスリクエストログ出力チャンネル
-        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        'apiAccessRequest' => [
-            'driver' => 'daily',
-            'days'   => 14,
-            'path'   => storage_path('logs/api_access_request.log'),
-            'level'  => 'info',
-            'tap'    => [ BasicFormatter::class ]
-        ],
-        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        // エラーに適応するチャンネル
-        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         'error' => [
-            'driver' => 'daily',
-            'days'   => 28,
-            'path'   => storage_path('logs/error.log'),
-            'level'  => 'error',
-            'tap'    => [ BasicFormatter::class ]
+            'driver'     => 'daily',
+            'path'       => storage_path('logs/error.log'),
+            'level'      => 'error',
+            'days'       => 7,
+            'permission' => 0664,
+            'tap'        => [ BasicFormatter::class ]
         ],
-        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        // 緊急で対応が必要なエラーに適応するチャンネル
-        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        'fatal' => [
-            'driver' => 'daily',
-            'days'   => 28,
-            'path'   => storage_path('logs/fatal.log'),
-            'level'  => 'critical',
-            'tap'    => [ BasicFormatter::class ]
+        'fatal' => [ # 緊急対応用
+            'driver'     => 'daily',
+            'path'       => storage_path('logs/fatal.log'),
+            'level'      => 'critical',
+            'days'       => 7,
+            'permission' => 0664,
+            'tap'        => [ BasicFormatter::class ]
         ],
-        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        // Slack通知用チャンネル
-        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         'slack' => [
             'driver'   => 'slack',
             'url'      => env('LOG_SLACK_WEBHOOK_URL'),
             'username' => 'Laravel Log',
             'emoji'    => ':boom:',
-            'level'    => 'critical',
-            'tap'      => [ BasicFormatter::class ]
+            'level'    => env('LOG_LEVEL_CHANNEL_SLACK', 'critical'),
+        ],
+        'null' => [
+            'driver'  => 'monolog',
+            'handler' => NullHandler::class,
+        ],
+        'sql' => [
+            'driver'     => 'daily',
+            'days'       => 3,
+            'path'       => storage_path('logs/sql.log'),
+            'level'      => 'info',
+            'permission' => 0664,
+            'tap'        => [ SqlFormatter::class ]
         ],
     ],
 ];

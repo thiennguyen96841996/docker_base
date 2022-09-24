@@ -11,37 +11,29 @@ services:
             - php-customer
             - php-client
             - php-admin
-            - php-api
         networks:
-            - glc
-    php-api:
-      build: ./docker/php-fpm
-      volumes:
-        - ./src:/usr/src/app
-        - ./src/.env.api:/usr/src/app/.env
-      networks:
-        - glc
+            - speedy
     php-customer:
         build: ./docker/php-fpm
         volumes:
             - ./src:/usr/src/app
             - ./src/.env.customer:/usr/src/app/.env
         networks:
-            - glc
+            - speedy
     php-client:
         build: ./docker/php-fpm
         volumes:
             - ./src:/usr/src/app
             - ./src/.env.client:/usr/src/app/.env
         networks:
-            - glc
+            - speedy
     php-admin:
         build: ./docker/php-fpm
         volumes:
             - ./src:/usr/src/app
-            - ./src/.env.master:/usr/src/app/.env
+            - ./src/.env.admin:/usr/src/app/.env
         networks:
-            - glc
+            - speedy
     node:
         build: ./docker/node
         volumes:
@@ -58,7 +50,7 @@ services:
         volumes:
             - mysql:/var/lib/mysql
         networks:
-            - glc
+            - speedy
     redis:
         build: ./docker/redis
         ports:
@@ -66,13 +58,13 @@ services:
         volumes:
             - redis:/data
         networks:
-            - glc
+            - speedy
     mailcatcher:
         build: ./docker/mailcatcher
         ports:
             - "${MAILCATCHER_PORT}:1080"
         networks:
-            - glc
+            - speedy
     minio:
         build: ./docker/minio
         ports:
@@ -84,10 +76,10 @@ services:
         volumes:
             - minio:/data
         networks:
-            - glc
+            - speedy
 volumes:
     mysql:
     redis:
     minio:
 networks:
-    glc:
+    speedy:

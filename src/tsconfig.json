@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "sourceMap": true,
+        "target": "es2021",
+        "module": "es2022",
+        "moduleResolution": "node",
+        "lib": [
+            "es2021",
+            "dom"
+        ],
+        "jsx": "react-jsx",
+        "noImplicitAny": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noUncheckedIndexedAccess": true,
+        "noFallthroughCasesInSwitch": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "importsNotUsedAsValues": "error",
+        "baseUrl": ".",
+        "paths": {
+            "@customer/*": [ "resources/customer/*" ],
+            "@client/*": [ "resources/client/*" ],
+            "@admin/*": [ "resources/admin/*" ]
+        }
+    },
+    "ts-node": {
+        "compilerOptions": {
+            "module": "CommonJS",
+            "allowJs": true
+        }
+    }
+}

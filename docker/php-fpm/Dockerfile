@@ -9,8 +9,6 @@ RUN apt-get update && \
     apt-get -y install --no-install-recommends \
       git  \
       unzip  \
-      nodejs \
-      npm \
       libzip-dev \
       libicu-dev \
       libonig-dev \

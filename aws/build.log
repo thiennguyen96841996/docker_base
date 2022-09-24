@@ -1,0 +1,26 @@
+amazon-linux-extras install nginx1
+service nginx start
+cd /etc/nginx/
+yum -y install httpd-tools
+htpasswd -c -b /etc/nginx/.htpasswd {username} {passwd}
+vim conf.d/01-admin.dev.conf
+service nginx restart
+systemctl enable nginx.service
+mkdir /var/www
+mkdir /var/www/admin
+mkdir /var/www/admin/public
+vim /var/www/admin/public/index.php
+
+amazon-linux-extras install php8.0
+rpm -qa | grep php
+service php-fpm start
+systemctl enable php-fpm.service
+vim /etc/php-fpm.d/www.conf
+service php-fpm restart
+netstat -al --protocol=unix | egrep "Proto|fpm"
+php -v
+
+timedatectl set-timezone Asia/Tokyo
+localectl set-locale LANG=ja_JP.UTF-8
+
+yum update -y

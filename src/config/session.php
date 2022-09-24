@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Str;
+use App\Common\Database\Definition\DatabaseDefs;
 
 return [
     /*
@@ -14,7 +16,7 @@ return [
     |            "memcached", "redis", "dynamodb", "array"
     |
     */
-    'driver' => env('SESSION_DRIVER'),
+    'driver' => env('SESSION_DRIVER', 'file'),
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +28,7 @@ return [
     | to immediately expire on the browser closing, set that option.
     |
     */
-    'lifetime'        => env('SESSION_LIFETIME',  120),
+    'lifetime'        => env('SESSION_LIFETIME', 120),
     'expire_on_close' => false,
 
     /*
@@ -63,7 +65,7 @@ return [
     | correspond to a connection in your database configuration options.
     |
     */
-    'connection' => env('SESSION_DATABASE_CONNECTION', null),
+    'connection' => env('SESSION_DATABASE_CONNECTION', DatabaseDefs::CONNECTION_NAME_REDIS_SESSION),
 
     /*
     |--------------------------------------------------------------------------
@@ -75,7 +77,7 @@ return [
     | provided for you; however, you are free to change this as needed.
     |
     */
-    'table' => env('SESSION_DATABASE_TABLE_NAME'),
+    'table' => env('SESSION_DATABASE_TABLE_NAME', 'sessions'),
 
     /*
     |--------------------------------------------------------------------------
@@ -101,7 +103,7 @@ return [
     | happen on a given request. By default, the odds are 2 out of 100.
     |
     */
-    'lottery' => [ 2, 100 ],
+    'lottery' => [2, 100],
 
     /*
     |--------------------------------------------------------------------------
@@ -113,7 +115,11 @@ return [
     | new session cookie is created by the framework for every driver.
     |
     */
-    'cookie' => env('SESSION_COOKIE_NAME'),
+    'cookie' => env(
+        'SESSION_COOKIE_NAME',
+        Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
+    ),
+
     /*
     |--------------------------------------------------------------------------
     | Session Cookie Path
@@ -136,7 +142,7 @@ return [
     | available to in your application. A sensible default has been set.
     |
     */
-    'domain' => env('SESSION_DOMAIN', null),
+    'domain' => env('SESSION_DOMAIN'),
 
     /*
     |--------------------------------------------------------------------------
@@ -145,7 +151,7 @@ return [
     |
     | By setting this option to true, session cookies will only be sent back
     | to the server if the browser has a HTTPS connection. This will keep
-    | the cookie from being sent to you if it can not be done securely.
+    | the cookie from being sent to you when it can't be done securely.
     |
     */
     'secure' => env('SESSION_SECURE_COOKIE'),
@@ -174,5 +180,5 @@ return [
     | Supported: "lax", "strict", "none", null
     |
     */
-    'same_site' => null,
+    'same_site' => 'lax',
 ];

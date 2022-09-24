@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -25,15 +26,15 @@ $app = new Illuminate\Foundation\Application(
 */
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
-    GLC\Platform\Http\Kernel::class
+    App\Common\Http\Kernel::class
 );
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    GLC\Platform\Console\Kernel::class
+    App\Common\Console\Kernel::class
 );
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    GLC\Platform\Exception\Handler::class
+    App\Common\Exception\Handler::class
 );
 
 /*

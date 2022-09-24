@@ -24,9 +24,3 @@ npm-watch-log:
 	docker logs -f tourbillon-node-1
 laravel-tail-log:
 	tail -f src/storage/logs/*
-
-# DB
-fresh-db:
-	docker-compose exec php-customer php artisan migrate:fresh --seed --database=mysql_migration
-seed-db:
-    docker-compose exec php-customer php artisan db:seed --database=mysql_migration

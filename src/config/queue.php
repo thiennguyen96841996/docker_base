@@ -1,4 +1,5 @@
 <?php
+use App\Common\Database\Definition\DatabaseDefs;
 
 return [
     /*
@@ -11,7 +12,7 @@ return [
     | syntax for every one. Here you may define a default connection.
     |
     */
-    'default' => env('QUEUE_CONNECTION'),
+    'default' => env('QUEUE_CONNECTION', 'sync'),
 
     /*
     |--------------------------------------------------------------------------
@@ -30,26 +31,29 @@ return [
             'driver' => 'sync',
         ],
         'database' => [
-            'driver'      => 'database',
-            'table'       => env('QUEUE_DATABASE_TABLE_NAME'),
-            'queue'       => 'default',
-            'retry_after' => 90,
+            'driver'       => 'database',
+            'table'        => env('QUEUE_DATABASE_TABLE_NAME', 'queue_jobs'),
+            'queue'        => 'default',
+            'retry_after'  => 90,
+            'after_commit' => false,
         ],
         'sqs' => [
-            'driver' => 'sqs',
-            'key'    => env('SQS_AWS_ACCESS_KEY_ID'),
-            'secret' => env('SQS_AWS_SECRET_ACCESS_KEY'),
-            'prefix' => env('SQS_PREFIX'),
-            'queue'  => env('SQS_QUEUE'),
-            'suffix' => env('SQS_SUFFIX'),
-            'region' => env('SQS_AWS_REGION'),
+            'driver'       => 'sqs',
+            'key'          => env('SQS_AWS_ACCESS_KEY_ID'),
+            'secret'       => env('SQS_AWS_SECRET_ACCESS_KEY'),
+            'prefix'       => env('SQS_PREFIX', 'https://sqs.us-east-1.amazonaws.com/your-account-id'),
+            'queue'        => env('SQS_QUEUE', 'default'),
+            'suffix'       => env('SQS_SUFFIX'),
+            'region'       => env('SQS_AWS_DEFAULT_REGION'),
+            'after_commit' => false,
         ],
         'redis' => [
-            'driver'      => 'redis',
-            'connection'  => 'queue',
-            'queue'       => env('QUEUE_REDIS_KEY'), // queues:xxx のxxxに当たる名前のようなもの
-            'retry_after' => 90,
-            'block_for'   => null,
+            'driver'       => 'redis',
+            'connection'   => DatabaseDefs::CONNECTION_NAME_REDIS_QUEUE,
+            'queue'        => env('REDIS_QUEUE_KEY', 'default'), // queues:xxx のxxxに当たる名前のようなもの
+            'retry_after'  => 90,
+            'block_for'    => null,
+            'after_commit' => false,
         ],
     ],
 
@@ -64,8 +68,8 @@ return [
     |
     */
     'failed' => [
-        'driver'   => env('QUEUE_DRIVER_FAILED'),
+        'driver'   => env('QUEUE_FAILED_DRIVER'),
         'database' => env('QUEUE_DATABASE_CONNECTION'),
-        'table'    => env('QUEUE_DATABASE_TABLE_NAME_FAILED'),
+        'table'    => env('QUEUE_DATABASE_TABLE_NAME_FAILED', 'queue_failed_jobs'),
     ],
 ];

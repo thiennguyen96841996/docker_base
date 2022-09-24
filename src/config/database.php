@@ -1,14 +1,14 @@
 <?php
-use GLC\Platform\Database\Definitions\DatabaseDefs;
 use Illuminate\Support\Str;
+use App\Common\Database\Definition\DatabaseDefs;
 
 return [
     /*
     |--------------------------------------------------------------------------
-    | Debugging executed query.
+    | 実行されたクエリをログに書き出すかどうか
     |--------------------------------------------------------------------------
     */
-    'debug' => env('DB_DEBUG_SQL'),
+    'debug_query' => env('DB_DEBUG_QUERY'),
 
     /*
     |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ return [
     | you may use many connections at once using the Database library.
     |
     */
-    'default' => env('DB_CONNECTION'),
+    'default' => env('DB_CONNECTION', DatabaseDefs::CONNECTION_NAME_READ),
 
     /*
     |--------------------------------------------------------------------------
@@ -38,40 +38,41 @@ return [
     |
     */
     'connections' => [
-        // 通常データベース
+        'sqlite' => [
+            'driver'                  => 'sqlite',
+            'url'                     => env('DATABASE_URL'),
+            'database'                => env('DB_DATABASE', database_path('database.sqlite')),
+            'prefix'                  => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+        ],
         DatabaseDefs::CONNECTION_NAME_WRITE => [
             'driver'         => 'mysql',
-            'url'            => env('MYSQL_WRITE_DATABASE_URL'),
-            'host'           => env('MYSQL_WRITE_DATABASE_HOST'),
-            'port'           => env('MYSQL_WRITE_DATABASE_PORT'),
-            'database'       => env('MYSQL_DATABASE_NAME'),
-            'username'       => env('MYSQL_WRITE_DATABASE_USERNAME'),
-            'password'       => env('MYSQL_WRITE_DATABASE_PASSWORD'),
-            'unix_socket'    => env('MYSQL_WRITE_DATABASE_SOCKET'),
+            'url'            => env('DATABASE_URL'),
+            'host'           => env('MYSQL_WRITE_DB_HOST'),
+            'port'           => env('MYSQL_WRITE_DB_PORT'),
+            'database'       => env('MYSQL_WRITE_DB_DATABASE'),
+            'username'       => env('MYSQL_WRITE_DB_USERNAME'),
+            'password'       => env('MYSQL_WRITE_DB_PASSWORD'),
+            'unix_socket'    => env('MYSQL_WRITE_DB_SOCKET', ''),
             'charset'        => 'utf8mb4',
             'collation'      => 'utf8mb4_bin',
             'prefix'         => '',
             'prefix_indexes' => true,
             'strict'         => true,
             'engine'         => null,
-            'options' => [
-                PDO::ATTR_EMULATE_PREPARES => true,
-                PDO::MYSQL_ATTR_LOCAL_INFILE => true,
-            ],
-//            'options' => extension_loaded('pdo_mysql') ? array_filter([
-//                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-//            ]): [],
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
         ],
-        // 通常データベース (読み込み専用)
         DatabaseDefs::CONNECTION_NAME_READ => [
             'driver'         => 'mysql',
-            'url'            => env('MYSQL_READ_DATABASE_URL'),
-            'host'           => env('MYSQL_READ_DATABASE_HOST'),
-            'port'           => env('MYSQL_READ_DATABASE_PORT'),
-            'database'       => env('MYSQL_DATABASE_NAME'),
-            'username'       => env('MYSQL_READ_DATABASE_USERNAME'),
-            'password'       => env('MYSQL_READ_DATABASE_PASSWORD'),
-            'unix_socket'    => env('MYSQL_READ_DATABASE_SOCKET'),
+            'url'            => env('DATABASE_URL'),
+            'host'           => env('MYSQL_READ_DB_HOST'),
+            'port'           => env('MYSQL_READ_DB_PORT'),
+            'database'       => env('MYSQL_READ_DB_DATABASE'),
+            'username'       => env('MYSQL_READ_DB_USERNAME'),
+            'password'       => env('MYSQL_READ_DB_PASSWORD'),
+            'unix_socket'    => env('MYSQL_READ_DB_SOCKET', ''),
             'charset'        => 'utf8mb4',
             'collation'      => 'utf8mb4_bin',
             'prefix'         => '',
@@ -80,18 +81,17 @@ return [
             'engine'         => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]): [],
+            ]) : [],
         ],
-        // セキュアデータベース
-        DatabaseDefs::CONNECTION_NAME_WRITE_SECURE => [
+        DatabaseDefs::CONNECTION_NAME_MIGRATION => [
             'driver'         => 'mysql',
-            'url'            => env('MYSQL_WRITE_SECURE_DATABASE_URL'),
-            'host'           => env('MYSQL_WRITE_SECURE_DATABASE_HOST'),
-            'port'           => env('MYSQL_WRITE_SECURE_DATABASE_PORT'),
-            'database'       => env('MYSQL_SECURE_DATABASE_NAME'),
-            'username'       => env('MYSQL_WRITE_SECURE_DATABASE_USERNAME'),
-            'password'       => env('MYSQL_WRITE_SECURE_DATABASE_PASSWORD'),
-            'unix_socket'    => env('MYSQL_WRITE_SECURE_DATABASE_SOCKET'),
+            'url'            => env('DATABASE_URL'),
+            'host'           => env('MYSQL_MIGRATION_DB_HOST'),
+            'port'           => env('MYSQL_MIGRATION_DB_PORT'),
+            'database'       => env('MYSQL_MIGRATION_DB_DATABASE'),
+            'username'       => env('MYSQL_MIGRATION_DB_USERNAME'),
+            'password'       => env('MYSQL_MIGRATION_DB_PASSWORD'),
+            'unix_socket'    => env('MYSQL_MIGRATION_DB_SOCKET', ''),
             'charset'        => 'utf8mb4',
             'collation'      => 'utf8mb4_bin',
             'prefix'         => '',
@@ -100,47 +100,7 @@ return [
             'engine'         => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]): [],
-        ],
-        // セキュアデータベース (読み込み専用)
-        DatabaseDefs::CONNECTION_NAME_READ_SECURE => [
-            'driver'         => 'mysql',
-            'url'            => env('MYSQL_READ_SECURE_DATABASE_URL'),
-            'host'           => env('MYSQL_READ_SECURE_DATABASE_HOST'),
-            'port'           => env('MYSQL_READ_SECURE_DATABASE_PORT'),
-            'database'       => env('MYSQL_SECURE_DATABASE_NAME'),
-            'username'       => env('MYSQL_READ_SECURE_DATABASE_USERNAME'),
-            'password'       => env('MYSQL_READ_SECURE_DATABASE_PASSWORD'),
-            'unix_socket'    => env('MYSQL_READ_SECURE_DATABASE_SOCKET'),
-            'charset'        => 'utf8mb4',
-            'collation'      => 'utf8mb4_bin',
-            'prefix'         => '',
-            'prefix_indexes' => true,
-            'strict'         => true,
-            'engine'         => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]): [],
-        ],
-        // 駅・路線データベース (読み込み専用)
-        DatabaseDefs::CONNECTION_NAME_READ_TRANSIT => [
-            'driver'         => 'mysql',
-            'url'            => env('MYSQL_READ_TRANSIT_DATABASE_URL'),
-            'host'           => env('MYSQL_READ_TRANSIT_DATABASE_HOST'),
-            'port'           => env('MYSQL_READ_TRANSIT_DATABASE_PORT'),
-            'database'       => env('MYSQL_TRANSIT_DATABASE_NAME'),
-            'username'       => env('MYSQL_READ_TRANSIT_DATABASE_USERNAME'),
-            'password'       => env('MYSQL_READ_TRANSIT_DATABASE_PASSWORD'),
-            'unix_socket'    => env('MYSQL_READ_TRANSIT_DATABASE_SOCKET'),
-            'charset'        => 'utf8mb4',
-            'collation'      => 'utf8mb4_bin',
-            'prefix'         => '',
-            'prefix_indexes' => true,
-            'strict'         => true,
-            'engine'         => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]): [],
+            ]) : [],
         ],
     ],
 
@@ -166,76 +126,51 @@ return [
     | such as APC or Memcached. Laravel makes it easy to dig right in.
     |
     */
-//    'redis' => [
-//        'client'  => env('REDIS_CLIENT'),
-////        'options' => [
-////            'cluster' => env('REDIS_CLUSTER'),
-////            'prefix'  => env('REDIS_PREFIX'),
-////        ],
-//        'default' => [
-////            'url'      => env('REDIS_URL'),
-//            'host'     => env('REDIS_HOST'),
-//            'password' => env('REDIS_PASSWORD'),
-//            'port'     => env('REDIS_PORT'),
-//            'database' => DatabaseDefs::REDIS_DB_NUMBER_DEFAULT,
-//        ],
-//        /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-//         * For Session
-//         * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-//        'session' => [
-//            'url'      => env('REDIS_URL'),
-//            'host'     => env('REDIS_HOST'),
-//            'password' => env('REDIS_PASSWORD'),
-//            'port'     => env('REDIS_PORT'),
-//            'database' => DatabaseDefs::REDIS_DB_NUMBER_SESSION,
-//        ],
-//        /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-//         * For Application Cache
-//         * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-//        'cache' => [
-//            'url'      => env('REDIS_URL'),
-//            'host'     => env('DATA_CACHE_HOST'),
-//            'password' => env('REDIS_PASSWORD'),
-//            'port'     => env('REDIS_PORT'),
-//            'database' => DatabaseDefs::REDIS_DB_NUMBER_CACHE,
-//        ],
-//        /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-//         * For Queue
-//         * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-//        'queue' => [
-//            'url'      => env('REDIS_URL'),
-//            'host'     => env('REDIS_HOST'),
-//            'password' => env('REDIS_PASSWORD'),
-//            'port'     => env('REDIS_PORT'),
-//            'database' => DatabaseDefs::REDIS_DB_NUMBER_QUEUE,
-//        ],
-//    ],
     'redis' => [
-
         'client' => env('REDIS_CLIENT', 'phpredis'),
-
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix'  => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
         ],
-
-        'default' => [
-            'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
+        DatabaseDefs::CONNECTION_NAME_REDIS_DEFAULT => [
+            'url'      => env('REDIS_URL'),
+            'host'     => env('REDIS_HOST'),
             'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD'),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_DB', '0'),
+            'port'     => env('REDIS_PORT'),
+            'database' => DatabaseDefs::REDIS_DB_NUMBER_DEFAULT,
         ],
-
-        'cache' => [
-            'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
+        DatabaseDefs::CONNECTION_NAME_REDIS_SESSION => [
+            'url'      => env('REDIS_URL'),
+            'host'     => env('REDIS_HOST'),
             'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD'),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_CACHE_DB', '1'),
+            'port'     => env('REDIS_PORT'),
+            'database' => DatabaseDefs::REDIS_DB_NUMBER_SESSION,
         ],
-
+        DatabaseDefs::CONNECTION_NAME_REDIS_CACHE => [
+            'url'      => env('REDIS_URL'),
+            'host'     => env('REDIS_HOST'),
+            'username' => env('REDIS_USERNAME'),
+            'password' => env('REDIS_PASSWORD'),
+            'port'     => env('REDIS_PORT'),
+            'database' => DatabaseDefs::REDIS_DB_NUMBER_CACHE,
+        ],
+        DatabaseDefs::CONNECTION_NAME_REDIS_QUEUE => [
+            'url'      => env('REDIS_URL'),
+            'host'     => env('REDIS_HOST'),
+            'username' => env('REDIS_USERNAME'),
+            'password' => env('REDIS_PASSWORD'),
+            'port'     => env('REDIS_PORT'),
+            'database' => DatabaseDefs::REDIS_DB_NUMBER_QUEUE,
+        ],
+        DatabaseDefs::CONNECTION_NAME_REDIS_BROADCASTING => [
+            'url'      => env('REDIS_URL'),
+            'host'     => env('REDIS_HOST'),
+            'username' => env('REDIS_USERNAME'),
+            'password' => env('REDIS_PASSWORD'),
+            'port'     => env('REDIS_PORT'),
+            'database' => DatabaseDefs::REDIS_DB_NUMBER_BROADCASTING,
+        ],
     ],
 ];

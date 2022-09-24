@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Str;
+use App\Common\Database\Definition\DatabaseDefs;
 
 return [
     /*
@@ -10,11 +12,8 @@ return [
     | using this caching library. This connection is used when another is
     | not explicitly specified when executing a given caching function.
     |
-    | Supported: "apc", "array", "database", "file",
-    |            "memcached", "redis", "dynamodb"
-    |
     */
-    'default' => env('CACHE_DRIVER'),
+    'default' => env('CACHE_DRIVER', 'file'),
 
     /*
     |--------------------------------------------------------------------------
@@ -25,26 +24,32 @@ return [
     | well as their drivers. You may even define multiple stores for the
     | same cache driver to group types of items stored in your caches.
     |
+    | Supported drivers: "apc", "array", "database", "file",
+    |         "memcached", "redis", "dynamodb", "octane", "null"
+    |
     */
     'stores' => [
         'apc' => [
             'driver' => 'apc',
         ],
         'array' => [
-            'driver' => 'array',
+            'driver'    => 'array',
+            'serialize' => false,
         ],
         'database' => [
-            'driver'     => 'database',
-            'table'      => env('CACHE_DATABASE_TABLE_NAME'),
-            'connection' => null,
+            'driver'          => 'database',
+            'table'           => env('CACHE_DATABASE_TABLE_NAME', 'cache'),
+            'connection'      => env('CACHE_DATABASE_CONNECTION'),
+            'lock_connection' => null,
         ],
         'file' => [
             'driver' => 'file',
             'path'   => storage_path('framework/cache/data'),
         ],
         'redis' => [
-            'driver'     => 'redis',
-            'connection' => env('CACHE_REDIS_CONNECTION'),
+            'driver'          => 'redis',
+            'connection'      => DatabaseDefs::CONNECTION_NAME_REDIS_CACHE,
+            'lock_connection' => 'default',
         ],
     ],
 
@@ -52,6 +57,11 @@ return [
     |--------------------------------------------------------------------------
     | Cache Key Prefix
     |--------------------------------------------------------------------------
+    |
+    | When utilizing the APC, database, memcached, Redis, or DynamoDB cache
+    | stores there might be other applications using the same cache. For
+    | that reason, you may prefix every cache key to avoid collisions.
+    |
     */
-    'prefix' => env('CACHE_PREFIX'),
+    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache_'),
 ];
