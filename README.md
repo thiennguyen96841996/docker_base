@@ -61,6 +61,7 @@ cp src/.env.admin.dev src/.env.admin
 ### 4. Docker環境を構築
 ```shell
 # 起動後もDBに初期データが入るまで少し時間がかかる
+docker-compose down --volumes  #(既にDockerを起動している場合)
 docker-compose up --build -d
 ```
 ### 5. Docker経由でComposerからライブラリをインストール
