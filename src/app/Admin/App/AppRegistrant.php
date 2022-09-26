@@ -45,7 +45,6 @@ class AppRegistrant implements AppRegistrantContract
     public function register(): void
     {
         $this->registerApplicationProviders();
-//        $this->registerRouteMiddleware();
     }
 
 
