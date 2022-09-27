@@ -57,11 +57,7 @@ class LoginController extends AbsController
     {
         $adminUser = $this->adminUserRepository->fetchOne(['tel' => '09000000001']);
 
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> cdcd91a (sample)
         $request->authenticate();
         $request->session()->regenerate();
 
