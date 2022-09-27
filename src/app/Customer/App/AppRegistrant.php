@@ -2,6 +2,10 @@
 namespace App\Customer\App;
 
 use App\Common\App\Contract\AppRegistrant as AppRegistrantContract;
+use App\Common\Sample\Provider\ServiceProvider as SampleServiceProvider;
+use Illuminate\Contracts\Foundation\Application as ApplicationContract;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * 環境固有で必要なモジュールを登録するクラス。
@@ -10,10 +14,89 @@ use App\Common\App\Contract\AppRegistrant as AppRegistrantContract;
 class AppRegistrant implements AppRegistrantContract
 {
     /**
+     * Applicationオブジェクトを保持する変数。
+     * @var ApplicationContract
+     */
+    private ApplicationContract $app;
+
+    /**
+     * アプリケーションで使用するプロバイダーの定義。
+     * Common側のServiceProviderを先に指定して起動する。
+     * @var array
+     */
+    private $providers = [
+        SampleServiceProvider::class
+    ];
+
+    /**
+     * Bootstrap constructor.
+     *
+     * @param ApplicationContract $app Applicationを実装したオブジェクト
+     */
+    public function __construct(ApplicationContract $app)
+    {
+        $this->app = $app;
+    }
+
+    /**
      * 環境固有で必要なモジュールを登録する。
      * @return void
      */
     public function register(): void
     {
+        $this->registerApplicationProviders();
+//        $this->registerRouteMiddleware();
+    }
+
+
+    /**
+     * 起動処理を行う。
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->bootApplicationProviders();
+
+        // Debugbarは使用しない
+        if (class_exists('Barryvdh\Debugbar\Facade')) {
+            app('debugbar')->disable();
+        }
+
+        //(new \Konohini\Platform\Database\QueryDebugger())->setup();
+    }
+
+    /**
+     * アプリケーションで使用するプロバイダーの起動処理を行う。
+     *
+     * @return void
+     */
+    private function bootApplicationProviders()
+    {
+        foreach ($this->providers as $provider) {
+            if ($provider instanceof ServiceProvider) {
+                if (method_exists($provider, 'boot')) {
+                    $provider->boot();
+                }
+            } else {
+                Log::channel('error')->error('$provider is not service provider.');
+            }
+        }
+    }
+
+    /**
+     * アプリケーションで使用するプロバイダーをコンテナに登録する。
+     *
+     * @return void
+     */
+    private function registerApplicationProviders()
+    {
+        foreach ($this->providers as $position => $provider) {
+            /** @var \Illuminate\Support\ServiceProvider $instance */
+            $instance = new $provider($this->app);
+            $instance->register();
+
+            $this->providers[$position] = $instance;
+        }
     }
 }

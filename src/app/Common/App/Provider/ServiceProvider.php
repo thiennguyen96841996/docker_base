@@ -38,7 +38,7 @@ class ServiceProvider extends BaseServiceProvider
                 return;
             }
             /** @var AppRegistrantContract $instance */
-            $instance = new $class;
+            $instance = new $class($this->app);
 
             if (!is_subclass_of($class, AppRegistrantContract::class)) {
                 Log::error('AppRegistrant class is not implement contract.');
