@@ -1,6 +1,7 @@
 <?php
 namespace App\Admin\App;
 
+use App\Common\AdminUser\Service\AdminUserService as AdminUserServiceProvider;
 use App\Common\App\Contract\AppRegistrant as AppRegistrantContract;
 use App\Common\Sample\Provider\ServiceProvider as SampleServiceProvider;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
@@ -82,6 +83,7 @@ class AppRegistrant implements AppRegistrantContract
             }
         }
     }
+
 
     /**
      * アプリケーションで使用するプロバイダーをコンテナに登録する。
