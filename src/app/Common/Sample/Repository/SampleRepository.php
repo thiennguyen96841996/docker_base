@@ -94,22 +94,6 @@ class SampleRepository implements SampleRepositoryContract
     }
 
     /**
-     * 最終ログイン日時を更新する。
-     * ※ ログインにはメールアドレスを使用していて、ユニーク制約もあるのでIDに変換して検索はしていない。
-     * @param  string $email
-     * @return void
-     */
-    public function updateLastLoginDate(string $email): void
-    {
-        $clientUser = $this->makeBasicBuilder([ 'email' => $email ])->firstOrFail();
-        $clientUser->setAttribute('last_login_at', Carbon::now());
-
-        $clientUser->timestamps = false; // updated_atは更新しない
-        $clientUser->setConnection(DatabaseDefs::CONNECTION_NAME_WRITE)->save();
-        $clientUser->timestamps = true;
-    }
-
-    /**
      * 標準的な設定をしたビルダーを作成する。
      * @param  array $searchConditions
      * @param  array $selectColumns

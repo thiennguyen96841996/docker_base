@@ -1,6 +1,8 @@
 <?php
 namespace App\Common\AdminUser\Service;
 
+use App\Common\Database\Definition\DatabaseDefs;
+use App\Common\Repository\ViewModelRepositoryTrait;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +15,7 @@ use App\Common\AdminUser\Model\AdminUser;
  */
 class AdminUserService
 {
+    use ViewModelRepositoryTrait;
     /**
      * AdminUserモデルのデータ操作を扱うクラス。
      * @var \App\Common\AdminUser\Repository\AdminUserRepository
@@ -101,5 +104,55 @@ class AdminUserService
         DB::transaction(function () use ($email) {
             $this->repository->updateLastLoginDate($email);
         });
+    }
+
+    /**
+     * ViewModelオブジェクトのコレクションとしてデータを取得する。
+     *
+     * @param  array $searchConditions 検索条件の配列
+     * @return \Illuminate\Support\Collection|null ViewModelContractを実装するクラスのコレクション or null
+     * @throws \Throwable
+     */
+    public function getViewModelCollection(array $searchConditions = []): ?Collection
+    {
+        return $this->makeViewModels($this->fetchAll($searchConditions));
+    }
+
+    /**
+     * 単一のViewModelオブジェクトとしてデータを取得する。
+     *
+     * @param  array $searchConditions 検索条件の配列
+     * @param bool $writeConnection
+     * @return \App\Common\AdminUser\ViewModel\AdminUserViewModel|null AdminUserViewModelオブジェクト or null
+     * @throws \Throwable
+     */
+    public function getViewModel(array $searchConditions, bool $writeConnection = false): ?\App\Common\ViewModel\AdminUserViewModel
+    {
+        $collection = $this->fetchAll($searchConditions);
+
+        return $collection->count() === 1 ? $this->makeViewModel($collection->first()): null;
+    }
+
+    /**
+     * ViewModelのデータをPaginatorとして取得する。
+     *
+     * @param  string $path URLの元になるパス
+     * @param  int $page ページ番号
+     * @param  array $searchConditions 検索条件の配列
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function getViewModelPaginator(string $path, int $page, array $searchConditions = []): LengthAwarePaginator
+    {
+        $builder =  AdminUser::on($this->getConnection(DatabaseDefs::CONNECTION_NAME_READ))
+            ->addSelect([
+                AdminUser::TABLE_NAME.'.*',
+            ])
+            ->orderBy('updated_at', 'desc')
+        ;
+
+        /** @var \App\Common\AdminUser\Model\AdminUser $builder */
+        $paginator = $builder->whereMultiConditions($searchConditions)->asPaginator($path, $page);
+
+        return $paginator->setConnection($this->makeViewModels($paginator->getCollection()));
     }
 }

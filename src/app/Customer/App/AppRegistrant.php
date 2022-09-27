@@ -63,7 +63,7 @@ class AppRegistrant implements AppRegistrantContract
             app('debugbar')->disable();
         }
 
-        //(new \Konohini\Platform\Database\QueryDebugger())->setup();
+        //(new \App\Common\Database\QueryDebugger())->setup();
     }
 
     /**

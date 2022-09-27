@@ -1,6 +1,8 @@
 <?php
 namespace App\Common\Sample\Service;
 
+use App\Common\Database\Definition\DatabaseDefs;
+use App\Common\Repository\ViewModelRepositoryTrait;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +15,7 @@ use App\Common\Sample\Model\Sample;
  */
 class SampleService
 {
+    use ViewModelRepositoryTrait;
     /**
      * Sampleモデルのデータ操作を扱うクラス。
      * @var \App\Common\Sample\Repository\SampleRepository
@@ -101,5 +104,55 @@ class SampleService
         DB::transaction(function () use ($email) {
             $this->repository->updateLastLoginDate($email);
         });
+    }
+
+    /**
+     * ViewModelオブジェクトのコレクションとしてデータを取得する。
+     *
+     * @param  array $searchConditions 検索条件の配列
+     * @return \Illuminate\Support\Collection|null ViewModelContractを実装するクラスのコレクション or null
+     * @throws \Throwable
+     */
+    public function getViewModelCollection(array $searchConditions = []): ?Collection
+    {
+        return $this->makeViewModels($this->getCollection($searchConditions));
+    }
+
+    /**
+     * 単一のViewModelオブジェクトとしてデータを取得する。
+     *
+     * @param  array $searchConditions 検索条件の配列
+     * @param bool $writeConnection
+     * @return \App\Common\Sample\ViewModel\SampleViewModel|null SampleViewModelオブジェクト or null
+     * @throws \Throwable
+     */
+    public function getViewModel(array $searchConditions, bool $writeConnection = false): ?\App\Common\ViewModel\SampleViewModel
+    {
+        $collection = $this->getCollection($searchConditions);
+
+        return $collection->count() === 1 ? $this->makeViewModel($collection->first()): null;
+    }
+
+    /**
+     * ViewModelのデータをPaginatorとして取得する。
+     *
+     * @param  string $path URLの元になるパス
+     * @param  int $page ページ番号
+     * @param  array $searchConditions 検索条件の配列
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function getViewModelPaginator(string $path, int $page, array $searchConditions = []): LengthAwarePaginator
+    {
+        $builder =  Sample::on($this->getConnection(DatabaseDefs::CONNECTION_NAME_READ))
+            ->addSelect([
+                Sample::TABLE_NAME.'.*',
+            ])
+            ->orderBy('updated_at', 'desc')
+        ;
+
+        /** @var \App\Common\Sample\Model\Sample $builder */
+        $paginator = $builder->whereMultiConditions($searchConditions)->asPaginator($path, $page);
+
+        return $paginator->setConnection($this->makeViewModels($paginator->getCollection()));
     }
 }

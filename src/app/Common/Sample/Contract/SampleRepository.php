@@ -34,12 +34,4 @@ interface SampleRepository extends ModelRepository
      * @throws \Throwable
      */
     public function delete(Sample $sample): void;
-
-    /**
-     * 最終ログイン日時を更新する。
-     * ※ ログインにはメールアドレスを使用していて、ユニーク制約もあるのでIDに変換して検索はしていない。
-     * @param  string $email
-     * @return void
-     */
-    public function updateLastLoginDate(string $email): void;
 }
