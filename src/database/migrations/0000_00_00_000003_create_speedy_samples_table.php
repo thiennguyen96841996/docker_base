@@ -9,7 +9,7 @@ use App\Common\Database\Definition\DatabaseDefs;
 /**
  * speedy_samplesテーブルを作成するマイグレーションクラス。
  */
-class SpeedySamplesTable extends Migration
+class CreateSpeedySamplesTable extends Migration
 {
     /**
      * マイグレーションを実行する。
