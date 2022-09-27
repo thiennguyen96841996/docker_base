@@ -151,8 +151,8 @@ class SampleService
         ;
 
         /** @var \App\Common\Sample\Model\Sample $builder */
-        $paginator = $builder->whereMultiConditions($searchConditions)->asPaginator($path, $page);
+        $paginator = $builder->whereMultiConditions($searchConditions)->paginate($page);
 
-        return $paginator->setConnection($this->makeViewModels($paginator->getCollection()));
+        return $paginator->setCollection($paginator->getCollection());
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use App\Common\ClientUser\Contract\ClientUserRepository as ClientUserRepositoryContract;
 use App\Common\ClientUser\Model\ClientUser;
+use Konohini\Platform\Employee\Models\Employee;
 
 /**
  * 企業ユーザー情報に関連する処理を行うクラス。
@@ -39,6 +40,18 @@ class ClientUserService
     public function getCollection(array $searchConditions): Collection
     {
         return $this->repository->fetchAll($searchConditions)->keyBy('id');
+    }
+
+    /**
+     * 検索条件に合致した単一のデータを取得して返す。
+     *
+     * @param  array $searchConditions 検索条件の配列
+     * @return \App\Common\ClientUSer\Model\ClientUSer|null ClientUserオブジェクト or null
+     * @throws \Throwable
+     */
+    public function getModel(array $searchConditions): ?ClientUser
+    {
+         return $this->repository->fetchOne($searchConditions);
     }
 
     /**
@@ -151,8 +164,8 @@ class ClientUserService
         ;
 
         /** @var \App\Common\ClientUser\Model\ClientUser $builder */
-        $paginator = $builder->whereMultiConditions($searchConditions)->asPaginator($path, $page);
+        $paginator = $builder->whereMultiConditions($searchConditions)->paginate($page);
 
-        return $paginator->setConnection($this->makeViewModels($paginator->getCollection()));
+        return $paginator->setCollection($paginator->getCollection());
     }
 }

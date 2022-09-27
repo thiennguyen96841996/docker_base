@@ -42,6 +42,29 @@ class AdminUserService
     }
 
     /**
+     * 検索条件に合致した単一のデータを取得して返す。
+     *
+     * @param  array $searchConditions 検索条件の配列
+     * @return \App\Common\AdminUser\Model\AdminUser|null AdminUserオブジェクト or null
+     * @throws \Throwable
+     */
+    public function getModel(array $searchConditions): ?AdminUser
+    {
+        return $this->repository->fetchOne($searchConditions);
+    }
+
+    /**
+     * 検索条件に合致した単一のデータを取得して返す。
+     *
+     * @param  array $searchConditions 検索条件の配列
+     * @return \Konohini\Platform\Employee\Models\Employee|null Employeeオブジェクト or null
+     * @throws \Throwable
+     */
+    public function getModel(array $searchConditions): ?ClientUser
+    {
+
+
+        /**
      * 検索条件に合致したデータを持つAdminUserモデルをページネーターとして取得する。
      * @param  array<string, mixed> $searchConditions
      * @return \Illuminate\Pagination\LengthAwarePaginator
@@ -151,8 +174,8 @@ class AdminUserService
         ;
 
         /** @var \App\Common\AdminUser\Model\AdminUser $builder */
-        $paginator = $builder->whereMultiConditions($searchConditions)->asPaginator($path, $page);
+        $paginator = $builder->whereMultiConditions($searchConditions)->paginate($page);
 
-        return $paginator->setConnection($this->makeViewModels($paginator->getCollection()));
+        return $paginator->setCollection($paginator->getCollection());
     }
 }
