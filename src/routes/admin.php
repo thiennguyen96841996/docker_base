@@ -37,6 +37,12 @@ Route::middleware('auth')->name('admin.')->group(function () {
         Route::get('/', 'HomeController@index')->name('home.index');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    // Agency
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Route::namespace('App\Admin\Agency\Controller')->group(function () {
+        Route::resource('agency', 'AgencyController');
+    });
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Sample
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     Route::namespace('App\Admin\Sample\Controller')->prefix('sample')->group(function () {
