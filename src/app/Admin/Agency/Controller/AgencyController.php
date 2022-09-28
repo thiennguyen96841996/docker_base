@@ -1,6 +1,8 @@
 <?php
 namespace App\Admin\Agency\Controller;
 
+use App\Admin\Agency\Request\AgencyStoreRequest;
+use App\Admin\Agency\Request\AgencyUpdateRequest;
 use App\Common\Agency\Service\AgencyService;
 use App\Common\View\Facades\Renderer;
 use Illuminate\Support\Arr;
@@ -48,7 +50,7 @@ class AgencyController extends AbsController
      *
      * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         $names = explode('.', Route::current()->getName());
         return view('agency.'.Arr::last($names));
@@ -57,11 +59,11 @@ class AgencyController extends AbsController
     /**
      * store
      *
-     * @param Request $request
+     * @param AgencyStoreRequest $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(AgencyStoreRequest $request): \Illuminate\Http\RedirectResponse
     {
         $agency = $this->agencyService->storeModel($request->all());
         return redirect()->route('admin.agency.show', ['agency' => $agency->id])->with('status', 'store success');
@@ -91,7 +93,7 @@ class AgencyController extends AbsController
      * @param string $id
      * @return View
      */
-    public function edit($id): View
+    public function edit(string $id): View
     {
         if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
             abort(404);
@@ -105,12 +107,12 @@ class AgencyController extends AbsController
     /**
      * update
      *
-     * @param Request $request
+     * @param AgencyUpdateRequest $request
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
-    public function update(Request $request, string $id): \Illuminate\Http\RedirectResponse
+    public function update(AgencyUpdateRequest $request, string $id): \Illuminate\Http\RedirectResponse
     {
         if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
             abort(404);

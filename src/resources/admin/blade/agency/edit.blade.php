@@ -1,7 +1,8 @@
 @extends('main')
 
 @section('CONTENTS')
-    <h3>Agency create</h3>
+    @include('include.error-msg')
+    <h3>Agency edit</h3>
     <form method="post" action="{{ route('admin.agency.update', $agency->id) }}">
         @csrf
         @method('PUT')
