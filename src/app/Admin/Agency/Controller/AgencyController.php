@@ -2,6 +2,7 @@
 namespace App\Admin\Agency\Controller;
 
 use App\Common\Agency\Service\AgencyService;
+use App\Common\View\Facades\Renderer;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
@@ -9,12 +10,15 @@ use App\Common\Http\Controller\AbsController;
 use Illuminate\Http\Request;
 
 /**
- * ホーム画面に関連する処理を行うクラス。
- * @package \App\Admin\Home
+ * agency page。
+ * @package \App\Admin\Agency
  */
 class AgencyController extends AbsController
 {
-    private $agencyService;
+    /**
+     * @var AgencyService
+     */
+    private AgencyService $agencyService;
 
     /**
      * constructor.
@@ -25,18 +29,23 @@ class AgencyController extends AbsController
     }
 
     /**
-     * Agency一覧画面を表示する。
-     * @return \Illuminate\View\View
+     * index
+     *
+     * @param Request $request
+     * @return View
      */
     public function index(Request $request): View
     {
-        $agencyList = $this->agencyService->getViewModelPaginator(url()->current(),10, $request->all());
+        Renderer::setPaginator($this->agencyService->getViewModelPaginator(url()->current(),10, $request->all()));
+        Renderer::setSearchConditions($request->all());
         $names = explode('.', Route::current()->getName());
-        return view('agency.'.Arr::last($names), ['agencyList' => $agencyList]);
+
+        return view('agency.'.Arr::last($names));
     }
 
     /**
-     * Agency登録画面を表示する。
+     * create
+     *
      * @return View
      */
     public function create(): View
@@ -46,62 +55,85 @@ class AgencyController extends AbsController
     }
 
     /**
+     * store
+     *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $this->agencyService->storeModel($request->all());
-        return redirect()->route('admin.agency.index');
+        $agency = $this->agencyService->storeModel($request->all());
+        return redirect()->route('admin.agency.show', ['agency' => $agency->id])->with('status', 'store success');
     }
 
     /**
-     * Agency詳細画面を表示する。
-     * @param $id
+     * show
+     *
+     * @param string $id
      * @return View
      * @throws \Throwable
      */
-    public function show($id): View
+    public function show(string $id): View
     {
-        $agency = $this->agencyService->getViewModel(['id' => $id]);
+        if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
+            abort(404);
+        }
+        Renderer::set('agency', $agency);
         $names = explode('.', Route::current()->getName());
+
         return view('agency.'.Arr::last($names), ['agency' => $agency]);
     }
 
     /**
-     * @param $id
+     * edit
+     *
+     * @param string $id
      * @return View
      */
     public function edit($id): View
     {
-        $agency = $this->agencyService->getOneCollection(['id' => $id]);
+        if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
+            abort(404);
+        }
+        Renderer::set('agency', $agency);
         $names = explode('.', Route::current()->getName());
+
         return view('agency.'.Arr::last($names), ['agency' => $agency]);
     }
 
     /**
+     * update
+     *
      * @param Request $request
-     * @param $id
+     * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id): \Illuminate\Http\RedirectResponse
     {
-        $agency = $this->agencyService->getOneCollection(['id' => $id]);
+        if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
+            abort(404);
+        }
         $this->agencyService->updateModel($agency, $request->all());
-        return redirect()->route('admin.agency.index');
+
+        return redirect()->route('admin.agency.show', ['agency' => $id])->with('status', 'update success');
     }
 
     /**
+     * destroy
+     *
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
-    public function destroy($id)
+    public function destroy(string $id): \Illuminate\Http\RedirectResponse
     {
-        $agency = $this->agencyService->getOneCollection(['id' => $id]);
+        if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
+            abort(404);
+        }
         $this->agencyService->deleteModel($agency);
-        return redirect()->route('admin.agency.index');
+
+        return redirect()->route('admin.agency.index')->with('status', 'delete success');
     }
 }

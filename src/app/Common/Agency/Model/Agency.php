@@ -87,21 +87,18 @@ class Agency extends Model
      */
     public function scopeWhereMultiConditions(Builder $builder, array $searchConditions): Builder
     {
-        // Id
-        if (!empty($id = Arr::get($searchConditions, 'id'))) {
-            $builder->where(self::TABLE_NAME . '.id', '=', $id);
-        }
-        // Name
-        if (!empty($name = Arr::get($searchConditions, 'name'))) {
-            $builder->where(self::TABLE_NAME . '.name',  'like', "%{$name}%");
-        }
-        // Tel
-        if (!empty($tel = Arr::get($searchConditions, 'tel'))) {
-            $builder->where(self::TABLE_NAME . '.tel', '=', $tel);
-        }
-        // Address
-        if (!empty($address = Arr::get($searchConditions, 'address'))) {
-            $builder->where(self::TABLE_NAME . '.address', 'like', "%{$address}%");
+        foreach ($searchConditions as $key => $value) {
+            match ($key) {
+                // id
+                'id' => !empty($value) ? $builder->where($this->qualifyColumn('id'), '=', $value) : null,
+                // name
+                'name' => !empty($value) ? $builder->where($this->qualifyColumn('name'), 'like', "%{$value}%") :null,
+                // tel
+                'tel' => !empty($value) ? $builder->where($this->qualifyColumn('tel'), '=', $value) : null,
+                // address
+                'address' => !empty($value) ? $builder->where($this->qualifyColumn('address'),'=', $value) : null,
+                default => null,
+            };
         }
 
         return $builder;

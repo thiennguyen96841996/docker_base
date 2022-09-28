@@ -44,7 +44,14 @@ class AgencyService
         return $this->repository->fetchAll($searchConditions)->keyBy('id');
     }
 
-    public function getOneCollection(array $searchConditions): Agency
+    /**
+     * 検索条件に合致した単一のデータを取得して返す。
+     *
+     * @param  array $searchConditions 検索条件の配列
+     * @return \App\Common\Agency\Model\Agency|null Agencyオブジェクト or null
+     * @throws \Throwable
+     */
+    public function getModel(array $searchConditions): ?Agency
     {
         return $this->repository->fetchOne($searchConditions);
     }

@@ -1,12 +1,14 @@
 @extends('main')
 
 @section('CONTENTS')
+    @include('include.status-msg')
+
     <h3>Agency</h3>
     <form method="GET" action="{{ route('admin.agency.index') }}">
-        <label>Id:</label><input type="text" name="id">
-        <label>Name:</label><input type="text" name="name">
-        <label>Tel:</label><input type="text" name="tel">
-        <label>Address:</label><input type="text" name="address">
+        <label>Id:</label><input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}">
+        <label>Name:</label><input type="text" name="name" value="{{ Renderer::oldWithRequest('name') }}">
+        <label>Tel:</label><input type="text" name="tel" value="{{ Renderer::oldWithRequest('tel') }}">
+        <label>Address:</label><input type="text" name="address" value="{{ Renderer::oldWithRequest('address') }}">
         <input type="submit" value="search">
     </form>
     <a href="{{ route('admin.agency.create') }}">Create</a>
@@ -22,7 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        @forelse($agencyList as $val)
+        @forelse(Renderer::getPaginator() ?? [] as $val)
             <tr>
                 <td><a href="{{ route('admin.agency.show', $val->id) }}">{{ $val->id }}</a></td>
                 <td>{{ $val->name }}</td>
@@ -44,5 +46,5 @@
         @endforelse
         </tbody>
     </table>
-    {{ $agencyList->links() }}
+    {!! Renderer::renderPaginator('include.pager') !!}
 @stop
