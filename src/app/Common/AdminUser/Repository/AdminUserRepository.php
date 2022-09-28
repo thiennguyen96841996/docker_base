@@ -1,6 +1,7 @@
 <?php
 namespace App\Common\AdminUser\Repository;
 
+use App\Common\Database\MysqlCryptorTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -9,6 +10,7 @@ use App\Common\AdminUser\Contract\AdminUserRepository as AdminUserRepositoryCont
 use App\Common\AdminUser\Model\AdminUser;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\Database\RepositoryConnection;
+use Illuminate\Support\Arr;
 
 /**
  * AdminUserモデルのデータ操作を扱うクラス。
@@ -16,7 +18,7 @@ use App\Common\Database\RepositoryConnection;
  */
 class AdminUserRepository implements AdminUserRepositoryContract
 {
-    use RepositoryConnection;
+    use RepositoryConnection, MysqlCryptorTrait;
 
     /**
      * 検索条件に合致したデータを持つAdminUserモデルのコレクションを取得する。
@@ -61,9 +63,8 @@ class AdminUserRepository implements AdminUserRepositoryContract
      */
     public function store(array $params): AdminUser
     {
-        $adminUser = new AdminUser();
-        $adminUser->setConnection(DatabaseDefs::CONNECTION_NAME_WRITE);
-        $adminUser->fill($params)->save();
+        $adminUser = $this->encryptData(new AdminUser(), $params);
+        $adminUser->setConnection(DatabaseDefs::CONNECTION_NAME_WRITE)->save();
 
         return $adminUser;
     }
@@ -77,8 +78,25 @@ class AdminUserRepository implements AdminUserRepositoryContract
      */
     public function update(AdminUser $adminUser, array $params): void
     {
-        $adminUser->setConnection(DatabaseDefs::CONNECTION_NAME_WRITE);
-        $adminUser->update($params);
+        $this->encryptData($adminUser, $params)->setConnection(DatabaseDefs::CONNECTION_NAME_WRITE)->save();
+    }
+
+    /**
+     * 単一の管理ユーザー情報を更新する。
+     * @param  array<string, mixed> $params
+     * @param  \App\Common\AdminUser\Model\AdminUser $adminUser
+     * @return void
+     * @throws \Throwable
+     */
+    public function encryptData(AdminUser $adminUser, array $params): AdminUser
+    {
+        $adminUser->name                    = $this->encrypt(Arr::get($params, 'first_name'));
+        $adminUser->email                   = $this->encrypt(Arr::get($params, 'email'));
+        $adminUser->password                = $this->encrypt(Arr::get($params, 'password'));
+        $adminUser->tel                     = $this->encrypt(Arr::get($params, 'tel'));
+        $adminUser->avatar                  = $this->encrypt(Arr::get($params, 'avatar'));
+
+        return $adminUser;
     }
 
     /**

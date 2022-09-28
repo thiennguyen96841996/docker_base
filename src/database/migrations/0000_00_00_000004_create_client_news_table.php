@@ -22,7 +22,7 @@ class CreateClientNewsTable extends Migration
             Schema::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
                 ->create('client_news', function (Blueprint $table) {
                     $table->engine = 'InnoDB';
-                    $table->bigIncrements('id');
+                    $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
                     $table->foreignId('client_id')->constrained('client_users');
                     $table->string('title', 150);
                     $table->char('status', 2)->nullable();

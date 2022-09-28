@@ -22,7 +22,7 @@ class CreateSpeedySamplesTable extends Migration
             Schema::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
                 ->create('speedy_samples', function (Blueprint $table) {
                     $table->engine = 'InnoDB';
-                    $table->bigIncrements('id');
+                    $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
                     $table->string('column1', 50);
                     $table->string('column2', 50);
                     $table->string('column3', 50);

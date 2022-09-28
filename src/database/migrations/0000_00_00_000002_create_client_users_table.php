@@ -21,7 +21,7 @@ class CreateClientUsersTable extends Migration
             Schema::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
                 ->create('client_users', function (Blueprint $table) {
                     $table->engine = 'InnoDB';
-                    $table->bigIncrements('id');
+                    $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
                     $table->string('name', 50);
                     $table->string('name_kana', 100);
                     $table->string('email')->unique();

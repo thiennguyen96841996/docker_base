@@ -1,8 +1,6 @@
 <?php
 namespace App\Admin\Auth\Controller;
 
-use App\Common\AdminUser\Contract\AdminUserRepository as AdminUserRepository;
-use App\Common\AdminUser\Model\AdminUser;
 use Throwable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,15 +23,11 @@ class LoginController extends AbsController
      */
     private AdminUserService $service;
 
-
-    private AdminUserRepository $adminUserRepository;
-
     /**
      * constructor.
      */
-    public function __construct(AdminUserService $service, AdminUserRepository $adminUserRepository)
+    public function __construct(AdminUserService $service)
     {
-        $this->adminUserRepository = $adminUserRepository;
         $this->middleware('guest')->except('logout');
         $this->service = $service;
     }
@@ -55,9 +49,6 @@ class LoginController extends AbsController
      */
     public function login(LoginRequest $request): RedirectResponse
     {
-        $adminUser = $this->adminUserRepository->fetchOne(['tel' => '09000000001']);
-
-
         $request->authenticate();
         $request->session()->regenerate();
 

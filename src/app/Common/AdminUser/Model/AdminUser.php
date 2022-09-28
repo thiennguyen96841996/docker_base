@@ -1,6 +1,7 @@
 <?php
 namespace App\Common\AdminUser\Model;
 
+use App\Common\Database\MysqlCryptorTrait;
 use Database\Factories\AdminUserFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,13 +12,20 @@ use App\Common\Database\Definition\DatabaseDefs;
 
 /**
  * 管理ユーザー情報のモデル。
+ *
+ * @property mixed|string $name     name
+ * @property mixed|string $email    email
+ * @property mixed|string $password password
+ * @property mixed|string $tel      tel
+ * @property mixed|string $avatar   avatar
+ *
  * @package \App\Common\AdminUser
  *
  * @method \Illuminate\Database\Eloquent\Builder whereMultiConditions(array $searchConditions)
  */
 class AdminUser extends Authenticatable
 {
-    use HasFactory, SoftDeletes, Notifiable;
+    use HasFactory, SoftDeletes, Notifiable, MysqlCryptorTrait;
 
     /**
      * テーブル名の定義。
@@ -126,22 +134,12 @@ class AdminUser extends Authenticatable
     {
         foreach ($searchConditions as $key => $value) {
             match ($key) {
-                // id
-                'id' => $builder->where($this->qualifyColumn('id'), $value),
-                // name
-                'name' => $builder->where($this->qualifyColumn('name'), $value),
-                // name_kana
-                'name_kana' => $builder->where($this->qualifyColumn('name_kana'), $value),
                 // email
-                'email' => $builder->where($this->qualifyColumn('email'), $value),
-                // tel
-                'tel' => $builder->where($this->qualifyColumn('tel'), $value),
-                // is_available
-                'is_available' => $builder->where($this->qualifyColumn('is_available'), $value),
-
+                'email' => !empty($value) ? $builder->where($this->qualifyColumn('email'), '=', $value) : null,
                 default => null,
             };
         }
+
         return $builder;
     }
 }
