@@ -21,12 +21,12 @@ class CreateAdminUsersTable extends Migration
             Schema::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
                 ->create('admin_users', function (Blueprint $table) {
                     $table->engine = 'InnoDB';
-                    $table->bigIncrements('id');
-                    $table->string('name', 50);
-                    $table->string('name_kana', 100);
-                    $table->string('email')->unique();
-                    $table->string('tel', 15)->nullable();
-                    $table->string('password');
+                    $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
+                    $table->binary('name');
+                    $table->string('email', 50);
+                    $table->binary('tel');
+                    $table->binary('avatar')->nullable();
+                    $table->string('password', 100);
                     $table->rememberToken();
                     $table->char('is_available', 2);
                     $table->timestamp('email_verified_at')->nullable();

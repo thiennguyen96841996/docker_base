@@ -1,6 +1,7 @@
 <?php
 namespace Database\Seeders\Partial;
 
+use App\Common\Database\MysqlCryptorTrait;
 use Illuminate\Database\Seeder;
 use App\Common\Database\Definition\AvailableStatus;
 use App\Common\Database\Definition\DatabaseDefs;
@@ -12,6 +13,7 @@ use App\Common\AdminUser\Model\AdminUser;
  */
 class AdminUserSeeder extends Seeder
 {
+    use MysqlCryptorTrait;
     /**
      * 初期データを登録する。
      * @return void
@@ -20,11 +22,10 @@ class AdminUserSeeder extends Seeder
     {
         $data = [
             [
-                'name'         => '渡辺英助',
-                'name_kana'    => 'ワタナベエイスケ',
-                'email'        => 'eisuke@dev.speedy',
-                'tel'          => '09000000001',
-                'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'name'         => $this->encrypt('glc@admin'),
+                'email'        => 'admin@glc.com',
+                'tel'          => $this->encrypt('08076382866'),
+                'password'     =>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'is_available' => AvailableStatus::AVAILABLE->value
             ],
         ];
@@ -38,7 +39,6 @@ class AdminUserSeeder extends Seeder
                 [ 'email' => $datum['email'] ],
                 [
                     'name'         => $datum['name'],
-                    'name_kana'    => $datum['name_kana'],
                     'email'        => $datum['email'],
                     'tel'          => $datum['tel'],
                     'password'     => $datum['password'],

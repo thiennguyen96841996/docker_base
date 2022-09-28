@@ -84,4 +84,10 @@ class DatabaseDefs
      * @var int
      */
     const REDIS_DB_NUMBER_BROADCASTING = 5;
+
+    /**
+     * 最初ID
+     * @var int
+     */
+    const ID_START_POSITION = 10001;
 }
