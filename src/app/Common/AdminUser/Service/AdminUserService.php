@@ -54,17 +54,6 @@ class AdminUserService
     }
 
     /**
-     * 検索条件に合致した単一のデータを取得して返す。
-     *
-     * @param  array $searchConditions 検索条件の配列
-     * @return \Konohini\Platform\Employee\Models\Employee|null Employeeオブジェクト or null
-     * @throws \Throwable
-     */
-    public function getModel(array $searchConditions): ?ClientUser
-    {
-
-
-        /**
      * 検索条件に合致したデータを持つAdminUserモデルをページネーターとして取得する。
      * @param  array<string, mixed> $searchConditions
      * @return \Illuminate\Pagination\LengthAwarePaginator

@@ -18,3 +18,4 @@ _ide_*.php
 .env.customer
 .env.client
 .env.admin
+.DS_store
