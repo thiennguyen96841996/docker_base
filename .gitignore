@@ -4,23 +4,32 @@
 .idea
 .vscode
 .project
+.DS_Store
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # For Package Management System
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 /src/node_modules
 npm-debug.log
+yarn-error.log
 /vendor
-src/vendor
+/src/vendor
 /resources/sass/master/node_modules/
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # For Project
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 .phpunit.result.cache
-_ide_helper.php
+_ide_*.php
 .htaccess
 .env
+.env.*
+/src/.env
+/src/.env.*
+
+/src/public/hot
+/src/public/storage
+/src/storage/*.key
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # For Vagrant
