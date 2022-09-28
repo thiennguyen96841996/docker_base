@@ -20,6 +20,7 @@ class ClientUserSeeder extends Seeder
     {
         $data = [
             [
+                'agency_id'    => '10001',
                 'name'         => 'スピード太郎',
                 'name_kana'    => 'スピードタロウ',
                 'email'        => 'tarou@dev.speedy',
@@ -37,6 +38,7 @@ class ClientUserSeeder extends Seeder
             $clientUser->updateOrCreate(
                 [ 'email' => $datum['email'] ],
                 [
+                    'agency_id'    => $datum['agency_id'],
                     'name'         => $datum['name'],
                     'name_kana'    => $datum['name_kana'],
                     'email'        => $datum['email'],

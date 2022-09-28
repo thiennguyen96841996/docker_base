@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Schema;
 use App\Common\Database\Definition\DatabaseDefs;
 
 /**
- * client_newsテーブルを作成するマイグレーションクラス。
+ * client_postsテーブルを作成するマイグレーションクラス。
  */
-class CreateClientNewsTable extends Migration
+class CreateClientPostsTable extends Migration
 {
     /**
      * マイグレーションを実行する。
@@ -20,7 +20,7 @@ class CreateClientNewsTable extends Migration
     {
         try {
             Schema::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
-                ->create('client_news', function (Blueprint $table) {
+                ->create('client_posts', function (Blueprint $table) {
                     $table->engine = 'InnoDB';
                     $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
                     $table->integer('client_id');
@@ -28,6 +28,12 @@ class CreateClientNewsTable extends Migration
                     $table->char('status', 2)->nullable();
                     $table->string('avatar', 50)->nullable();
                     $table->string('content', 5000)->nullable();
+                    $table->string('city', 25)->nullable();
+                    $table->string('district', 20)->nullable();
+                    $table->string('address', 100)->nullable();
+                    $table->unsignedDouble('price')->nullable();
+                    $table->unsignedDouble('area')->nullable();
+                    $table->unsignedBigInteger('view_counts')->nullable();
                     $table->timestamp('closed_at')->nullable();
                     $table->timestamp('published_at')->nullable();
                     $table->timestamps();
@@ -35,9 +41,9 @@ class CreateClientNewsTable extends Migration
                 });
 
             DB::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
-                ->statement('ALTER TABLE `client_news` ROW_FORMAT=DYNAMIC;');
+                ->statement('ALTER TABLE `client_posts` ROW_FORMAT=DYNAMIC;');
             DB::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
-                ->statement('ALTER TABLE `client_news` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;');
+                ->statement('ALTER TABLE `client_posts` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;');
         }
         catch (PDOException $e) {
             $this->down();
@@ -52,6 +58,6 @@ class CreateClientNewsTable extends Migration
     public function down(): void
     {
         Schema::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
-            ->dropIfExists('client_news');
+            ->dropIfExists('client_posts');
     }
 }
