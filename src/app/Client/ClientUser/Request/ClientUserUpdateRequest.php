@@ -63,7 +63,6 @@ class ClientUserUpdateRequest extends FormRequest
     {
         return [
             'name'         => [ 'string', 'max:50' ],
-            'name_kana'    => [ 'string', 'max:100' ],
             'email'        => [ 'string', 'max:255' ],
             'tel'          => [ 'string', 'max:15' ],
             'is_available' => [ 'in:' . join(',', AvailableStatus::values()) ],

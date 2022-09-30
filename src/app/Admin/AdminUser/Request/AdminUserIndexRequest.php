@@ -56,7 +56,6 @@ class AdminUserIndexRequest extends FormRequest
         return $this->only([
             'id',
             'name',
-            'name_kana',
             'email',
             'email',
             'tel',
@@ -73,7 +72,6 @@ class AdminUserIndexRequest extends FormRequest
         return [
             'id'             => [ 'integer', 'exists:'.DatabaseDefs::CONNECTION_NAME_READ.'.'.AdminUser::TABLE_NAME.',id' ],
             'name'           => [ 'string', 'max:50' ],
-            'name_kana'      => [ 'string', 'max:100' ],
             'email'          => [ 'string', 'max:255' ],
             'tel'            => [ 'string', 'max:15' ],
             'is_available'   => [ 'array' ],

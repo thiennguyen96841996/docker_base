@@ -5,6 +5,7 @@ use App\Common\AdminUser\Service\AdminUserService as AdminUserServiceProvider;
 use App\Common\App\Contract\AppRegistrant as AppRegistrantContract;
 use App\Common\Sample\Provider\ServiceProvider as SampleServiceProvider;
 use App\Common\Agency\Provider\ServiceProvider as AgencyServiceProvider;
+use App\Common\ClientUser\Provider\ServiceProvider as ClientUserServiceProvider;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -30,6 +31,7 @@ class AppRegistrant implements AppRegistrantContract
     private $providers = [
         SampleServiceProvider::class,
         AgencyServiceProvider::class,
+        ClientUserServiceProvider::class
     ];
 
     /**

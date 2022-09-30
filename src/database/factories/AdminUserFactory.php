@@ -18,7 +18,6 @@ class AdminUserFactory extends Factory
     {
         return [
             'name'         => 'アドミン太郎',
-            'name_kana'    => 'アドミンタロウ',
             'email'        => $this->faker->unique()->safeEmail(),
             'tel'          => '09000000000',
             'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

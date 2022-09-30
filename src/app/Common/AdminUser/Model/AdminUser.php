@@ -57,7 +57,6 @@ class AdminUser extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'name_kana',
         'email',
         'tel',
         'password',
@@ -95,7 +94,6 @@ class AdminUser extends Authenticatable
         return [
             'id'               => '「ID」',
             'name'             => '「ユーザー名」',
-            'name_kana'        => '「ユーザー名(カナ)」',
             'email'            => '「メールアドレス」',
             'tel'              => '「電話番号」',
             'password'         => '「パスワード」',

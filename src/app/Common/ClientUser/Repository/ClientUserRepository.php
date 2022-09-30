@@ -2,13 +2,17 @@
 namespace App\Common\ClientUser\Repository;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
+use App\Common\Agency\Model\Agency;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
-use App\Common\ClientUser\Contract\ClientUserRepository as ClientUserRepositoryContract;
+use App\Common\Database\MysqlCryptorTrait;
 use App\Common\ClientUser\Model\ClientUser;
-use App\Common\Database\Definition\DatabaseDefs;
+use Illuminate\Database\Eloquent\Collection;
 use App\Common\Database\RepositoryConnection;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Common\Database\Definition\DatabaseDefs;
+use App\Common\ClientUser\Contract\ClientUserRepository as ClientUserRepositoryContract;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * ClientUserモデルのデータ操作を扱うクラス。
@@ -16,7 +20,7 @@ use App\Common\Database\RepositoryConnection;
  */
 class ClientUserRepository implements ClientUserRepositoryContract
 {
-    use RepositoryConnection;
+    use RepositoryConnection, MysqlCryptorTrait;
 
     /**
      * 検索条件に合致したデータを持つClientUserモデルのコレクションを取得する。
@@ -26,7 +30,13 @@ class ClientUserRepository implements ClientUserRepositoryContract
      */
     public function fetchAll(array $searchConditions, array $selectColumns = ['*']): Collection
     {
-        return $this->makeBasicBuilder($searchConditions, $selectColumns)->get();
+        $selectColumns = [
+            ClientUser::TABLE_NAME . '.*',
+            Agency::TABLE_NAME . '.name AS agency_name',
+        ];
+        return $this->makeBasicBuilder($searchConditions, $selectColumns)
+            ->leftJoin(Agency::TABLE_NAME, ClientUser::TABLE_NAME . '.agency_id','=', Agency::TABLE_NAME . '.id')
+            ->get();
     }
 
     /**
@@ -54,6 +64,22 @@ class ClientUserRepository implements ClientUserRepositoryContract
     }
 
     /**
+     * DBに保存する前に、対象データを暗号化。
+     * @param  array<string, mixed> $params
+     * @param  array $targetFields
+     * @return array<string, mixed>
+     * @throws \Throwable
+     */
+    public function encryptData(array $params): array
+    {
+        $params['name']     = !empty($params['name']) ? $this->encrypt(Arr::get($params, 'name')) : null;
+        $params['tel']      = !empty($params['tel']) ? $this->encrypt(Arr::get($params, 'tel')) : null;
+        $params['password'] = Hash::make(empty($params['password']) ? makeRandomStrForPassword() : $params['password']);
+        
+        return $params;
+    }
+
+    /**
      * 単一の企業ユーザー情報を登録する。
      * @param  array<string, mixed> $params
      * @return \App\Common\ClientUser\Model\ClientUser
@@ -63,7 +89,7 @@ class ClientUserRepository implements ClientUserRepositoryContract
     {
         $clientUser = new ClientUser();
         $clientUser->setConnection(DatabaseDefs::CONNECTION_NAME_WRITE);
-        $clientUser->fill($params)->save();
+        $clientUser->fill($this->encryptData($params))->save();
 
         return $clientUser;
     }
@@ -78,7 +104,7 @@ class ClientUserRepository implements ClientUserRepositoryContract
     public function update(ClientUser $clientUser, array $params): void
     {
         $clientUser->setConnection(DatabaseDefs::CONNECTION_NAME_WRITE);
-        $clientUser->update($params);
+        $clientUser->update($this->encryptData($params));
     }
 
     /**

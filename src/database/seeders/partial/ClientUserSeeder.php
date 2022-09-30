@@ -5,6 +5,7 @@ use Illuminate\Database\Seeder;
 use App\Common\Database\Definition\AvailableStatus;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\ClientUser\Model\ClientUser;
+use App\Common\Database\MysqlCryptorTrait;
 
 /**
  * ClientUserモデルの初期データを登録するクラス。
@@ -12,6 +13,7 @@ use App\Common\ClientUser\Model\ClientUser;
  */
 class ClientUserSeeder extends Seeder
 {
+    use MysqlCryptorTrait;
     /**
      * 初期データを登録する。
      * @return void
@@ -21,10 +23,9 @@ class ClientUserSeeder extends Seeder
         $data = [
             [
                 'agency_id'    => '10001',
-                'name'         => 'スピード太郎',
-                'name_kana'    => 'スピードタロウ',
+                'name'         => $this->encrypt('スピード太郎'),
                 'email'        => 'tarou@dev.speedy',
-                'tel'          => '09000000001',
+                'tel'          => $this->encrypt('09000000001'),
                 'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'is_available' => AvailableStatus::AVAILABLE->value
             ],
@@ -40,7 +41,6 @@ class ClientUserSeeder extends Seeder
                 [
                     'agency_id'    => $datum['agency_id'],
                     'name'         => $datum['name'],
-                    'name_kana'    => $datum['name_kana'],
                     'email'        => $datum['email'],
                     'tel'          => $datum['tel'],
                     'password'     => $datum['password'],

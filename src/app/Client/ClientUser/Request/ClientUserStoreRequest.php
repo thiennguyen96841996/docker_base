@@ -65,7 +65,6 @@ class ClientUserStoreRequest extends FormRequest
     {
         return [
             'name'         => [ 'required', 'string', 'max:50' ],
-            'name_kana'    => [ 'required', 'string', 'max:100' ],
             'email'        => [ 'required', 'email', 'max:255' ],
             'tel'          => [ 'required', 'string', 'max:15' ],
             'password'     => [ 'required', 'confirmed', App::isProduction() ? Password::default(): 'string' ],

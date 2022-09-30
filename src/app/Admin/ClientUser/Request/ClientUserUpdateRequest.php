@@ -1,17 +1,18 @@
 <?php
-namespace App\Admin\AdminUser\Request;
+namespace App\Admin\ClientUser\Request;
 
+
+use App\Common\ClientUser\Model\ClientUser;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
-use App\Common\AdminUser\Model\AdminUser;
 use App\Common\Database\Definition\AvailableStatus;
 
 /**
- * 管理ユーザー情報を更新する際のバリデーションを行うクラス。
- * @package \App\Admin\AdminUser
+ * クライアント情報を登録する際のバリデーションを行うクラス。
+ * @package \App\Admin\ClientUser
  */
-class AdminUserUpdateRequest extends FormRequest
+class ClientUserUpdateRequest extends FormRequest
 {
     /**
      * リクエストが可能かどうかを返す。
@@ -29,6 +30,17 @@ class AdminUserUpdateRequest extends FormRequest
      */
     public function validator(Factory $factory): Validator
     {
+        list($controller, $method) = explode('@', \Route::currentRouteAction());
+
+        switch ($method) {
+            case 'update':
+            case 'updateConfirm':
+                $this->redirect = route('admin.clientUser.edit', $this->input('id'));
+                break;
+            default:
+                break;
+        }
+
         $validator = $factory->make(
             $this->validationData(),
             $this->container->call([$this, 'rules']),
@@ -52,7 +64,7 @@ class AdminUserUpdateRequest extends FormRequest
      */
     public function validationData(): array
     {
-        return $this->only((new AdminUser)->getFillable());
+        return $this->only((new ClientUser())->getFillable());
     }
 
     /**
@@ -62,9 +74,9 @@ class AdminUserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => [ 'string', 'max:50' ],
-            'email'        => [ 'string', 'max:255' ],
-            'tel'          => [ 'string', 'max:15' ],
+            'name'         => [ 'required', 'string', 'max:50' ],
+            'tel'          => [ 'required', 'string', 'max:15', 'tel' ],
+            // 'password'     => [ 'required', 'string', 'min:8', 'max:32' ],
             'is_available' => [ 'in:' . join(',', AvailableStatus::values()) ],
         ];
     }
@@ -77,7 +89,9 @@ class AdminUserUpdateRequest extends FormRequest
     {
         // メッセージはlang下のファイルで管理する。
         // 上書きしたいメッセージがある場合にのみ設定すること。
-        return [];
+        return [
+            'tel' => 'The :attribute field is unvalid telephone'
+        ];
     }
 
     /**
@@ -86,6 +100,6 @@ class AdminUserUpdateRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return AdminUser::getAttributeNames();
+        return ClientUser::getAttributeNames();
     }
 }

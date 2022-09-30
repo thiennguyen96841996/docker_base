@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Common\Database\Definition\DatabaseDefs;
+use App\Common\Database\MysqlCryptorTrait;
 
 /**
  * 企業ユーザー情報のモデル。
@@ -17,7 +18,7 @@ use App\Common\Database\Definition\DatabaseDefs;
  */
 class ClientUser extends Authenticatable
 {
-    use HasFactory, SoftDeletes, Notifiable;
+    use HasFactory, SoftDeletes, Notifiable, MysqlCryptorTrait;
 
     /**
      * テーブル名の定義。
@@ -49,11 +50,11 @@ class ClientUser extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'name_kana',
         'email',
         'tel',
         'password',
         'is_available',
+        'agency_id'
     ];
 
     /**
@@ -86,14 +87,11 @@ class ClientUser extends Authenticatable
     {
         return [
             'id'               => '「ID」',
-            'name'             => '「ユーザー名」',
-            'name_kana'        => '「ユーザー名(カナ)」',
-            'email'            => '「メールアドレス」',
-            'tel'              => '「電話番号」',
-            'password'         => '「パスワード」',
-            'password_confirm' => '「パスワード(確認)」',
-            'is_available'     => '「利用可否」',
-            'is_available.*'   => '「利用可否」',
+            'name'             => '「Name」',
+            'email'            => '「Email」',
+            'tel'              => '「Tel」',
+            'password'         => '「Password」',
+            'is_available'     => '「Status」',
         ];
     }
 
@@ -127,21 +125,18 @@ class ClientUser extends Authenticatable
         foreach ($searchConditions as $key => $value) {
             match ($key) {
                 // id
-                'id' => $builder->where($this->qualifyColumn('id'), $value),
-                // name
-                'name' => $builder->where($this->qualifyColumn('name'), $value),
-                // name_kana
-                'name_kana' => $builder->where($this->qualifyColumn('name_kana'), $value),
+                'id' => !empty($value) ? $builder->where($this->qualifyColumn('id'), '=', $value) : null,
                 // email
-                'email' => $builder->where($this->qualifyColumn('email'), $value),
+                'email' => !empty($value) ? $builder->where($this->qualifyColumn('email'), '=', $value) : null,
                 // tel
-                'tel' => $builder->where($this->qualifyColumn('tel'), $value),
+                'tel' => !empty($value) ? $builder->where($this->qualifyColumn('tel'), '=', $this->encrypt($value)) : null,
                 // is_available
-                'is_available' => $builder->where($this->qualifyColumn('is_available'), $value),
+                'is_available' => !empty($value) ? $builder->where($this->qualifyColumn('is_available'), '=', $value) : null,
 
                 default => null,
             };
         }
+
         return $builder;
     }
 }

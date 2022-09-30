@@ -32,6 +32,7 @@ class AgencyService
     public function __construct(AgencyRepositoryContract $repository)
     {
         $this->repository = $repository;
+        $this->setViewModel(new AgencyViewModel());
     }
 
     /**
