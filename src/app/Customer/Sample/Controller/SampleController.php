@@ -1,11 +1,11 @@
 <?php
 namespace App\Customer\Sample\Controller;
 
-use App\Common\Sample\Contract\SampleRepository as SampleRepositoryContract;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Route;
-use Illuminate\View\View;
+use App\Common\Sample\Service\SampleService;
+use Illuminate\Http\JsonResponse;
 use App\Common\Http\Controller\AbsController;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 /**
  * ホーム画面に関連する処理を行うクラス。
@@ -13,24 +13,30 @@ use App\Common\Http\Controller\AbsController;
  */
 class SampleController extends AbsController
 {
-    private SampleRepositoryContract $sampleRepository;
+    private SampleService $sampleService;
 
     /**
      * constructor.
      */
-    public function __construct(SampleRepositoryContract $sampleRepository)
+    public function __construct(SampleService $sampleService)
     {
-        $this->sampleRepository = $sampleRepository;
+        $this->sampleService = $sampleService;
     }
     /**
      * ホーム画面を表示する。
      * @return \Illuminate\View\View
      */
-    public function index(): View
+    public function index(): JsonResponse
     {
-        $sample = $this->sampleRepository->fetchAll([]);
-        dd($sample);
-        $names = explode('.', Route::current()->getName());
-        return view('sample.page'.Arr::last($names));
+        //sample for Vue FE
+        try{
+            $sample = $this->sampleService->getViewModel(['id' => '10001']);
+
+            return response()->json(['sample' => $sample]);
+        } catch (Throwable $thw) {
+            Log::channel('error')->error($thw);
+
+            return response()->json([], 500);
+        }
     }
 }

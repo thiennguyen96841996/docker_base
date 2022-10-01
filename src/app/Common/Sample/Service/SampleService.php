@@ -3,6 +3,7 @@ namespace App\Common\Sample\Service;
 
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\Repository\ViewModelRepositoryTrait;
+use App\Common\Sample\ViewModel\SampleViewModel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +30,7 @@ class SampleService
     public function __construct(SampleRepositoryContract $repository)
     {
         $this->repository = $repository;
+        $this->setViewModel(new SampleViewModel());
     }
 
     /**
@@ -126,7 +128,7 @@ class SampleService
      * @return \App\Common\Sample\ViewModel\SampleViewModel|null SampleViewModelオブジェクト or null
      * @throws \Throwable
      */
-    public function getViewModel(array $searchConditions, bool $writeConnection = false): ?\App\Common\ViewModel\SampleViewModel
+    public function getViewModel(array $searchConditions): ?\App\Common\ViewModel\SampleViewModel
     {
         $collection = $this->getCollection($searchConditions);
 
