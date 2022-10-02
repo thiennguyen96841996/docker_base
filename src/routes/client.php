@@ -45,6 +45,14 @@ Route::middleware('auth')->name('client.')->group(function () {
         Route::resource('news', 'NewsController');
         Route::post('news/create/confirm', 'NewsController@createConfirm')->name('news.createConfirm');
         Route::match(['post', 'put'], 'news/{news}/edit/confirm', 'NewsController@updateConfirm')->name('news.updateConfirm');
+    // Post
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Route::namespace('App\Client\Post\Controller')->group(function () {
+        Route::resource('post', 'PostController');
+        Route::post('post/create', 'PostController@create')->name('post.create');
+        Route::put('post/{post}/edit', 'PostController@edit')->name('post.edit');
+        Route::match(['get', 'post'],'post/create/confirm', 'PostController@createConfirm')->name('post.createConfirm');
+        Route::match(['get', 'post', 'put'],'post/{post}/edit/confirm', 'PostController@updateConfirm')->name('post.updateConfirm');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Sample

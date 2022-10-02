@@ -4,6 +4,7 @@ namespace App\Client\App;
 
 use App\Common\App\Contract\AppRegistrant as AppRegistrantContract;
 use App\Common\Sample\Provider\ServiceProvider as SampleServiceProvider;
+use App\Common\Post\Provider\ServiceProvider as PostServiceProvider;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use App\Common\News\Provider\ServiceProvider as NewsServiceProvider;
 use Illuminate\Support\Facades\Log;
@@ -29,7 +30,8 @@ class AppRegistrant implements AppRegistrantContract
      */
     private $providers = [
         SampleServiceProvider::class,
-        NewsServiceProvider::class
+        NewsServiceProvider::class,
+        PostServiceProvider::class
     ];
 
     /**
