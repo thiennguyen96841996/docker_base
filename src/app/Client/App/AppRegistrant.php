@@ -5,6 +5,7 @@ use App\Common\App\Contract\AppRegistrant as AppRegistrantContract;
 use App\Common\Sample\Provider\ServiceProvider as SampleServiceProvider;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -46,6 +47,8 @@ class AppRegistrant implements AppRegistrantContract
     {
         $this->registerApplicationProviders();
 //        $this->registerRouteMiddleware();
+
+        Validator::extend('tel',      '\App\Common\Validation\TelValidator@validateTel');
     }
 
 

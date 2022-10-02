@@ -6,6 +6,7 @@ use App\Common\App\Contract\AppRegistrant as AppRegistrantContract;
 use App\Common\Sample\Provider\ServiceProvider as SampleServiceProvider;
 use App\Common\Agency\Provider\ServiceProvider as AgencyServiceProvider;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
 
@@ -48,6 +49,8 @@ class AppRegistrant implements AppRegistrantContract
     public function register(): void
     {
         $this->registerApplicationProviders();
+
+        Validator::extend('tel',      '\App\Common\Validation\TelValidator@validateTel');
     }
 
 
