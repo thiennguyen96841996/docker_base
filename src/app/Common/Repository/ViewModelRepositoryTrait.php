@@ -10,7 +10,6 @@ use App\Common\View\Contract\ViewModel as ViewModelContract;
  * ViewModelを扱うリポジトリで使用するトレイト。
  *
  * @package App\Common\Repository
- * @author  Ritsuki Sugiyama <sugiyama.r@tsunagu-grp.jp>
  */
 trait ViewModelRepositoryTrait
 {

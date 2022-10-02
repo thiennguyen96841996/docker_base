@@ -8,7 +8,6 @@ use Illuminate\Support\Collection;
  * ViewModelに対応したリポジトリを表すインターフェイス。
  *
  * @package App\Common\Repository\Contract
- * @author  Ritsuki Sugiyama <sugiyama.r@tsunagu-grp.jp>
  */
 interface ViewModelRepository extends ModelRepository
 {
