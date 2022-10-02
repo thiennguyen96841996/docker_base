@@ -30,7 +30,7 @@ class SampleController extends AbsController
     {
         //sample for Vue FE
         try{
-            $sample = $this->sampleService->getViewModel(['id' => '10001']);
+            $sample = $this->sampleService->getCollection([]);
 
             return response()->json(['sample' => $sample]);
         } catch (Throwable $thw) {

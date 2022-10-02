@@ -44,6 +44,18 @@ class SampleService
     }
 
     /**
+     * 検索条件に合致した単一のデータを取得して返す。
+     *
+     * @param  array $searchConditions 検索条件の配列
+     * @return \App\Common\Sample\Model\Sample|null Sampleオブジェクト or null
+     * @throws \Throwable
+     */
+    public function getModel(array $searchConditions): ?Sample
+    {
+        return $this->repository->fetchOne($searchConditions);
+    }
+
+    /**
      * 検索条件に合致したデータを持つSampleモデルをページネーターとして取得する。
      * @param  array<string, mixed> $searchConditions
      * @return \Illuminate\Pagination\LengthAwarePaginator
