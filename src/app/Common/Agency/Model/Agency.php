@@ -3,7 +3,6 @@ namespace App\Common\Agency\Model;
 
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use App\Common\Database\Definition\DatabaseDefs;
 use Illuminate\Support\Arr;
@@ -16,7 +15,6 @@ use Illuminate\Support\Arr;
  */
 class Agency extends Model
 {
-    use SoftDeletes;
 
     /**
      * テーブル名の定義。

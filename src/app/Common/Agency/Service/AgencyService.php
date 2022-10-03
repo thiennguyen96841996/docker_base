@@ -20,7 +20,7 @@ class AgencyService
     use RepositoryConnection, ViewModelRepositoryTrait;
 
     /**
-     * Sampleモデルのデータ操作を扱うクラス。
+     * Agencyモデルのデータ操作を扱うクラス。
      * @var \App\Common\Agency\Repository\AgencyRepository
      */
     private AgencyRepositoryContract $repository;
@@ -32,6 +32,7 @@ class AgencyService
     public function __construct(AgencyRepositoryContract $repository)
     {
         $this->repository = $repository;
+        $this->setViewModel(new AgencyViewModel());
     }
 
     /**
@@ -124,11 +125,10 @@ class AgencyService
      * 単一のViewModelオブジェクトとしてデータを取得する。
      *
      * @param  array $searchConditions 検索条件の配列
-     * @param bool $writeConnection
      * @return AgencyViewModel|null AdminUserViewModelオブジェクト or null
      * @throws \Throwable
      */
-    public function getViewModel(array $searchConditions, bool $writeConnection = false): ?AgencyViewModel
+    public function getViewModel(array $searchConditions): ?AgencyViewModel
     {
         $collection = $this->getCollection($searchConditions);
 

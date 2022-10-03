@@ -31,6 +31,17 @@ class AgencyUpdateRequest extends FormRequest
      */
     public function validator(Factory $factory): Validator
     {
+        list($controller, $method) = explode('@', \Route::currentRouteAction());
+
+        switch ($method) {
+            case 'update':
+            case 'updateConfirm':
+                $this->redirect = route('admin.agency.edit', ['agency' => $this->input('id')]);
+                break;
+            default:
+                break;
+        }
+
         $validator = $factory->make(
             $this->validationData(),
             $this->container->call([$this, 'rules']),
@@ -66,7 +77,7 @@ class AgencyUpdateRequest extends FormRequest
         return [
             'name'         => [ 'required', 'string', 'max:50' ],
             'address'      => [ 'required', 'string', 'max:255' ],
-            'tel'          => [ 'required', 'string', 'max:15' ],
+            'tel'          => [ 'required', 'tel' ],
         ];
     }
 
@@ -78,7 +89,9 @@ class AgencyUpdateRequest extends FormRequest
     {
         // メッセージはlang下のファイルで管理する。
         // 上書きしたいメッセージがある場合にのみ設定すること。
-        return [];
+        return [
+            'tel.tel' => 'The :attribute field is unvalid telephone'
+        ];
     }
 
     /**

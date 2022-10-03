@@ -1,6 +1,7 @@
 <?php
 namespace App\Admin\Agency\Controller;
 
+use App\Admin\Agency\Request\AgencyRequest;
 use App\Admin\Agency\Request\AgencyStoreRequest;
 use App\Admin\Agency\Request\AgencyUpdateRequest;
 use App\Common\Agency\Service\AgencyService;
@@ -52,6 +53,9 @@ class AgencyController extends AbsController
      */
     public function create(Request $request): View
     {
+        if (!empty($request->all())) {
+            Renderer::set('agency', $request->all());
+        }
         $names = explode('.', Route::current()->getName());
         return view('agency.'.Arr::last($names));
     }
@@ -78,7 +82,7 @@ class AgencyController extends AbsController
      */
     public function show(string $id): View
     {
-        if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
+        if (empty($agency = $this->agencyService->getViewModel(['id' => $id]))) {
             abort(404);
         }
         Renderer::set('agency', $agency);
@@ -90,18 +94,57 @@ class AgencyController extends AbsController
     /**
      * edit
      *
+     * @param Request $request
      * @param string $id
      * @return View
+     * @throws \Throwable
      */
-    public function edit(string $id): View
+    public function edit(Request $request, string $id): View
     {
         if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
             abort(404);
         }
-        Renderer::set('agency', $agency);
+
+        if (empty($request->all())) {
+            Renderer::set('agency', $agency);
+        } else {
+            Renderer::set('agency', $request->all());
+        }
+
+        $names = explode('.', Route::current()->getName());
+        return view('agency.'.Arr::last($names));
+    }
+
+    /**
+     * createConfirm
+     *
+     * @param AgencyStoreRequest $request
+     * @return View
+     * @throws \Throwable
+     */
+    public function createConfirm(AgencyStoreRequest $request)
+    {
+
+        Renderer::set('request', $request);
         $names = explode('.', Route::current()->getName());
 
-        return view('agency.'.Arr::last($names), ['agency' => $agency]);
+        return view('agency.'.Arr::last($names));
+    }
+
+    /**
+     * updateConfirm
+     *
+     * @param AgencyUpdateRequest $request
+     * @return View
+     * @throws \Throwable
+     */
+    public function updateConfirm(AgencyUpdateRequest $request)
+    {
+
+        Renderer::set('request', $request);
+        $names = explode('.', Route::current()->getName());
+
+        return view('agency.'.Arr::last($names));
     }
 
     /**

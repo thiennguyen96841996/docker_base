@@ -41,6 +41,10 @@ Route::middleware('auth')->name('admin.')->group(function () {
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     Route::namespace('App\Admin\Agency\Controller')->group(function () {
         Route::resource('agency', 'AgencyController');
+        Route::post('agency/create', 'AgencyController@create')->name('agency.create');
+        Route::put('agency/{agency}/edit', 'AgencyController@edit')->name('agency.edit');
+        Route::match(['get', 'post'],'agency/create_confirm', 'AgencyController@createConfirm')->name('agency.createConfirm');
+        Route::match(['get', 'post'],'agency/update_confirm', 'AgencyController@updateConfirm')->name('agency.updateConfirm');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Sample
