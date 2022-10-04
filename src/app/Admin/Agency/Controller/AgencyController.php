@@ -1,7 +1,6 @@
 <?php
 namespace App\Admin\Agency\Controller;
 
-use App\Admin\Agency\Request\AgencyRequest;
 use App\Admin\Agency\Request\AgencyStoreRequest;
 use App\Admin\Agency\Request\AgencyUpdateRequest;
 use App\Common\Agency\Service\AgencyService;
@@ -101,15 +100,15 @@ class AgencyController extends AbsController
      */
     public function edit(Request $request, string $id): View
     {
-        if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
+        if (empty($agency = $this->agencyService->getViewModel(['id' => $id]))) {
             abort(404);
         }
 
-        if (empty($request->all())) {
-            Renderer::set('agency', $agency);
-        } else {
-            Renderer::set('agency', $request->all());
+        if (!empty($request->all())) {
+            $agency = $this->agencyService->convertArrayToViewModel($request->all());
+            $agency->id = $id;
         }
+        Renderer::set('agency', $agency);
 
         $names = explode('.', Route::current()->getName());
         return view('agency.'.Arr::last($names));

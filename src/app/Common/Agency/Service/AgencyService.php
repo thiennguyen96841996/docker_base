@@ -4,7 +4,9 @@ namespace App\Common\Agency\Service;
 use App\Common\Agency\ViewModel\AgencyViewModel;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\Repository\ViewModelRepositoryTrait;
+use App\Common\View\Contract\ViewModel as ViewModelContract;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use App\Common\Agency\Contract\AgencyRepository as AgencyRepositoryContract;
@@ -133,6 +135,17 @@ class AgencyService
         $collection = $this->getCollection($searchConditions);
 
         return $collection->count() === 1 ? $this->makeViewModel($collection->first()): null;
+    }
+
+    /**
+     * Convert array to viewModel
+     *
+     * @param array $param
+     * @return AgencyViewModel|null
+     */
+    public function convertArrayToViewModel(array $param): ?AgencyViewModel
+    {
+        return $this->makeViewModel(Agency::make($param));
     }
 
     /**
