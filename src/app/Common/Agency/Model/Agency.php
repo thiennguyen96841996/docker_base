@@ -8,7 +8,7 @@ use App\Common\Database\Definition\DatabaseDefs;
 use Illuminate\Support\Arr;
 
 /**
- * 管理ユーザー情報のモデル。
+ * Agency情報のモデル。
  * @package \App\Common\Sample
  *
  * @method \Illuminate\Database\Eloquent\Builder whereMultiConditions(array $searchConditions)

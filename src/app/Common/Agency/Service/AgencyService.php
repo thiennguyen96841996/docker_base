@@ -12,8 +12,8 @@ use App\Common\Agency\Model\Agency;
 use App\Common\Database\RepositoryConnection;
 
 /**
- * 企業ユーザー情報に関連する処理を行うクラス。
- * @package \App\Common\Sample
+ * Agency情報に関連する処理を行うクラス。
+ * @package \App\Common\Agency
  */
 class AgencyService
 {
@@ -36,7 +36,7 @@ class AgencyService
     }
 
     /**
-     * 検索条件に合致したデータを持つSampleモデルのコレクションを取得する。
+     * 検索条件に合致したデータを持つAgencyモデルのコレクションを取得する。
      * @param  array<string, mixed> $searchConditions
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -58,7 +58,7 @@ class AgencyService
     }
 
     /**
-     * 検索条件に合致したデータを持つSampleモデルをページネーターとして取得する。
+     * 検索条件に合致したデータを持つAgencyモデルをページネーターとして取得する。
      * @param  array<string, mixed> $searchConditions
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
@@ -70,7 +70,7 @@ class AgencyService
     }
 
     /**
-     * 単一の管理ユーザー情報を登録する。
+     * 単一のAgency情報を登録する。
      * @param  array $params
      * @return \App\Common\Agency\Model\Agency
      * @throws \Throwable
@@ -83,7 +83,7 @@ class AgencyService
     }
 
     /**
-     * 単一の管理ユーザー情報を更新する。
+     * 単一のAgency情報を更新する。
      * @param  \App\Common\Agency\Model\Agency $agency
      * @param  array<string, mixed> $params
      * @return void
@@ -97,7 +97,7 @@ class AgencyService
     }
 
     /**
-     * 単一の管理ユーザー情報を削除する。
+     * 単一のAgency情報を削除する。
      * @param  \App\Common\Agency\Model\Agency $agency
      * @return void
      * @throws \Throwable

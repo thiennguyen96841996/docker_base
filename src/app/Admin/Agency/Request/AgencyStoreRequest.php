@@ -4,14 +4,11 @@ namespace App\Admin\Agency\Request;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
-use Illuminate\Validation\Rules\Password;
 use App\Common\Agency\Model\Agency;
-use App\Common\Database\Definition\AvailableStatus;
 
 /**
- * 管理ユーザー情報を登録する際のバリデーションを行うクラス。
- * @package \App\Admin\AdminUser
+ * Agency情報を登録する際のバリデーションを行うクラス。
+ * @package \App\Admin\Agency
  */
 class AgencyStoreRequest extends FormRequest
 {
