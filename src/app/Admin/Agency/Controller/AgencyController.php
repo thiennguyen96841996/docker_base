@@ -75,11 +75,11 @@ class AgencyController extends AbsController
     /**
      * show
      *
-     * @param string $id
+     * @param int $id
      * @return View
      * @throws \Throwable
      */
-    public function show(string $id): View
+    public function show(int $id): View
     {
         if (empty($agency = $this->agencyService->getViewModel(['id' => $id]))) {
             abort(404);
@@ -94,11 +94,11 @@ class AgencyController extends AbsController
      * edit
      *
      * @param Request $request
-     * @param string $id
+     * @param int $id
      * @return View
      * @throws \Throwable
      */
-    public function edit(Request $request, string $id): View
+    public function edit(Request $request, int $id): View
     {
         if (empty($agency = $this->agencyService->getViewModel(['id' => $id]))) {
             abort(404);
@@ -150,11 +150,11 @@ class AgencyController extends AbsController
      * update
      *
      * @param AgencyUpdateRequest $request
-     * @param string $id
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
-    public function update(AgencyUpdateRequest $request, string $id): \Illuminate\Http\RedirectResponse
+    public function update(AgencyUpdateRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
         if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
             abort(404);
@@ -167,11 +167,11 @@ class AgencyController extends AbsController
     /**
      * destroy
      *
-     * @param $id
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
-    public function destroy(string $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
             abort(404);
