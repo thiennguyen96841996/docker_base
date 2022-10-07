@@ -52,6 +52,9 @@ class AgencyController extends AbsController
      */
     public function create(Request $request): View
     {
+        if (!empty($request->all())) {
+            Renderer::set('agency', $request->all());
+        }
         $names = explode('.', Route::current()->getName());
         return view('agency.'.Arr::last($names));
     }
@@ -72,13 +75,13 @@ class AgencyController extends AbsController
     /**
      * show
      *
-     * @param string $id
+     * @param int $id
      * @return View
      * @throws \Throwable
      */
-    public function show(string $id): View
+    public function show(int $id): View
     {
-        if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
+        if (empty($agency = $this->agencyService->getViewModel(['id' => $id]))) {
             abort(404);
         }
         Renderer::set('agency', $agency);
@@ -90,29 +93,68 @@ class AgencyController extends AbsController
     /**
      * edit
      *
-     * @param string $id
+     * @param Request $request
+     * @param int $id
      * @return View
+     * @throws \Throwable
      */
-    public function edit(string $id): View
+    public function edit(Request $request, int $id): View
     {
-        if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
+        if (empty($agency = $this->agencyService->getViewModel(['id' => $id]))) {
             abort(404);
         }
+
+        if (!empty($request->all())) {
+            $agency = $this->agencyService->convertArrayToViewModel($request->all());
+            $agency->id = $id;
+        }
         Renderer::set('agency', $agency);
+
+        $names = explode('.', Route::current()->getName());
+        return view('agency.'.Arr::last($names));
+    }
+
+    /**
+     * createConfirm
+     *
+     * @param AgencyStoreRequest $request
+     * @return View
+     * @throws \Throwable
+     */
+    public function createConfirm(AgencyStoreRequest $request)
+    {
+
+        Renderer::set('request', $request);
         $names = explode('.', Route::current()->getName());
 
-        return view('agency.'.Arr::last($names), ['agency' => $agency]);
+        return view('agency.'.Arr::last($names));
+    }
+
+    /**
+     * updateConfirm
+     *
+     * @param AgencyUpdateRequest $request
+     * @return View
+     * @throws \Throwable
+     */
+    public function updateConfirm(AgencyUpdateRequest $request)
+    {
+
+        Renderer::set('request', $request);
+        $names = explode('.', Route::current()->getName());
+
+        return view('agency.'.Arr::last($names));
     }
 
     /**
      * update
      *
      * @param AgencyUpdateRequest $request
-     * @param string $id
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
-    public function update(AgencyUpdateRequest $request, string $id): \Illuminate\Http\RedirectResponse
+    public function update(AgencyUpdateRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
         if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
             abort(404);
@@ -125,11 +167,11 @@ class AgencyController extends AbsController
     /**
      * destroy
      *
-     * @param $id
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
-    public function destroy(string $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         if (empty($agency = $this->agencyService->getModel(['id' => $id]))) {
             abort(404);

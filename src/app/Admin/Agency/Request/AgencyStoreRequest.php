@@ -4,14 +4,11 @@ namespace App\Admin\Agency\Request;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
-use Illuminate\Validation\Rules\Password;
 use App\Common\Agency\Model\Agency;
-use App\Common\Database\Definition\AvailableStatus;
 
 /**
- * 管理ユーザー情報を登録する際のバリデーションを行うクラス。
- * @package \App\Admin\AdminUser
+ * Agency情報を登録する際のバリデーションを行うクラス。
+ * @package \App\Admin\Agency
  */
 class AgencyStoreRequest extends FormRequest
 {
@@ -31,6 +28,17 @@ class AgencyStoreRequest extends FormRequest
      */
     public function validator(Factory $factory): Validator
     {
+        list($controller, $method) = explode('@', \Route::currentRouteAction());
+
+        switch ($method) {
+            case 'store':
+            case 'createConfirm':
+                $this->redirect = route('admin.agency.create');
+                break;
+            default:
+                break;
+        }
+
         $validator = $factory->make(
             $this->validationData(),
             $this->container->call([$this, 'rules']),
@@ -66,7 +74,7 @@ class AgencyStoreRequest extends FormRequest
         return [
             'name'         => [ 'required', 'string', 'max:50' ],
             'address'      => [ 'required', 'string', 'max:255' ],
-            'tel'          => [ 'required', 'string', 'max:15' ],
+            'tel'          => [ 'required', 'tel' ],
         ];
     }
 
@@ -78,7 +86,9 @@ class AgencyStoreRequest extends FormRequest
     {
         // メッセージはlang下のファイルで管理する。
         // 上書きしたいメッセージがある場合にのみ設定すること。
-        return [];
+        return [
+            'tel.tel' => 'The :attribute field is unvalid telephone'
+        ];
     }
 
     /**

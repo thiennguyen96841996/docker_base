@@ -8,4 +8,5 @@
     <label>Name:</label><p>{{ $agency->name }}</p>
     <label>Tel:</label><p>{{ $agency->tel }}</p>
     <label>Address:</label><p>{{ $agency->address }}</p>
+    <a href="{{ route('admin.agency.edit', ['agency' => $agency->id]) }}">edit</a>
 @stop

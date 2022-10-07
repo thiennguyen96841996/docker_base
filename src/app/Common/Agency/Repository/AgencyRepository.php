@@ -19,7 +19,7 @@ class AgencyRepository implements AgencyRepositoryContract
     use RepositoryConnection;
 
     /**
-     * 検索条件に合致したデータを持つSampleモデルのコレクションを取得する。
+     * 検索条件に合致したデータを持つAgencyモデルのコレクションを取得する。
      * @param  array<string, mixed> $searchConditions
      * @param  array<string, mixed> $selectColumns
      * @return \Illuminate\Database\Eloquent\Collection
@@ -30,7 +30,7 @@ class AgencyRepository implements AgencyRepositoryContract
     }
 
     /**
-     * 検索条件に合致したデータを持つSampleモデルをページネーターとして取得する。
+     * 検索条件に合致したデータを持つAgencyモデルをページネーターとして取得する。
      * @param  array<string, mixed> $searchConditions
      * @param  array<string, mixed> $selectColumns
      * @return \Illuminate\Pagination\LengthAwarePaginator
@@ -69,7 +69,7 @@ class AgencyRepository implements AgencyRepositoryContract
     }
 
     /**
-     * 単一の管理ユーザー情報を更新する。
+     * 単一のAgency情報を更新する。
      * @param  array<string, mixed> $params
      * @param  \App\Common\Agency\Model\Agency $agency
      * @return void
@@ -82,7 +82,7 @@ class AgencyRepository implements AgencyRepositoryContract
     }
 
     /**
-     * 単一の管理ユーザー情報を削除する。
+     * 単一のAgency情報を削除する。
      * @param  \App\Common\Agency\Model\Agency $Sample
      * @return void
      * @throws \Throwable

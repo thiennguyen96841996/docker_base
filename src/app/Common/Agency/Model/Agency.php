@@ -3,20 +3,18 @@ namespace App\Common\Agency\Model;
 
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use App\Common\Database\Definition\DatabaseDefs;
 use Illuminate\Support\Arr;
 
 /**
- * 管理ユーザー情報のモデル。
+ * Agency情報のモデル。
  * @package \App\Common\Sample
  *
  * @method \Illuminate\Database\Eloquent\Builder whereMultiConditions(array $searchConditions)
  */
 class Agency extends Model
 {
-    use SoftDeletes;
 
     /**
      * テーブル名の定義。
