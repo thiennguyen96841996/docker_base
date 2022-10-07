@@ -2,7 +2,7 @@
 namespace App\Common\Repository;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use App\Common\View\Contract\ViewModel as ViewModelContract;
 
@@ -41,8 +41,8 @@ trait ViewModelRepositoryTrait
     /**
      * ModelオブジェクトのコレクションからViewModelオブジェクトのコレクションを作成する。
      *
-     * @param  \Illuminate\Support\Collection $models Modelクラスのコレクション
-     * @return \Illuminate\Support\Collection|null ViewModelContractを実装するクラスのコレクション or null
+     * @param  \Illuminate\Database\Eloquent\Collection $models Modelクラスのコレクション
+     * @return \Illuminate\Database\Eloquent\Collection|null ViewModelContractを実装するクラスのコレクション or null
      */
     protected function makeViewModels(Collection $models): ?Collection
     {
@@ -57,7 +57,8 @@ trait ViewModelRepositoryTrait
             $viewModel->setAttributes($model);
             $viewModels[] = $viewModel;
         }
-        return collect($viewModels);
+
+        return Collection::make($viewModels);
     }
 
     /**

@@ -23,6 +23,7 @@
 {{-- Javascript --}}
 <script type="application/javascript" src="{{ busting('/dist/js/vendor.bundle.js', 'admin') }}"></script>
 <script type="application/javascript" src="{{ busting('/dist/js/app.bundle.js', 'admin') }}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 @section ('JAVASCRIPT')
 @show
 </body>

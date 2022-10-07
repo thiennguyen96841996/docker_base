@@ -23,10 +23,9 @@ class CreateClientUsersTable extends Migration
                     $table->engine = 'InnoDB';
                     $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
                     $table->integer('agency_id');
-                    $table->string('name', 50);
-                    $table->string('name_kana', 100);
+                    $table->binary('name');
                     $table->string('email')->unique();
-                    $table->string('tel', 15)->nullable();
+                    $table->binary('tel');
                     $table->string('password');
                     $table->rememberToken();
                     $table->char('is_available', 2);

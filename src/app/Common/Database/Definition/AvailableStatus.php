@@ -15,14 +15,14 @@ enum AvailableStatus: string
 
     /**
      * 定義値に対応した名称を取得する。
-     * @param  \App\Common\Database\Definition\AvailableStatus $value
+     * @param  string $value
      * @return string
      */
-    public static function getName(AvailableStatus $value): string
+    public static function getName(string $value): string
     {
         return match ($value) {
-            AvailableStatus::AVAILABLE     => '利用中',
-            AvailableStatus::NOT_AVAILABLE => '利用停止',
+            AvailableStatus::AVAILABLE->value     => 'Available',
+            AvailableStatus::NOT_AVAILABLE->value => 'Unavailable',
         };
     }
 

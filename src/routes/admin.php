@@ -43,6 +43,16 @@ Route::middleware('auth')->name('admin.')->group(function () {
         Route::resource('agency', 'AgencyController');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    // Client
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Route::namespace('App\Admin\ClientUser\Controller')->group(function () {
+        Route::resource('clientUser', 'ClientUserController');
+        Route::post('clientUser/create', 'ClientUserController@create')->name('clientUser.create');
+        Route::put('clientUser/{clientUser}/edit', 'ClientUserController@edit')->name('clientUser.edit');
+        Route::match(['get', 'post'], 'clientUser/create/confirm', 'ClientUserController@createConfirm')->name('clientUser.createConfirm');
+        Route::match(['get', 'post', 'put'], 'clientUser/{clientUser}/edit/confirm', 'ClientUserController@editConfirm')->name('clientUser.editConfirm');
+    });
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Sample
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     Route::namespace('App\Admin\Sample\Controller')->prefix('sample')->group(function () {

@@ -1,14 +1,16 @@
 <?php
 namespace App\Common\ClientUser\Service;
 
+use Illuminate\Support\Facades\DB;
+use App\Common\Database\MysqlCryptorTrait;
+use App\Common\ClientUser\Model\ClientUser;
+use Illuminate\Database\Eloquent\Collection;
+use App\Common\Database\RepositoryConnection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\Repository\ViewModelRepositoryTrait;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
+use App\Common\ClientUser\ViewModel\ClientUserViewModel;
 use App\Common\ClientUser\Contract\ClientUserRepository as ClientUserRepositoryContract;
-use App\Common\ClientUser\Model\ClientUser;
-use Konohini\Platform\Employee\Models\Employee;
 
 /**
  * 企業ユーザー情報に関連する処理を行うクラス。
@@ -16,7 +18,7 @@ use Konohini\Platform\Employee\Models\Employee;
  */
 class ClientUserService
 {
-    use ViewModelRepositoryTrait;
+    use RepositoryConnection, ViewModelRepositoryTrait, MysqlCryptorTrait;
     /**
      * ClientUserモデルのデータ操作を扱うクラス。
      * @var \App\Common\ClientUser\Repository\ClientUserRepository
@@ -30,6 +32,7 @@ class ClientUserService
     public function __construct(ClientUserRepositoryContract $repository)
     {
         $this->repository = $repository;
+        $this->setViewModel(new ClientUserViewModel());
     }
 
     /**
@@ -46,7 +49,7 @@ class ClientUserService
      * 検索条件に合致した単一のデータを取得して返す。
      *
      * @param  array $searchConditions 検索条件の配列
-     * @return \App\Common\ClientUSer\Model\ClientUSer|null ClientUserオブジェクト or null
+     * @return \App\Common\ClientUser\Model\ClientUser|null ClientUserオブジェクト or null
      * @throws \Throwable
      */
     public function getModel(array $searchConditions): ?ClientUser
@@ -62,7 +65,7 @@ class ClientUserService
     public function getPaginator(array $searchConditions): LengthAwarePaginator
     {
         $paginator = $this->repository->fetchAsPaginator($searchConditions)->appends($searchConditions);
-        $paginator->setCollection($paginator->getCollection()->keyBy('id'));
+        $paginator->setCollection($paginator->getCollection());
         return $paginator;
     }
 
@@ -123,12 +126,12 @@ class ClientUserService
      * ViewModelオブジェクトのコレクションとしてデータを取得する。
      *
      * @param  array $searchConditions 検索条件の配列
-     * @return \Illuminate\Support\Collection|null ViewModelContractを実装するクラスのコレクション or null
+     * @return \Illuminate\Database\Eloquent\Collection|null ViewModelContractを実装するクラスのコレクション or null
      * @throws \Throwable
      */
     public function getViewModelCollection(array $searchConditions = []): ?Collection
     {
-        return $this->makeViewModels($this->fetchAll($searchConditions));
+        return $this->makeViewModels($this->getCollection($searchConditions));
     }
 
     /**
@@ -139,11 +142,24 @@ class ClientUserService
      * @return \App\Common\ClientUser\ViewModel\ClientUserViewModel|null ClientUserViewModelオブジェクト or null
      * @throws \Throwable
      */
-    public function getViewModel(array $searchConditions, bool $writeConnection = false): ?\App\Common\ViewModel\ClientUserViewModel
+    public function getViewModel(array $searchConditions): ?ClientUserViewModel
     {
-        $collection = $this->fetchAll($searchConditions);
+        $collection = $this->getCollection($searchConditions);
 
         return $collection->count() === 1 ? $this->makeViewModel($collection->first()): null;
+    }
+
+    /**
+     * 単一のViewModelオブジェクトとしてデータを取得する。
+     *
+     * @param \App\Common\ClientUser\Model\ClientUser $clientUser
+     * @param bool $writeConnection
+     * @return \App\Common\ClientUser\ViewModel\ClientUserViewModel|null ClientUserViewModelオブジェクト or null
+     * @throws \Throwable
+     */
+    public function convertoToViewModel(array $array): ?ClientUserViewModel
+    {
+        return $this->makeViewModel(ClientUser::make($array));
     }
 
     /**
@@ -156,16 +172,18 @@ class ClientUserService
      */
     public function getViewModelPaginator(string $path, int $page, array $searchConditions = []): LengthAwarePaginator
     {
-        $builder =  ClientUser::on($this->getConnection(DatabaseDefs::CONNECTION_NAME_READ))
+        /** @var \App\Common\ClientUser\Model\ClientUser $builder */
+        $builder = ClientUser::on($this->getConnection(DatabaseDefs::CONNECTION_NAME_READ))
             ->addSelect([
                 ClientUser::TABLE_NAME.'.*',
             ])
-            ->orderBy('updated_at', 'desc')
-        ;
+            ->orderBy('updated_at', 'desc');
 
-        /** @var \App\Common\ClientUser\Model\ClientUser $builder */
+        /** @var \Illuminate\Pagination\LengthAwarePaginator $paginator */
         $paginator = $builder->whereMultiConditions($searchConditions)->paginate($page);
+        $collection = $this->makeViewModels($paginator->getCollection());
+        $paginator->setCollection($collection);
 
-        return $paginator->setCollection($paginator->getCollection());
+        return $paginator;
     }
 }
