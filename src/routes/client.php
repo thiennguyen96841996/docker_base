@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -11,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware('guest')->name('client.')->group(function() {
+
+Route::middleware('guest')->name('client.')->group(function () {
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Login
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -35,6 +37,14 @@ Route::middleware('auth')->name('client.')->group(function () {
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     Route::namespace('App\Client\Home\Controller')->group(function () {
         Route::get('/', 'HomeController@index')->name('home.index');
+    });
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    // News
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Route::namespace('App\Client\News\Controller')->group(function () {
+        Route::resource('news', 'NewsController');
+        Route::post('news/create/confirm', 'NewsController@createConfirm')->name('news.createConfirm');
+        Route::match(['post', 'put'], 'news/{news}/edit/confirm', 'NewsController@updateConfirm')->name('news.updateConfirm');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Sample

@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Client\App;
 
 use App\Common\App\Contract\AppRegistrant as AppRegistrantContract;
 use App\Common\Sample\Provider\ServiceProvider as SampleServiceProvider;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
+use App\Common\News\Provider\ServiceProvider as NewsServiceProvider;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -26,7 +28,8 @@ class AppRegistrant implements AppRegistrantContract
      * @var array
      */
     private $providers = [
-        SampleServiceProvider::class
+        SampleServiceProvider::class,
+        NewsServiceProvider::class
     ];
 
     /**
@@ -46,7 +49,7 @@ class AppRegistrant implements AppRegistrantContract
     public function register(): void
     {
         $this->registerApplicationProviders();
-//        $this->registerRouteMiddleware();
+        //        $this->registerRouteMiddleware();
 
         Validator::extend('tel',      '\App\Common\Validation\TelValidator@validateTel');
     }
