@@ -41,9 +41,8 @@ class PostController extends AbsController
     {
         Renderer::setPaginator($this->postService->getViewModelPaginator(url()->current(),10, $request->all()));
         Renderer::setSearchConditions($request->all());
-        $names = explode('.', Route::current()->getName());
 
-        return view('post.'.Arr::last($names));
+        return view('post.'.Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -57,8 +56,7 @@ class PostController extends AbsController
             Renderer::set('post', $request->all());
         }
 
-        $names = explode('.', Route::current()->getName());
-        return view('post.'.Arr::last($names));
+        return view('post.'.Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -71,6 +69,7 @@ class PostController extends AbsController
     public function store(PostStoreRequest $request): \Illuminate\Http\RedirectResponse
     {
         $post = $this->postService->storeModel($request->all());
+
         return redirect()->route('client.post.show', ['post' => $post->id])->with('status', 'store success');
     }
 
@@ -87,9 +86,8 @@ class PostController extends AbsController
             abort(404);
         }
         Renderer::set('post', $post);
-        $names = explode('.', Route::current()->getName());
 
-        return view('post.'.Arr::last($names), ['post' => $post]);
+        return view('post.'.Arr::last(explode('.', Route::current()->getName())), ['post' => $post]);
     }
 
     /**
@@ -110,9 +108,8 @@ class PostController extends AbsController
             $post->id = $id;
         }
         Renderer::set('post', $post);
-        $names = explode('.', Route::current()->getName());
 
-        return view('post.'.Arr::last($names));
+        return view('post.'.Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -124,10 +121,8 @@ class PostController extends AbsController
      */
     public function createConfirm(PostStoreRequest $request)
     {
-        Renderer::set('request', $request);
-        $names = explode('.', Route::current()->getName());
-
-        return view('post.'.Arr::last($names));
+        // Renderer::set('request', $request);
+        return view('post.'.Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -140,10 +135,8 @@ class PostController extends AbsController
     public function updateConfirm(PostUpdateRequest $request)
     {
 
-        Renderer::set('request', $request);
-        $names = explode('.', Route::current()->getName());
-
-        return view('post.'.Arr::last($names));
+        // Renderer::set('request', $request);
+        return view('post.'.Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
