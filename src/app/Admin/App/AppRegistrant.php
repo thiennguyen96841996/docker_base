@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Admin\App;
 
 use App\Common\AdminUser\Service\AdminUserService as AdminUserServiceProvider;
@@ -7,6 +8,7 @@ use App\Common\Sample\Provider\ServiceProvider as SampleServiceProvider;
 use App\Common\Agency\Provider\ServiceProvider as AgencyServiceProvider;
 use App\Common\ClientUser\Provider\ServiceProvider as ClientUserServiceProvider;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
+use App\Common\Customer\Provider\ServiceProvider as CustomerServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
@@ -31,7 +33,8 @@ class AppRegistrant implements AppRegistrantContract
     private $providers = [
         SampleServiceProvider::class,
         AgencyServiceProvider::class,
-        ClientUserServiceProvider::class
+        ClientUserServiceProvider::class,
+        CustomerServiceProvider::class
     ];
 
     /**

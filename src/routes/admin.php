@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -11,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware('guest')->name('admin.')->group(function() {
+
+Route::middleware('guest')->name('admin.')->group(function () {
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Login
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -43,8 +45,8 @@ Route::middleware('auth')->name('admin.')->group(function () {
         Route::resource('agency', 'AgencyController');
         Route::post('agency/create', 'AgencyController@create')->name('agency.create');
         Route::put('agency/{agency}/edit', 'AgencyController@edit')->name('agency.edit');
-        Route::match(['get', 'post'],'agency/create/confirm', 'AgencyController@createConfirm')->name('agency.createConfirm');
-        Route::match(['get', 'post', 'put'],'agency/{agency}/edit/confirm', 'AgencyController@updateConfirm')->name('agency.updateConfirm');
+        Route::match(['get', 'post'], 'agency/create/confirm', 'AgencyController@createConfirm')->name('agency.createConfirm');
+        Route::match(['get', 'post', 'put'], 'agency/{agency}/edit/confirm', 'AgencyController@updateConfirm')->name('agency.updateConfirm');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Client
@@ -55,6 +57,14 @@ Route::middleware('auth')->name('admin.')->group(function () {
         Route::put('clientUser/{clientUser}/edit', 'ClientUserController@edit')->name('clientUser.edit');
         Route::match(['get', 'post'], 'clientUser/create/confirm', 'ClientUserController@createConfirm')->name('clientUser.createConfirm');
         Route::match(['get', 'post', 'put'], 'clientUser/{clientUser}/edit/confirm', 'ClientUserController@editConfirm')->name('clientUser.editConfirm');
+    });
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    // Customer
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Route::namespace('App\Admin\CustomerUser\Controller')->group(function () {
+        Route::resource('customerUser', 'CustomerUserController');
+        Route::put('customerUser/{customerUser}/edit', 'CustomerUserController@edit')->name('customerUser.edit');
+        Route::match(['get', 'post', 'put'], 'customerUser/{customerUser}/edit/confirm', 'CustomerUserController@editConfirm')->name('customerUser.editConfirm');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Sample

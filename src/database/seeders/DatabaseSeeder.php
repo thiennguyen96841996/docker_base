@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             \Database\Seeders\Partial\AdminUserSeeder::class,
             \Database\Seeders\Partial\ClientUserSeeder::class,
+            \Database\Seeders\Partial\CustomerUserSeeder::class,
             \Database\Seeders\Partial\SampleSeeder::class,
         ]);
     }
