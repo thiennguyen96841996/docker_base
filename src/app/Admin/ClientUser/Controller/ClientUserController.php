@@ -1,6 +1,7 @@
 <?php
 namespace App\Admin\ClientUser\Controller;
 
+use App\Admin\ClientUser\Notifications\SendPassword;
 use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -94,7 +95,14 @@ class ClientUserController extends AbsController
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $clientUser = $this->clientUserService->storeModel($request->all());
+        $storeData = $request->all();
+        $storeData['password'] = makeRandomStrForPassword();
+        $clientUser = $this->clientUserService->storeModel($storeData);
+
+        // Password send mail
+        $clientViewModel = $this->clientUserService->getViewModel(['id' => $clientUser->id]);
+        $clientUser->notify(new SendPassword($clientViewModel, $storeData['password']));
+
         return redirect()->route('admin.clientUser.show', ['clientUser' => $clientUser->id])->with('status', 'store success');
     }
 
@@ -135,7 +143,7 @@ class ClientUserController extends AbsController
             $clientUser->id = $id;
             $isBack = true;
         }
-        
+
         $agencies = $this->agencyService->getViewModelCollection();
         Renderer::set('isBack', $isBack);
         Renderer::set('clientUser', $clientUser);
