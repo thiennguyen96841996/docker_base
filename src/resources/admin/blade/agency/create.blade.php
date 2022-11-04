@@ -3,7 +3,7 @@
 @php $agency = Renderer::get('agency') @endphp
 
 @section('CONTENTS')
-    @include('include.error-msg')
+    @include('include.msg.error-msg')
     <h3>Agency create</h3>
     <form method="POST" action="{{ route('admin.agency.createConfirm') }}">
         @csrf

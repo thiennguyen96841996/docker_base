@@ -6,7 +6,7 @@ $isBack = Renderer::get('isBack');
 @endphp
 
 @section('CONTENTS')
-    @include('include.error-msg')
+    @include('include.msg.error-msg')
 
 
     <h3>Client edit</h3>

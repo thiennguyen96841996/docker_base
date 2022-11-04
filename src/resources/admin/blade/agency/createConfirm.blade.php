@@ -3,7 +3,7 @@
 {{-- Contents --}}
 @section ('CONTENTS')
     {{-- エラーメッセージ --}}
-    @include('include.status-msg')
+    @include('include.msg.status-msg')
 
     <h3>Agency confirm</h3>
     <label>Name:</label><p>{{ request()->input('name') }}</p>

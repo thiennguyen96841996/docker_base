@@ -15,17 +15,34 @@
     {{-- CSS --}}
     @section ('CSS')
     @show
+    <script type="application/javascript" src="{{ busting('/dist/js/vendor.bundle.js', 'admin') }}"></script>
+    <script type="application/javascript" src="{{ busting('/dist/js/app.bundle.js', 'admin') }}"></script>
 </head>
 <body>
-{{-- Contents --}}
-@yield ('CONTENTS')
+@if (!auth()->user())
+    
+    {{-- Login Page Content --}}
+    @yield ('LOGIN-PAGE-CONTENTS')
+@else
+    <div class="wrapper">
+        <!-- sidebar section -->
+        @include('include.layout.sidebar')
+        <!-- end of sidebar section -->
+        <div id="body">
+            <!-- navbar navigation component -->
+            @include('include.layout.navbar')
+            <!-- end of navbar navigation -->
+            <div class="content">
+                @yield ('CONTENTS')
+            </div>
+        </div>
+    </div>
+@endif
 
 {{-- Javascript --}}
-<script type="application/javascript" src="{{ busting('/dist/js/vendor.bundle.js', 'admin') }}"></script>
-<script type="application/javascript" src="{{ busting('/dist/js/app.bundle.js', 'admin') }}"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="application/javascript" src="{{ busting('/vendor/jquery/jquery.min.js', 'admin') }}"></script>
+<script type="application/javascript" src="{{ busting('/js/main.js', 'admin') }}"></script>
 @section ('JAVASCRIPT')
 @show
 </body>
 </html>
-

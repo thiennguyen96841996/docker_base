@@ -1,5 +1,7 @@
 @extends ('main')
 
 @section('CONTENTS')
-    {{ 'Admin Home.' }}
+<div>
+    <h3>This is home page</h3>
+</div>
 @stop

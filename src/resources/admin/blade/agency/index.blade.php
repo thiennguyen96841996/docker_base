@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('CONTENTS')
-    @include('include.status-msg')
+    @include('include.msg.status-msg')
 
     <h3>Agency</h3>
     <form method="GET" action="{{ route('admin.agency.index') }}">

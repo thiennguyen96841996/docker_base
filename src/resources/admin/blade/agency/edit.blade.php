@@ -5,7 +5,7 @@
 @endphp
 
 @section('CONTENTS')
-    @include('include.error-msg')
+    @include('include.msg.error-msg')
     <h3>Agency edit</h3>
     <form method="post" action="{{ route('admin.agency.updateConfirm', ['agency' => $agency->id]) }}">
         @csrf

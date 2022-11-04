@@ -5,7 +5,7 @@
 @endphp
 
 @section('CONTENTS')
-    @include('include.error-msg')
+    @include('include.msg.error-msg')
 
     <h3>Client create confirmation</h3>
     <p>Name: {{request()->input('name')}}</p>

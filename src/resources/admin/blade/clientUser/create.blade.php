@@ -6,7 +6,7 @@
 @endphp
 
 @section('CONTENTS')
-    @include('include.error-msg')
+    @include('include.msg.error-msg')
 
     <h3>Client create</h3>
     <form method="POST" action="{{ route('admin.clientUser.createConfirm') }}">
