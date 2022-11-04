@@ -3,6 +3,7 @@ namespace App\Client\Post\Controller;
 
 use App\Client\Post\Request\PostStoreRequest;
 use App\Client\Post\Request\PostUpdateRequest;
+use App\Common\Definition\StatusMessage;
 use App\Common\Post\Service\PostService;
 use App\Common\View\Facades\Renderer;
 use Illuminate\Support\Arr;
@@ -70,7 +71,7 @@ class PostController extends AbsController
     {
         $post = $this->postService->storeModel($request->all());
 
-        return redirect()->route('client.post.show', ['post' => $post->id])->with('status', 'store success');
+        return redirect()->route('client.post.show', ['post' => $post->id])->with('status', StatusMessage::STORE_SUCCESS);
     }
 
     /**
@@ -154,7 +155,7 @@ class PostController extends AbsController
         }
         $this->postService->updateModel($post, $request->all());
 
-        return redirect()->route('client.post.show', ['post' => $id])->with('status', 'update success');
+        return redirect()->route('client.post.show', ['post' => $id])->with('status', StatusMessage::UPDATE_SUCCESS);
     }
 
     /**
@@ -171,6 +172,6 @@ class PostController extends AbsController
         }
         $this->postService->deleteModel($post);
 
-        return redirect()->route('client.post.index')->with('status', 'delete success');
+        return redirect()->route('client.post.index')->with('status', StatusMessage::DELETE_SUCCESS);
     }
 }
