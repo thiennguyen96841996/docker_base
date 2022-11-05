@@ -3,6 +3,7 @@ import type { Configuration } from 'webpack';
 import CopyPlugin from "copy-webpack-plugin";
 
 const MODE = "development";
+const webpack = require("webpack");
 
 const config: Configuration = {
     mode: MODE,

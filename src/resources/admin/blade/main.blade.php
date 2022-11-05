@@ -33,7 +33,9 @@
             @include('include.layout.navbar')
             <!-- end of navbar navigation -->
             <div class="content">
-                @yield ('CONTENTS')
+                <div class="container">
+                    @yield ('CONTENTS')
+                </div>
             </div>
         </div>
     </div>

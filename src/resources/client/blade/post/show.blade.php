@@ -3,7 +3,7 @@
 @php $post = Renderer::get('post') @endphp
 
 @section('CONTENTS')
-    @include('include.status-msg')
+    @include('include.msg.status-msg')
     <h3>Post show</h3>
     <label>Title:</label><p>{{ $post->title }}</p>
     <label>Status:</label><p>{{ $post->status }}</p>

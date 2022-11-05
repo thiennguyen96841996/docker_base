@@ -1,10 +1,8 @@
-    <div class="dataTables_info">{{ Renderer::renderPaginatorTotalLine() }}</div>
 @if ($paginator->hasPages())
     <nav>
-        <ul class="pagination">
-
+        <ul class="pagination d-flex justify-content-center">
             <li class="page-item @if ($paginator->onFirstPage()) disabled @endif">
-                <a class="page-link" href="{{ $paginator->previousPageUrl() }}">前へ</a>
+                <a class="page-link" href="{{ $paginator->previousPageUrl() }}">previous</a>
             </li>
 
             @foreach ($elements as $element)
@@ -30,7 +28,7 @@
             @endforeach
 
             <li class="page-item @if (!$paginator->hasMorePages()) disabled @endif">
-                <a class="page-link" href="{{ $paginator->nextPageUrl() }}">次へ</a>
+                <a class="page-link" href="{{ $paginator->nextPageUrl() }}">next</a>
             </li>
         </ul>
     </nav>

@@ -149,11 +149,11 @@ class AdminUserService
      * ViewModelのデータをPaginatorとして取得する。
      *
      * @param  string $path URLの元になるパス
-     * @param  int $page ページ番号
      * @param  array $searchConditions 検索条件の配列
+     * @param  int $perPage number of records in each page.
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function getViewModelPaginator(string $path, int $page, array $searchConditions = []): LengthAwarePaginator
+    public function getViewModelPaginator(string $path, array $searchConditions = [], int $perPage = 30): LengthAwarePaginator
     {
         $builder =  AdminUser::on($this->getConnection(DatabaseDefs::CONNECTION_NAME_READ))
             ->addSelect([
@@ -163,7 +163,7 @@ class AdminUserService
         ;
 
         /** @var \App\Common\AdminUser\Model\AdminUser $builder */
-        $paginator = $builder->whereMultiConditions($searchConditions)->paginate($page);
+        $paginator = $builder->whereMultiConditions($searchConditions)->paginate($perPage);
 
         return $paginator->setCollection($paginator->getCollection());
     }

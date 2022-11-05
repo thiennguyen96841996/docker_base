@@ -2,7 +2,7 @@
 
  {{-- Contents --}}
  @section ('CONTENTS')
-    @include('include.status-msg')
+    @include('include.msg.status-msg')
     
     <h3>News confirm</h3>
     @if (!empty(request()->input('id')))

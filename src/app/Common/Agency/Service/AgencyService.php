@@ -152,11 +152,11 @@ class AgencyService
      * ViewModelのデータをPaginatorとして取得する。
      *
      * @param  string $path URLの元になるパス
-     * @param  int $page ページ番号
+     * @param  int $perPage number of records in each page.
      * @param  array $searchConditions 検索条件の配列
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function getViewModelPaginator(string $path, int $page, array $searchConditions = []): LengthAwarePaginator
+    public function getViewModelPaginator(string $path, array $searchConditions = [], int $perPage = 30): LengthAwarePaginator
     {
         $builder =  Agency::on($this->getConnection(DatabaseDefs::CONNECTION_NAME_READ))
             ->addSelect([
@@ -166,7 +166,7 @@ class AgencyService
         ;
 
         /** @var \App\Common\Agency\Model\Agency $builder */
-        $paginator = $builder->whereMultiConditions($searchConditions)->paginate($page);
+        $paginator = $builder->whereMultiConditions($searchConditions)->paginate($perPage);
 
         return $paginator->setCollection($paginator->getCollection());
     }

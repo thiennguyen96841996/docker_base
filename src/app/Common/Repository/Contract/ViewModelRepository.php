@@ -33,9 +33,9 @@ interface ViewModelRepository extends ModelRepository
 //     * ViewModelのデータをPaginatorとして取得する。
 //     *
 //     * @param  string $path URLの元になるパス
-//     * @param  int $page ページ番号
+//     * @param  int $perPage number of records in each page.
 //     * @param  array $searchConditions 検索条件の配列
 //     * @return \Illuminate\Pagination\LengthAwarePaginator
 //     */
-//    public function getViewModelPaginator(string $path, int $page, array $searchConditions = []): LengthAwarePaginator;
+//    public function getViewModelPaginator(string $path, int $perPage = 30, array $searchConditions = []): LengthAwarePaginator;
 }

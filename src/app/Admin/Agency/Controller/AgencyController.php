@@ -38,7 +38,7 @@ class AgencyController extends AbsController
      */
     public function index(Request $request): View
     {
-        Renderer::setPaginator($this->agencyService->getViewModelPaginator(url()->current(),10, $request->all()));
+        Renderer::setPaginator($this->agencyService->getViewModelPaginator(url()->current(), $request->all()));
         Renderer::setSearchConditions($request->all());
         $names = explode('.', Route::current()->getName());
 

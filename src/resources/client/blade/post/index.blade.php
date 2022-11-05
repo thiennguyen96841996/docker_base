@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('CONTENTS')
-    @include('include.status-msg')
+    @include('include.msg.status-msg')
 
     <h3>Post</h3>
     <form method="GET" action="{{ route('client.post.index') }}">

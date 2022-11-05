@@ -4,9 +4,6 @@
     </div>
     <ul class="list-unstyled components text-secondary">
         <li>
-            <a href="/"><i class="fas fa-home"></i> Dashboard</a>
-        </li>
-        <li>
             <a href="#authmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-user-shield"></i> TOGGLE SAMPLE</a>
             <ul class="collapse list-unstyled" id="authmenu">
                 <li>
@@ -21,7 +18,10 @@
             <a href="/agency"><i class="fas fa-user-tie"></i> Agencies</a>
         </li>
         <li>
-            <a href="/"><i class="fas fa-user-friends"></i> Users</a>
+            <a href="/clientUser"><i class="fas fa-user-friends"></i> clientUser</a>
+        </li>
+        <li>
+            <a href="/customerUser"><i class="fas fa-user-tie"></i> customerUser</a>
         </li>
     </ul>
 </nav>

@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('CONTENTS')
-    @include('include.status-msg')
+    @include('include.msg.status-msg')
 
     <h3>Client list</h3>
     <form method="GET" action="{{ route('admin.customerUser.index') }}">

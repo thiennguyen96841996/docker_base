@@ -47,7 +47,7 @@ class ClientUserController extends AbsController
      */
     public function index(Request $request): View
     {
-        Renderer::setPaginator($this->clientUserService->getViewModelPaginator(url()->current(),10, $request->all()));
+        Renderer::setPaginator($this->clientUserService->getViewModelPaginator(url()->current(), $request->all()));
         Renderer::setSearchConditions($request->all());
         $names = explode('.', Route::current()->getName());
 

@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('CONTENTS')
-  @include('include.status-msg')
+  @include('include.msg.status-msg')
 
   <h3>News create confirm</h3>
   <label>Title:</label><p>{{ request()->input('title') }}</p>

@@ -5,7 +5,7 @@
 @endphp
 
 @section('CONTENTS')
-    @include('include.status-msg')
+    @include('include.msg.status-msg')
     <h3>Client show</h3>
     <p>Id: {{ $customerUser->id }}</p>
     <p>Name: {{ $customerUser->getName() }}</p>
