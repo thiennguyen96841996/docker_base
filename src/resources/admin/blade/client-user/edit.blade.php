@@ -1,39 +1,42 @@
 @extends('main')
 
 @php 
-    $agencies = Renderer::get('agencies');
-    $clientUser = Renderer::get('clientUser');
+$clientUser = Renderer::get('clientUser');
+$isBack = Renderer::get('isBack');
 @endphp
 
 @section('CONTENTS')
     @include('include.msg.error-msg')
 
-    <h3>Client create</h3>
-    <form method="POST" action="{{ route('admin.clientUser.createConfirm') }}">
+
+    <h3>Client edit</h3>
+    <form method="post" action="{{ route('admin.client-user.updateConfirm', $clientUser->id) }}">
         @csrf
-        <label>Name:</label><input type="text" name="name" value="{{ Renderer::oldOrElse('name', $clientUser) }}"></br>
-        <label>Email:</label><input type="text" name="email" value="{{ Renderer::oldOrElse('email', $clientUser) }}"></br>
-        <label>Tel:</label><input type="text" name="tel" value="{{ Renderer::oldOrElse('tel', $clientUser) }}"></br>
-        <label>Status:</label>
+        @method('PUT')
+        <label>ID</label>{{ $clientUser->id }}
+        <input type="hidden" name="id" value="{{ $clientUser->id }}">
+        <label>Name:</label><input type="text" name="name" value="{{ $isBack ? $clientUser->name : $clientUser->getName() }}">
+        <label>Tel:</label><input type="text" name="tel" value="{{ $isBack ? $clientUser->tel : $clientUser->getTel() }}">
+        <label>Status:
         <select name="is_available">
             @foreach(\App\Common\Database\Definition\AvailableStatus::cases() as $status)
-                @if (!empty($clientUser) && $clientUser['is_available'] == $status->value)
+                @if ($status->value === $clientUser->is_available)
                     <option value="{{$status->value}}" selected>{{\App\Common\Database\Definition\AvailableStatus::getName($status->value)}}</option>
                 @else
                     <option value="{{$status->value}}">{{\App\Common\Database\Definition\AvailableStatus::getName($status->value)}}</option>
                 @endif
             @endforeach
-        </select></br>
+        </select>
         <label>Agency:
         <select name="agency_id">
-            @foreach($agencies as $agency)
-                @if (!empty($clientUser) && $clientUser['agency_id'] == $agency->id)
+            @foreach(Renderer::get('agencies') as $agency)
+                @if ($agency->id == $clientUser->agency_id)
                     <option value="{{$agency->id}}" selected>{{$agency->name}}</option>
                 @else
                     <option value="{{$agency->id}}">{{$agency->name}}</option>
                 @endif
             @endforeach
-        </select></br>
+        </select>
         <input type="submit" value="submit">
     </form>
 @stop

@@ -18,10 +18,13 @@
             <a href="/agency"><i class="fas fa-user-tie"></i> Agencies</a>
         </li>
         <li>
-            <a href="/clientUser"><i class="fas fa-user-friends"></i> clientUser</a>
+            <a href="/client-user"><i class="fas fa-user-friends"></i> Client User</a>
         </li>
         <li>
-            <a href="/customerUser"><i class="fas fa-user-tie"></i> customerUser</a>
+            <a href="/customer-user"><i class="fas fa-user-tie"></i> Customer User</a>
+        </li>
+        <li>
+            <a href="/post"><i class="fas fa-building"></i> Post</a>
         </li>
     </ul>
 </nav>

@@ -14,6 +14,6 @@
     <p>Address: {{ $customerUser->getAddress() }}</p>
     <p>Birthday: {{ $customerUser->getBirthday() }}</p>
     <p>Gender: {{ $customerUser->getGender() }}</p>
-    <a href="{{ route('admin.customerUser.edit', $customerUser->id) }}">Edit</a>
-    <a href="{{ route('admin.customerUser.index', $customerUser->id) }}">Home</a>
+    <a href="{{ route('admin.customer-user.edit', $customerUser->id) }}">Edit</a>
+    <a href="{{ route('admin.customer-user.index', $customerUser->id) }}">Home</a>
 @stop

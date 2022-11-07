@@ -35,7 +35,7 @@ class CustomerUserUpdateRequest extends FormRequest
         switch ($method) {
             case 'update':
             case 'updateConfirm':
-                $this->redirect = route('admin.customerUser.edit', $this->input('id'));
+                $this->redirect = route('admin.customer-user.edit', $this->input('id'));
                 break;
             default:
                 break;

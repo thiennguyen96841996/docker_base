@@ -115,6 +115,8 @@ class Post extends Model
                 'status' => !empty($value) ? $builder->where($this->qualifyColumn('status'), '=', $value) : null,
                 // address
                 'address' => !empty($value) ? $builder->where($this->qualifyColumn('address'),'=', $value) : null,
+                // client_id
+                'client_id' => !empty($value) ? $builder->where($this->qualifyColumn('client_id'),'=', $value) : null,
                 default => null,
             };
         }

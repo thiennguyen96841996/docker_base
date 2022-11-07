@@ -1,21 +1,19 @@
 <?php
-namespace App\Client\Post\Controller;
+namespace App\Admin\Post\Controller;
 
-use App\Client\Post\Request\PostStoreRequest;
-use App\Client\Post\Request\PostUpdateRequest;
-use App\Common\Definition\StatusMessage;
-use App\Common\Post\Service\PostService;
-use App\Common\View\Facades\Renderer;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
-use App\Common\Http\Controller\AbsController;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Storage;
+use App\Common\View\Facades\Renderer;
+use Illuminate\Support\Facades\Route;
+use App\Common\Post\Service\PostService;
+use App\Admin\Post\Request\PostUpdateRequest;
+use App\Common\Definition\StatusMessage;
+use App\Common\Http\Controller\AbsController;
 
 /**
- * Post page。
- * @package \App\Client\Post
+ * Post page in admin site。
+ * @package \App\Admin\Post
  */
 class PostController extends AbsController
 {
@@ -33,7 +31,7 @@ class PostController extends AbsController
     }
 
     /**
-     * index
+     * List post's information
      *
      * @param Request $request
      * @return View
@@ -47,35 +45,7 @@ class PostController extends AbsController
     }
 
     /**
-     * create
-     *
-     * @return View
-     */
-    public function create(Request $request): View
-    {
-        if (!empty($request->all())) {
-            Renderer::set('post', $request->all());
-        }
-
-        return view('post.'.Arr::last(explode('.', Route::current()->getName())));
-    }
-
-    /**
-     * store
-     *
-     * @param PostStoreRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Throwable
-     */
-    public function store(PostStoreRequest $request): \Illuminate\Http\RedirectResponse
-    {
-        $post = $this->postService->storeModel($request->all());
-
-        return redirect()->route('client.post.show', ['post' => $post->id])->with('status', StatusMessage::STORE_SUCCESS);
-    }
-
-    /**
-     * show
+     * Display post's detail
      *
      * @param string $id
      * @return View
@@ -88,62 +58,55 @@ class PostController extends AbsController
         }
         Renderer::set('post', $post);
 
-        return view('post.'.Arr::last(explode('.', Route::current()->getName())), ['post' => $post]);
+        return view('post.'.Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
-     * edit
+     * Update post's information
      *
      * @param Request $request
      * @param string $id
      * @return View
-     * @throws \Throwable
      */
     public function edit(Request $request, string $id): View
     {
+        $isBack = false;
         if (empty($post = $this->postService->getViewModel(['id' => $id]))) {
             abort(404);
         }
+
         if (!empty($request->all())) {
             $post = $this->postService->convertArrayToViewModel($request->all());
             $post->id = $id;
+            $isBack = true;
         }
+
+        Renderer::set('isBack', $isBack);
         Renderer::set('post', $post);
 
         return view('post.'.Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
-     * createConfirm
+     * Confirmation of editing post's information
      *
-     * @param PostStoreRequest $request
+     * @param PostUpdateRequest $request
+     * @param string $id
      * @return View
-     * @throws \Throwable
      */
-    public function createConfirm(PostStoreRequest $request)
+    public function updateConfirm(PostUpdateRequest $request, string $id): View
     {
-        // Renderer::set('request', $request);
+        if (!empty($post = $this->postService->getViewModel(['id' => $request->input('id')]))) {
+            Renderer::set('post', $post);
+        }
+
         return view('post.'.Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
-     * updateConfirm
+     * Update DB
      *
-     * @param PostUpdateRequest $request
-     * @return View
-     * @throws \Throwable
-     */
-    public function updateConfirm(PostUpdateRequest $request)
-    {
-
-        // Renderer::set('request', $request);
-        return view('post.'.Arr::last(explode('.', Route::current()->getName())));
-    }
-
-    /**
-     * update
-     *
-     * @param PostUpdateRequest $request
+     * @param Request $request
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
@@ -155,11 +118,11 @@ class PostController extends AbsController
         }
         $this->postService->updateModel($post, $request->all());
 
-        return redirect()->route('client.post.show', ['post' => $id])->with('status', StatusMessage::UPDATE_SUCCESS);
+        return redirect()->route('admin.post.show', ['post' => $id])->with('status', StatusMessage::UPDATE_SUCCESS);
     }
 
     /**
-     * destroy
+     * Delete post
      *
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
@@ -172,6 +135,6 @@ class PostController extends AbsController
         }
         $this->postService->deleteModel($post);
 
-        return redirect()->route('client.post.index')->with('status', StatusMessage::DELETE_SUCCESS);
+        return redirect()->route('admin.post.index')->with('status', StatusMessage::DELETE_SUCCESS);
     }
 }

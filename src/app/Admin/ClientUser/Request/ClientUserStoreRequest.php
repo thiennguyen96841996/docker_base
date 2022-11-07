@@ -30,7 +30,7 @@ class ClientUserStoreRequest extends FormRequest
         switch ($method) {
             case 'store':
             case 'createConfirm':
-                $this->redirect = route('admin.clientUser.create');
+                $this->redirect = route('admin.client-user.create');
                 break;
             default:
                 break;

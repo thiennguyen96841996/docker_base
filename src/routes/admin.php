@@ -52,19 +52,27 @@ Route::middleware('auth')->name('admin.')->group(function () {
     // Client
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     Route::namespace('App\Admin\ClientUser\Controller')->group(function () {
-        Route::resource('clientUser', 'ClientUserController');
-        Route::post('clientUser/create', 'ClientUserController@create')->name('clientUser.create');
-        Route::put('clientUser/{clientUser}/edit', 'ClientUserController@edit')->name('clientUser.edit');
-        Route::match(['get', 'post'], 'clientUser/create/confirm', 'ClientUserController@createConfirm')->name('clientUser.createConfirm');
-        Route::match(['get', 'post', 'put'], 'clientUser/{clientUser}/edit/confirm', 'ClientUserController@editConfirm')->name('clientUser.editConfirm');
+        Route::resource('client-user', 'ClientUserController');
+        Route::post('client-user/create', 'ClientUserController@create')->name('client-user.create');
+        Route::put('client-user/{clientUser}/edit', 'ClientUserController@edit')->name('client-user.edit');
+        Route::match(['get', 'post'], 'client-user/create/confirm', 'ClientUserController@createConfirm')->name('client-user.createConfirm');
+        Route::match(['get', 'post', 'put'], 'client-user/{clientUser}/edit/confirm', 'ClientUserController@updateConfirm')->name('client-user.updateConfirm');
+    });
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    // Post
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Route::namespace('App\Admin\Post\Controller')->group(function () {
+        Route::resource('post', 'PostController')->except('create', 'store');
+        Route::put('post/{post}/edit', 'PostController@edit')->name('post.edit');
+        Route::match(['get', 'post', 'put'], 'post/{post}/edit/confirm', 'PostController@updateConfirm')->name('post.updateConfirm');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Customer
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     Route::namespace('App\Admin\CustomerUser\Controller')->group(function () {
-        Route::resource('customerUser', 'CustomerUserController');
-        Route::put('customerUser/{customerUser}/edit', 'CustomerUserController@edit')->name('customerUser.edit');
-        Route::match(['get', 'post', 'put'], 'customerUser/{customerUser}/edit/confirm', 'CustomerUserController@editConfirm')->name('customerUser.editConfirm');
+        Route::resource('customer-user', 'CustomerUserController');
+        Route::put('customer-user/{customerUser}/edit', 'CustomerUserController@edit')->name('customer-user.edit');
+        Route::match(['get', 'post', 'put'], 'customer-user/{customerUser}/edit/confirm', 'CustomerUserController@editConfirm')->name('customer-user.editConfirm');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Sample

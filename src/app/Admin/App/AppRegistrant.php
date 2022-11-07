@@ -7,6 +7,7 @@ use App\Common\App\Contract\AppRegistrant as AppRegistrantContract;
 use App\Common\Sample\Provider\ServiceProvider as SampleServiceProvider;
 use App\Common\Agency\Provider\ServiceProvider as AgencyServiceProvider;
 use App\Common\ClientUser\Provider\ServiceProvider as ClientUserServiceProvider;
+use App\Common\Post\Provider\ServiceProvider as PostServiceProvider;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use App\Common\Customer\Provider\ServiceProvider as CustomerServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -34,7 +35,8 @@ class AppRegistrant implements AppRegistrantContract
         SampleServiceProvider::class,
         AgencyServiceProvider::class,
         ClientUserServiceProvider::class,
-        CustomerServiceProvider::class
+        CustomerServiceProvider::class,
+        PostServiceProvider::class
     ];
 
     /**

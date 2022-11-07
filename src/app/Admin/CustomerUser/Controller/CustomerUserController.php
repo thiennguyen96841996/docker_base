@@ -43,7 +43,7 @@ class CustomerUserController extends AbsController
         ));
         Renderer::setSearchConditions($request->all());
 
-        return view('customerUser.' . Arr::last(explode('.', Route::current()->getName())));
+        return view('customer-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -60,7 +60,7 @@ class CustomerUserController extends AbsController
         }
         Renderer::set('customerUser', $customer);
 
-        return view('customerUser.' . Arr::last(explode('.', Route::current()->getName())));
+        return view('customer-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -86,7 +86,7 @@ class CustomerUserController extends AbsController
         Renderer::set('isBack', $isBack);
         Renderer::set('customerUser', $customerUser);
 
-        return view('customerUser.' . Arr::last(explode('.', Route::current()->getName())));
+        return view('customer-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -98,7 +98,7 @@ class CustomerUserController extends AbsController
      */
     public function editConfirm(CustomerUserUpdateRequest $request, string $id): View
     {
-        return view('customerUser.' . Arr::last(explode('.', Route::current()->getName())));
+        return view('customer-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -116,7 +116,7 @@ class CustomerUserController extends AbsController
         }
         $this->customerService->updateModel($customer, $request->all());
 
-        return redirect()->route('admin.customerUser.show', ['customerUser' => $id])
+        return redirect()->route('admin.customer-user.show', ['customerUser' => $id])
             ->with('status', StatusMessage::UPDATE_SUCCESS);
     }
 
@@ -135,7 +135,7 @@ class CustomerUserController extends AbsController
         }
         $this->customerService->deleteModel($customer);
 
-        return redirect()->route('admin.customerUser.index')
+        return redirect()->route('admin.customer-user.index')
             ->with('status', StatusMessage::DELETE_SUCCESS);
     }
 }

@@ -4,7 +4,7 @@
     @include('include.msg.status-msg')
 
     <h3>Client list</h3>
-    <form method="GET" action="{{ route('admin.customerUser.index') }}">
+    <form method="GET" action="{{ route('admin.customer-user.index') }}">
         <label>Tel:</label><input type="text" name="tel" value="{{ Renderer::oldWithRequest('tel') }}">
         <label>Email:</label><input type="text" name="email" value="{{ Renderer::oldWithRequest('email') }}">
         <label>Name:</label><input type="text" name="name" value="{{ Renderer::oldWithRequest('name') }}">
@@ -26,16 +26,16 @@
         <tbody>
         @forelse(Renderer::getPaginator() ?? [] as $val)
             <tr>
-                <td><a href="{{ route('admin.customerUser.show', $val->id) }}">{{ $val->id }}</a></td>
+                <td><a href="{{ route('admin.customer-user.show', $val->id) }}">{{ $val->id }}</a></td>
                 <td>{{ $val->getName() }}</td>
                 <td>{{ $val->getTel() }}</td>
                 <td>{{ $val->email }}</td>
                 <td>{{ $val->getAddress() }}</td>
                 <td>{{ $val->getBirthday() }}</td>
                 <td>{{ $val->getGender() }}</td>
-                <td><a href="{{ route('admin.customerUser.edit', $val->id) }}">Edit</a></td>
+                <td><a href="{{ route('admin.customer-user.edit', $val->id) }}">Edit</a></td>
                 <td>
-                    <form method="POST" action="{{ route('admin.customerUser.destroy', $val->id) }}">
+                    <form method="POST" action="{{ route('admin.customer-user.destroy', $val->id) }}">
                         @csrf
                         @method('DELETE')
                         <input type="submit" value="Delete" onclick="return confirm('Do you want to delete this client user?');">

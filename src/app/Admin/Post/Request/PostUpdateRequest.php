@@ -1,8 +1,7 @@
 <?php
-namespace App\Admin\ClientUser\Request;
+namespace App\Admin\Post\Request;
 
-
-use App\Common\ClientUser\Model\ClientUser;
+use App\Common\Post\Model\Post;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
@@ -10,9 +9,9 @@ use App\Common\Database\Definition\AvailableStatus;
 
 /**
  * クライアント情報を登録する際のバリデーションを行うクラス。
- * @package \App\Admin\ClientUser
+ * @package \App\Admin\Post
  */
-class ClientUserUpdateRequest extends FormRequest
+class PostUpdateRequest extends FormRequest
 {
     /**
      * リクエストが可能かどうかを返す。
@@ -35,7 +34,7 @@ class ClientUserUpdateRequest extends FormRequest
         switch ($method) {
             case 'update':
             case 'updateConfirm':
-                $this->redirect = route('admin.client-user.edit', $this->input('id'));
+                $this->redirect = route('admin.post.edit', $this->input('id'));
                 break;
             default:
                 break;
@@ -64,7 +63,7 @@ class ClientUserUpdateRequest extends FormRequest
      */
     public function validationData(): array
     {
-        return $this->only((new ClientUser())->getFillable());
+        return $this->only((new Post())->getFillable());
     }
 
     /**
@@ -74,10 +73,11 @@ class ClientUserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => [ 'required', 'string', 'max:50' ],
-            'tel'          => [ 'required', 'string', 'max:15', 'tel' ],
-            // 'password'     => [ 'required', 'string', 'min:8', 'max:32' ],
-            'is_available' => [ 'in:' . join(',', AvailableStatus::values()) ],
+            'title'         => [ 'required', 'string', 'max:150' ],
+            'content'       => [ 'required', 'string', 'max:5000' ],
+            'city'          => [ 'required', 'string' ],
+            'district'      => [ 'required', 'string' ],
+            'address'       => [ 'required', 'string', 'max:100' ],
         ];
     }
 
@@ -89,9 +89,7 @@ class ClientUserUpdateRequest extends FormRequest
     {
         // メッセージはlang下のファイルで管理する。
         // 上書きしたいメッセージがある場合にのみ設定すること。
-        return [
-            'tel' => 'The :attribute field is unvalid telephone'
-        ];
+        return [];
     }
 
     /**
@@ -100,6 +98,6 @@ class ClientUserUpdateRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return ClientUser::getAttributeNames();
+        return Post::getAttributeNames();
     }
 }

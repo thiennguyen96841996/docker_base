@@ -12,7 +12,7 @@
     <p>Tel: {{request()->input('tel')}}</p>
     <p>Status: {{\App\Common\Database\Definition\AvailableStatus::getName(request()->input('is_available'))}}</p>
     <p>Agency: {{$agency->name}}</p>
-    <form id="confirm-form" method="POST" action="{{ route('admin.clientUser.update', request()->input('id')) }}">
+    <form id="confirm-form" method="POST" action="{{ route('admin.client-user.update', request()->input('id')) }}">
         @csrf
         @method('PUT')
         <input type="hidden" name="id" value="{{ request()->input('id') }}">
@@ -21,7 +21,7 @@
         <input type="hidden" name="is_available" value="{{ request()->input('is_available') }}"></br>
         <input type="hidden" name="agency_id" value="{{ request()->input('agency_id') }}"></br>
         
-        <input type="button" value="back" data-post-url="{{ route('admin.clientUser.edit', request()->input('id')) }}">
+        <input type="button" value="back" data-post-url="{{ route('admin.client-user.edit', request()->input('id')) }}">
         <input type="submit" value="submit">
     </form>
 @stop

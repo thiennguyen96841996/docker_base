@@ -3,7 +3,7 @@
 {{-- Contents --}}
 @section ('CONTENTS')
     {{-- エラーメッセージ --}}
-    @include('include.msg.status-msg')
+    @include('include.status-msg')
 
     <h3>Post confirm</h3>
     @if (!empty(request()->input('id')))

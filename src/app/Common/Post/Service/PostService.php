@@ -1,15 +1,16 @@
 <?php
 namespace App\Common\Post\Service;
 
+use Illuminate\Support\Arr;
+use App\Common\Post\Model\Post;
+use Illuminate\Support\Facades\DB;
 use App\Common\Post\ViewModel\PostViewModel;
+use Illuminate\Database\Eloquent\Collection;
+use App\Common\Database\RepositoryConnection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\Repository\ViewModelRepositoryTrait;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
 use App\Common\Post\Contract\PostRepository as PostRepositoryContract;
-use App\Common\Post\Model\Post;
-use App\Common\Database\RepositoryConnection;
 
 /**
  * Post情報に関連する処理を行うクラス。
@@ -155,17 +156,16 @@ class PostService
      * @param  array $searchConditions 検索条件の配列
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function getViewModelPaginator(string $path, int $page, array $searchConditions = []): LengthAwarePaginator
+    public function getViewModelPaginator(string $path, array $searchConditions = [], int $perPage = 30): LengthAwarePaginator
     {
         $builder =  Post::on($this->getConnection(DatabaseDefs::CONNECTION_NAME_READ))
             ->addSelect([
                 Post::TABLE_NAME.'.*',
             ])
-            ->orderBy('updated_at', 'desc')
-        ;
-
+            ->orderBy('updated_at', 'desc');
+       
         /** @var \App\Common\Post\Model\Post $builder */
-        $paginator = $builder->whereMultiConditions($searchConditions)->paginate($page);
+        $paginator = $builder->whereMultiConditions($searchConditions)->paginate($perPage);
 
         return $paginator->setCollection($paginator->getCollection());
     }

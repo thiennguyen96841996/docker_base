@@ -9,7 +9,7 @@
     <p>Email: {{request()->input('email')}}</p>
     <p>Birthday: {{request()->input('birthday')}}</p>
     <p>Address: {{request()->input('address')}}</p>
-    <form id="confirm-form" method="POST" action="{{ route('admin.customerUser.update', request()->input('id')) }}">
+    <form id="confirm-form" method="POST" action="{{ route('admin.customer-user.update', request()->input('id')) }}">
         @csrf
         @method('PUT')
         <input type="hidden" name="id" value="{{ request()->input('id') }}">
@@ -18,7 +18,7 @@
         <input type="hidden" name="tel" value="{{ request()->input('tel') }}"></br>
         <input type="hidden" name="birthday" value="{{ request()->input('birthday') }}"></br>
         <input type="hidden" name="address" value="{{ request()->input('address') }}"></br>
-        <input type="button" value="back" data-post-url="{{ route('admin.customerUser.edit', request()->input('id')) }}">
+        <input type="button" value="back" data-post-url="{{ route('admin.customer-user.edit', request()->input('id')) }}">
         <input type="submit" value="submit">
     </form>
 @stop

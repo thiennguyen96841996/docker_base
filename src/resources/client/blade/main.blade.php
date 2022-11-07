@@ -17,6 +17,13 @@
     @show
 </head>
 <body>
+
+@if (auth()->user())
+<form method="GET" action="{{ route('client.logout.logout') }}">
+    <input type="submit" value="Logout">
+</form>
+@endif
+
 {{-- Contents --}}
 @yield ('CONTENTS')
 

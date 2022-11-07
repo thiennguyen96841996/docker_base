@@ -9,7 +9,7 @@ $isBack = Renderer::get('isBack');
     @include('include.error-msg')
 
     <h3>Customer edit</h3>
-    <form method="post" action="{{ route('admin.customerUser.editConfirm', $customerUser->id) }}">
+    <form method="post" action="{{ route('admin.customer-user.editConfirm', $customerUser->id) }}">
         @csrf
         @method('PUT')
         <label>ID</label>{{ $customerUser->id }}

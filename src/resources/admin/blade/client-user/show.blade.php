@@ -13,5 +13,5 @@
     <p>Email: {{ $clientUser->email }}</p>
     <p>Status: {{ \App\Common\Database\Definition\AvailableStatus::getName($clientUser->is_available) }}</p>
     <p>Agency: {{ $clientUser->agency_name }}</p>
-    <a href="{{ route('admin.clientUser.edit', $clientUser->id) }}">Edit</a>
+    <a href="{{ route('admin.client-user.edit', $clientUser->id) }}">Edit</a>
 @stop
