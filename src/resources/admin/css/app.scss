@@ -156,9 +156,13 @@ body {
 }
 
 /*------------------------------------------------------------------
-[5. Sidebar / #sidebar] - see /components/sidebar/sidebar-default.css
+[5. SearchForm / #sidebar] - see /components/sidebar/sidebar-default.css
 */
-
+.search-form {
+    label {
+        min-width: 100px;
+    }
+}
 /*------------------------------------------------------------------
 [6. Boxes / .box] 
 */

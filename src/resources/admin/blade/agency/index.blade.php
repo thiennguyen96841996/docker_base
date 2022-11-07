@@ -8,39 +8,39 @@
             Agency List
         </h3>
     </div>
-    <div class="card">
+    <div class="search-form card">
         <div class="card-header">Search</div>
         <div class="card-body  p-4">
             <form class="mb-2" method="GET" action="{{ route('admin.agency.index') }}">
                 <div class="row g-2">
                     <div class="mb-3 col-md-6">
-                        <div class="row">
-                            <label for="inputPassword fw-bold" class="col-sm-2 col-form-label ps-4 fw-bold">ID: </label>
-                            <div class="col-sm-10 ps-0">
+                        <div class="d-flex">
+                            <label for="inputPassword fw-bold" class="col-form-label ps-4 fw-bold">ID: </label>
+                            <div class="flex-fill">
                                 <input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <div class="row">
-                            <label for="inputPassword fw-bold ml-3" class="col-sm-2 col-form-label ps-4 fw-bold">Name: </label>
-                            <div class="col-sm-10 ps-0">
+                        <div class="d-flex">
+                            <label for="inputPassword fw-bold ml-3" class="col-form-label ps-4 fw-bold">Name: </label>
+                            <div class="flex-fill">
                                 <input type="text" name="name" value="{{ Renderer::oldWithRequest('name') }}" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <div class="row">
-                            <label for="inputPassword fw-bold" class="col-sm-2 col-form-label ps-4 fw-bold">Tel: </label>
-                            <div class="col-sm-10 ps-0 ">
+                        <div class="d-flex">
+                            <label for="inputPassword fw-bold" class="col-form-label ps-4 fw-bold">Tel: </label>
+                            <div class="flex-fill">
                                 <input type="number" name="tel" class="form-control" value="{{ Renderer::oldWithRequest('tel') }}">
                             </div>
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <div class="row">
-                            <label for="inputPassword fw-bold ml-3" class="col-sm-2 col-form-label ps-4 fw-bold">Address: </label>
-                            <div class="col-sm-10 ps-0 ">
+                        <div class="d-flex">
+                            <label for="inputPassword fw-bold ml-3" class="col-form-label ps-4 fw-bold">Address: </label>
+                            <div class="flex-fill">
                                 <input type="text" name="address" value="{{ Renderer::oldWithRequest('address') }}" class="form-control">
                             </div>
                         </div>
