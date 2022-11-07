@@ -163,6 +163,14 @@ body {
         min-width: 100px;
     }
 }
+
+.common-form {
+    .required-mark::after {
+        content: '*';
+        color: red;
+        margin-left: 2px;
+    }
+}
 /*------------------------------------------------------------------
 [6. Boxes / .box] 
 */
