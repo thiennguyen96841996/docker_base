@@ -61,7 +61,7 @@ class LoginController extends AbsController
         }
 
         // 前の画面に戻す
-        return redirect()->intended(route(config('auth.authenticated_route_name','home')));
+        return redirect()->intended(route('admin.post.index'));
     }
 
     /**

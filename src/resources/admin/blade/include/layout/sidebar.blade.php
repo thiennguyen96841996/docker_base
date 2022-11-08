@@ -3,7 +3,7 @@
         <img src="{{ busting('img/logo.png', 'admin') }}" alt="bootraper logo" class="app-logo">
     </div>
     <ul class="list-unstyled components text-secondary">
-        <li>
+        <!-- <li>
             <a href="#authmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-user-shield"></i> TOGGLE SAMPLE</a>
             <ul class="collapse list-unstyled" id="authmenu">
                 <li>
@@ -13,15 +13,15 @@
                     <a href="#"><i class="fas fa-user-plus"></i> SAMPLE 2</a>
                 </li>
             </ul>
+        </li> -->
+        <li>
+            <a href="/agency"><i class="fas fa-briefcase"></i> Agency</a>
         </li>
         <li>
-            <a href="/agency"><i class="fas fa-user-tie"></i> Agencies</a>
+            <a href="/client-user"><i class="fas fa-user-tie"></i> Client User</a>
         </li>
         <li>
-            <a href="/client-user"><i class="fas fa-user-friends"></i> Client User</a>
-        </li>
-        <li>
-            <a href="/customer-user"><i class="fas fa-user-tie"></i> Customer User</a>
+            <a href="/customer-user"><i class="fas fa-user"></i> Customer User</a>
         </li>
         <li>
             <a href="/post"><i class="fas fa-building"></i> Post</a>

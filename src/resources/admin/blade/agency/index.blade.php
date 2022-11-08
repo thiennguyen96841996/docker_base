@@ -10,12 +10,12 @@
     </div>
     <div class="search-form card">
         <div class="card-header">Search</div>
-        <div class="card-body  p-4">
+        <div class="card-body">
             <form class="mb-2" method="GET" action="{{ route('admin.agency.index') }}">
                 <div class="row g-2">
                     <div class="mb-3 col-md-6">
                         <div class="d-flex">
-                            <label for="inputPassword fw-bold" class="col-form-label ps-4 fw-bold">ID: </label>
+                            <label for="inputPassword fw-bold" class="col-form-label fw-bold">ID: </label>
                             <div class="flex-fill">
                                 <input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
                             </div>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <div class="d-flex">
-                            <label for="inputPassword fw-bold ml-3" class="col-form-label ps-4 fw-bold">Name: </label>
+                            <label for="inputPassword fw-bold" class="col-form-label ps-3 fw-bold">Name: </label>
                             <div class="flex-fill">
                                 <input type="text" name="name" value="{{ Renderer::oldWithRequest('name') }}" class="form-control">
                             </div>
@@ -31,22 +31,22 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <div class="d-flex">
-                            <label for="inputPassword fw-bold" class="col-form-label ps-4 fw-bold">Tel: </label>
+                            <label for="inputPassword fw-bold" class="col-form-label fw-bold">Tel: </label>
                             <div class="flex-fill">
-                                <input type="number" name="tel" class="form-control" value="{{ Renderer::oldWithRequest('tel') }}">
+                                <input type="text" name="tel" class="form-control" value="{{ Renderer::oldWithRequest('tel') }}">
                             </div>
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
                         <div class="d-flex">
-                            <label for="inputPassword fw-bold ml-3" class="col-form-label ps-4 fw-bold">Address: </label>
+                            <label for="inputPassword fw-bold" class="col-form-label ps-3 fw-bold">Address: </label>
                             <div class="flex-fill">
                                 <input type="text" name="address" value="{{ Renderer::oldWithRequest('address') }}" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary"> Search</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
                     </div>  
                 </div>
             </form>
@@ -55,7 +55,7 @@
     </div>
     <div class="card mt-5">
         <div class="card-header">
-            <a href="{{ route('admin.agency.create') }}" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i> Add</a>
+            <a href="{{ route('admin.agency.create') }}" class="btn btn-outline-primary float-end"><i class="fas fa-plus-circle"></i> Add</a>
         </div>
         <div class="card-body">
             <div class="table-responsive"><table width="100%" class="table table-striped" id="dataTables-example">

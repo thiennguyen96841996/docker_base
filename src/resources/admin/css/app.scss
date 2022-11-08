@@ -82,6 +82,15 @@ body {
     color: #444;
 }
 
+input[readonly] {
+    background-color: #e9ecef;
+}
+
+input[readonly]:focus {
+    background-color: #e9ecef;
+    outline: none;
+}
+
 .wrapper {
     display: flex;
     width: 100%;
@@ -166,7 +175,7 @@ body {
 
 .common-form {
     .required-mark::after {
-        content: '*';
+        content: "*";
         color: red;
         margin-left: 2px;
     }
@@ -759,6 +768,10 @@ Util class
 @media (max-width: 768px) {
     .display-absolute {
         position: relative;
+    }
+
+    .search-form label {
+        padding-left: 0 !important;
     }
 }
 
