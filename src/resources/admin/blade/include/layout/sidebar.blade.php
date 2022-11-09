@@ -1,6 +1,6 @@
 <nav id="sidebar">
     <div class="sidebar-header">
-        <img src="{{ busting('img/logo.png', 'admin') }}" alt="bootraper logo" class="app-logo">
+        <img src="{{ asset('img/logo.png', 'admin') }}" alt="bootraper logo" class="app-logo">
     </div>
     <ul class="list-unstyled components text-secondary">
         <!-- <li>
