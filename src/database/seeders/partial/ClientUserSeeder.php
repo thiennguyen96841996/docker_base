@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders\Partial;
 
 use Illuminate\Database\Seeder;
@@ -6,6 +7,7 @@ use App\Common\Database\Definition\AvailableStatus;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\ClientUser\Model\ClientUser;
 use App\Common\Database\MysqlCryptorTrait;
+use Illuminate\Support\Str;
 
 /**
  * ClientUserモデルの初期データを登録するクラス。
@@ -22,31 +24,28 @@ class ClientUserSeeder extends Seeder
     {
         $data = [
             [
-                'agency_id'    => '10001',
+                'agency_id'    => rand(10001, 11000),
                 'name'         => $this->encrypt('スピード太郎'),
                 'email'        => 'tarou@dev.speedy',
                 'tel'          => $this->encrypt('09000000001'),
                 'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'is_available' => AvailableStatus::AVAILABLE->value
+                'is_available' => AvailableStatus::AVAILABLE->value,
             ],
         ];
 
-        foreach ($data as $datum) {
+        for ($i = 1; $i <= 10000; $i++) {
             $clientUser = new ClientUser();
             $clientUser->setConnection(DatabaseDefs::CONNECTION_NAME_MIGRATION);
 
             /** @var \Illuminate\Database\Eloquent\Builder $clientUser */
-            $clientUser->updateOrCreate(
-                [ 'email' => $datum['email'] ],
-                [
-                    'agency_id'    => $datum['agency_id'],
-                    'name'         => $datum['name'],
-                    'email'        => $datum['email'],
-                    'tel'          => $datum['tel'],
-                    'password'     => $datum['password'],
-                    'is_available' => $datum['is_available'],
-                ]
-            );
+            $clientUser->fill([
+                'agency_id'    => rand(10001, 11000),
+                'name'         => $this->encrypt($i % 3 ? 'Nguyễn Văn Lợi' : 'Nguyễn Đặng Thuỳ Huyền Trang'),
+                'email'        => 'tarou' . $i . '@dev.speedy',
+                'tel'          => $this->encrypt('0909999' . rand(1000, 9999)),
+                'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'is_available' => $i % 4 ? AvailableStatus::AVAILABLE->value : AvailableStatus::NOT_AVAILABLE->value,
+            ])->save();
         }
     }
 }
