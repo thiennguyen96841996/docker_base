@@ -30,7 +30,7 @@
                 </div>
                 
                 <div class="d-flex justify-content-end text-center mt-4">
-                    <a id="btn_back_to_create" class="btn btn-secondary me-2" href="#" data-post-url="{{ route('admin.agency.create') }}" >Back</a>
+                    <a id="btn_back_to_create" class="btn btn-outline-secondary me-2" href="#" data-post-url="{{ route('admin.agency.create') }}" >Back</a>
                     <button type="submit" class="btn btn-primary" value="submit"><i class="fas fa-save"></i> Save</button>
                 </div>
             </form>

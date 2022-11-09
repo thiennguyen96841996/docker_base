@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-white bg-white">
-    <button type="button" id="sidebarCollapse" class="btn btn-light">
+    <button type="button" id="sidebarCollapse" class="btn ms-2">
         <i class="fas fa-bars"></i><span></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">

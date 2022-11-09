@@ -55,7 +55,7 @@
     </div>
     <div class="card mt-5">
         <div class="card-header">
-            <a href="{{ route('admin.agency.create') }}" class="btn btn-outline-primary float-end"><i class="fas fa-plus-circle"></i> Add</a>
+            <a href="{{ route('admin.agency.create') }}" class="btn btn-primary float-end"><i class="fas fa-plus-circle"></i> Add</a>
         </div>
         <div class="card-body">
             <div class="table-responsive"><table width="100%" class="table table-striped" id="dataTables-example">

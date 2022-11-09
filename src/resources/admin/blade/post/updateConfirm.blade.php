@@ -52,7 +52,7 @@
             </tbody>
         </table>
         <div class="d-flex d-flex justify-content-center text-center p-3">
-            <a id="btn_back_to_edit" class="btn btn-secondary me-2" href="#" data-post-url="{{ route('admin.post.edit', ['post' => request()->input('id')]) }}">back</a>
+            <a id="btn_back_to_edit" class="btn btn-outline-secondary me-2" href="#" data-post-url="{{ route('admin.post.edit', ['post' => request()->input('id')]) }}">back</a>
             <form method="POST" id="input_form" action="{{ route('admin.post.update', ['post' => request()->input('id')]) }}">
                 @method('PUT')
                 @csrf

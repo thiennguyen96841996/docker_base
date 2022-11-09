@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="d-flex justify-content-end text-center mt-4">
-                            <a href="{{ route('admin.agency.index') }}" class="btn btn-secondary me-2">Back to list</a>
+                            <a href="{{ route('admin.agency.index') }}" class="btn btn-outline-secondary me-2">Back to list</a>
                             <button type="submit" class="btn btn-primary">Next</button>
                         </div>
                     </form>

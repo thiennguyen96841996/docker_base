@@ -28,16 +28,16 @@
         </div>
     </div>
     <div class="d-flex justify-content-between align-items-center">
-        <a href="{{ route('admin.agency.index') }}" class="btn btn-secondary">Back to list</a>
+        <a href="{{ route('admin.agency.index') }}" class="btn btn-outline-secondary">Back to list</a>
         <div class="d-flex justify-content-start text-center">
             <div class="mx-1">
-                <a href="{{ route('admin.agency.edit', $agency->id) }}" class="btn btn-info"><i class="fas fa-edit"></i> Edit</a>
+                <a href="{{ route('admin.agency.edit', $agency->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</a>
             </div>
             <div>
                 <form method="POST" name="delete_form" action="{{ route('admin.agency.destroy', $agency->id) }}" onClick="delete_agency('{{ $agency->id }}', '{{ $agency->name }}'); return false;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i> Delete</button>
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</button>
                 </form>
             </div>
         </div>

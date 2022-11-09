@@ -18,7 +18,7 @@
     <input type="hidden" name="status" value="{{ request()->input('status') }}">
     <input type="hidden" name="avatar" value="{{ request()->input('avatar') }}">
     <div >
-        <a href="{{ route('client.news.create') }}" >back</a>
+        <a href="{{ route('client.news.create') }}" class="btn btn-outline-secondary">back</a>
         <input type="submit" value="store">
     </div>
   </form>

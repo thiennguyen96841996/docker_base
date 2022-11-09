@@ -28,7 +28,7 @@
         <!-- sidebar section -->
         @include('include.layout.sidebar')
         <!-- end of sidebar section -->
-        <div id="body">
+        <div id="content">
             <!-- navbar navigation component -->
             @include('include.layout.navbar')
             <!-- end of navbar navigation -->
@@ -47,4 +47,7 @@
 @section ('JAVASCRIPT')
 @show
 </body>
+<footer>
+  <p class="text-center mt-3">Copyright &copy; 2022 GLC GROUP. All rights reserved.</p>
+</footer>
 </html>
