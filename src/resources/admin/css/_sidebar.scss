@@ -19,10 +19,10 @@
 #sidebar .sidebar-header {
     padding: 0.4rem 1rem;
     border-bottom: 1px solid rgba(101, 109, 119, 0.16);
-    max-height: 130px;
+    min-height: 157px;
     text-align: center;
     .app-logo {
-        max-height: 115px;
+        max-height: 125px;
     }
 }
 

@@ -2,7 +2,7 @@
     <nav>
         <ul class="pagination d-flex justify-content-center">
             <li class="page-item @if ($paginator->onFirstPage()) disabled @endif">
-                <a class="page-link" href="{{ $paginator->previousPageUrl() }}">previous</a>
+                <a class="page-link" href="{{ $paginator->previousPageUrl() }}">Previous</a>
             </li>
 
             @foreach ($elements as $element)
@@ -28,7 +28,7 @@
             @endforeach
 
             <li class="page-item @if (!$paginator->hasMorePages()) disabled @endif">
-                <a class="page-link" href="{{ $paginator->nextPageUrl() }}">next</a>
+                <a class="page-link" href="{{ $paginator->nextPageUrl() }}">Next</a>
             </li>
         </ul>
     </nav>

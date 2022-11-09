@@ -48,6 +48,6 @@
 @show
 </body>
 <footer>
-  <p class="text-center mt-3">Copyright &copy; 2022 GLC GROUP. All rights reserved.</p>
+  <p class="text-center mt-3">Copyright &copy; 2022 GLC GROUP All rights reserved.</p>
 </footer>
 </html>
