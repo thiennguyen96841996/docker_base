@@ -15,16 +15,16 @@
             </ul>
         </li> -->
         <li>
-            <a href="/agency"><i class="fas fa-briefcase"></i> Agency</a>
+            <a href="/agency" class="{{ str_contains(Route::current()->getName(), '.agency') ? 'active' : '' }}"><i class="fas fa-briefcase"></i> Agency</a>
         </li>
         <li>
-            <a href="/client-user"><i class="fas fa-user-tie"></i> Client User</a>
+            <a href="/client-user" class="{{ str_contains(Route::current()->getName(), '.client-user') ? 'active' : '' }}"><i class="fas fa-user-tie"></i> Client User</a>
         </li>
         <li>
-            <a href="/customer-user"><i class="fas fa-user"></i> Customer User</a>
+            <a href="/customer-user" class="{{ str_contains(Route::current()->getName(), '.customer-user') ? 'active' : '' }}"><i class="fas fa-user"></i> Customer User</a>
         </li>
         <li>
-            <a href="/post"><i class="fas fa-building"></i> Post</a>
+            <a href="/post" class="{{ str_contains(Route::current()->getName(), '.post') ? 'active' : '' }}"><i class="fas fa-building"></i> Post</a>
         </li>
     </ul>
 </nav>
