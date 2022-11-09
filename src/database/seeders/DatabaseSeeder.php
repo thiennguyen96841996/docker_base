@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             \Database\Seeders\Partial\AgencySeeder::class,
             \Database\Seeders\Partial\AdminUserSeeder::class,
             \Database\Seeders\Partial\ClientUserSeeder::class,
+            \Database\Seeders\Partial\ClientPostSeeder::class,
+            \Database\Seeders\Partial\ClientNewsSeeder::class,
             \Database\Seeders\Partial\CustomerUserSeeder::class,
             \Database\Seeders\Partial\SampleSeeder::class,
         ]);
