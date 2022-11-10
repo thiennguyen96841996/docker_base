@@ -9,17 +9,17 @@ namespace App\Common\Definition;
 class StatusMessage
 {
     /**
-     * resource store success
+     * resource saved successfully
      */
-    const STORE_SUCCESS = 'store success';
+    const SAVED_SUCCESS = 'Đã lưu thành công';
 
     /**
-     * resource update success
+     * resource updated successfully
      */
-    const UPDATE_SUCCESS = 'update success';
+    const UPDATED_SUCCESS = 'Đã cập nhật thành công';
 
     /**
-     * resource delete success
+     * resource deleted successfully
      */
-    const DELETE_SUCCESS = 'delete success';
+    const DELETED_SUCCESS = 'Đã xoá thành công';
 }

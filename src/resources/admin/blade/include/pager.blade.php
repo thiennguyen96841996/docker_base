@@ -3,7 +3,7 @@
     <nav>
         <ul class="pagination d-flex justify-content-left">
             <li class="page-item @if ($paginator->onFirstPage()) disabled @endif">
-                <a class="page-link" href="{{ $paginator->previousPageUrl() }}">Previous</a>
+                <a class="page-link" href="{{ $paginator->previousPageUrl() }}">Trang trước</a>
             </li>
 
             @foreach ($elements as $element)
@@ -29,7 +29,7 @@
             @endforeach
 
             <li class="page-item @if (!$paginator->hasMorePages()) disabled @endif">
-                <a class="page-link" href="{{ $paginator->nextPageUrl() }}">Next</a>
+                <a class="page-link" href="{{ $paginator->nextPageUrl() }}">Trang sau</a>
             </li>
         </ul>
     </nav>

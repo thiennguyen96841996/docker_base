@@ -42,7 +42,7 @@
                     <input type="text" class="form-control" value="{{ $agency->name }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label for="tel" class="form-label fw-bold required-mark">Sđt</label>
+                    <label for="tel" class="form-label fw-bold required-mark">Số điện thoại</label>
                     <input type="text" class="form-control" value="{{ $agency->tel }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">

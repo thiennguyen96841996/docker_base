@@ -7,26 +7,26 @@
 
     <div class="page-title">
         <h3>
-            Client User
+            Danh sách nhân viên
         </h3>
     </div>
     <div class="search-form card">
-        <div class="card-header">Search</div>
+        <div class="card-header">Tìm kiếm</div>
         <div class="card-body">
             <form class="mb-2" method="GET" action="{{ route('admin.client-user.index') }}">
                 <div class="row g-2">
                     <div class="mb-3 col-md-6 d-flex">
-                        <label for="id" class="form-label fw-bold">ID:</label>
+                        <label for="id" class="form-label fw-bold">ID nhân viên:</label>
                         <input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
                     </div>
                     <div class="mb-3 col-md-6 d-flex">
-                        <label for="tel" class="form-label ps-3 fw-bold">Tel:</label>
+                        <label for="tel" class="form-label ps-3 fw-bold">Số điện thoại:</label>
                         <input type="text" name="tel" class="form-control" value="{{ Renderer::oldWithRequest('tel') }}">
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="mb-3 col-md-6 d-flex">
-                        <label for="name" class="col-form-label fw-bold">Name:</label>
+                        <label for="name" class="col-form-label fw-bold">Tên nhân viên:</label>
                         <input type="text" name="name" value="{{ Renderer::oldWithRequest('name') }}" class="form-control">
                     </div>
                     <div class="mb-3 col-md-6 d-flex">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="row g-2">
                     <div class="mb-3 col-md-6 d-flex">
-                        <label for="status" class="form-label fw-bold">Status:</label>
+                        <label for="status" class="form-label fw-bold">Trạng thái:</label>
                         <select name="status" class="form-select">
                             <option value="">--</option>
                             @foreach(\App\Common\ClientUser\Definition\ClientStatus::cases() as $status)
@@ -49,9 +49,8 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Tìm kiếm</button>
                 </div>  
             </form>
         </div>    
@@ -63,12 +62,12 @@
                 <table width="100%" class="table table-striped" id="dataTables-example">
                     <thead>
                         <tr>
-                            <th scope="col" width="80">Id</th>
-                            <th scope="col" width="150">Name</th>
-                            <th scope="col" width="150">Tel</th>
+                            <th scope="col" width="80">ID</th>
+                            <th scope="col" width="150">Tên nhân viên</th>
+                            <th scope="col" width="150">Số điện thoại</th>
                             <th scope="col" width="150">Email</th>
-                            <th scope="col" width="150">Status</th>
-                            <th scope="col" width="150">Created at</th>
+                            <th scope="col" width="150">Trạng thái</th>
+                            <th scope="col" width="150">Ngày tạo mới</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,7 +82,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="text-center" colspan="6"><p>No results </p></td>
+                            <td class="text-center" colspan="6"><p>Không có kết quả </p></td>
                         </tr>
                     @endforelse
                     </tbody>

@@ -24,7 +24,7 @@
                     <form method="GET" action="{{ route('admin.logout.logout') }}">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn" value="submit"><i style="font-size: 1.2rem;" class="fas fa-sign-out-alt"></i> Logout</button>
+                        <button type="submit" class="btn" value="submit"><i style="font-size: 1.2rem;" class="fas fa-sign-out-alt"></i> Đăng xuất</button>
                     </form>
                 </div>
             </li>

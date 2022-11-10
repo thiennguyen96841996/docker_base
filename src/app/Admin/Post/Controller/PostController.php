@@ -39,7 +39,7 @@ class PostController extends AbsController
      */
     public function index(Request $request): View
     {
-        Renderer::setPageTitle('Post List');
+        Renderer::setPageTitle('Danh sách bài đăng');
 
         Renderer::setPaginator($this->postService->getViewModelPaginator(url()->current(), $request->all()));
         Renderer::setSearchConditions($request->all());
@@ -56,7 +56,7 @@ class PostController extends AbsController
      */
     public function show(string $id): View
     {
-        Renderer::setPageTitle('Post ' . $id);
+        Renderer::setPageTitle('Bài đăng ' . $id);
 
         if (empty($post = $this->postService->getViewModel(['id' => $id]))) {
             abort(404);
@@ -75,7 +75,7 @@ class PostController extends AbsController
     //  */
     // public function edit(Request $request, string $id): View
     // {
-    //     Renderer::setPageTitle('Post Edit');
+    //     Renderer::setPageTitle('Post Edit'');
 
     //     $isBack = false;
     //     if (empty($post = $this->postService->getViewModel(['id' => $id]))) {

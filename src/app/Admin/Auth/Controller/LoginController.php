@@ -40,7 +40,7 @@ class LoginController extends AbsController
      */
     public function index(): View
     {
-        Renderer::setPageTitle('Login');
+        Renderer::setPageTitle('Đăng nhập');
 
         return view('login.index');
     }

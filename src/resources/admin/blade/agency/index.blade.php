@@ -16,7 +16,7 @@
             <form class="mb-2" method="GET" action="{{ route('admin.agency.index') }}">
                 <div class="row g-2">
                     <div class="mb-3 col-md-6 d-flex">
-                        <label for="id" class="col-form-label fw-bold">ID: </label>
+                        <label for="id" class="col-form-label fw-bold">ID đại lý: </label>
                         <input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
                     </div>
                     <div class="mb-3 col-md-6 d-flex">
@@ -37,7 +37,7 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-6 d-flex">
-                        <label for="tel" class="col-form-label ps-3 fw-bold">Sđt: </label>
+                        <label for="tel" class="col-form-label ps-3 fw-bold">Số điện thoại: </label>
                         <input type="text" name="tel" class="form-control" value="{{ Renderer::oldWithRequest('tel') }}">
                     </div>
                     <div class="mb-3 col-md-6 d-flex">
@@ -68,9 +68,9 @@
             <div class="table-responsive"><table width="100%" class="table table-striped" id="dataTables-example">
                 <thead>
                     <tr>
-                        <th scope="col" width="50">Id</th>
+                        <th scope="col" width="50">ID</th>
                         <th scope="col" width="150">Tên đại lý</th>
-                        <th scope="col" width="100">Sđt</th>
+                        <th scope="col" width="100">Số điện thoại</th>
                         <th scope="col" width="300">Địa chỉ</th>
                         <th scope="col" width="100">Trạng thái</th>
                         <th scope="col" width="150">Giám đốc đại lý</th>
@@ -90,7 +90,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td class="text-center" colspan="4"><p>No results </p></td>
+                        <td class="text-center" colspan="4"><p>Không có kết quả </p></td>
                     </tr>
                 @endforelse
                 </tbody>

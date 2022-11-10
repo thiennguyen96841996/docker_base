@@ -46,7 +46,7 @@ class AgencyContractController extends AbsController
      */
     public function create(Request $request): View
     {
-        Renderer::setPageTitle('Agency Contract Create');
+        Renderer::setPageTitle('Tạo mới hợp đồng đại lý');
 
         if (!empty($request->all())) {
             Renderer::set('agencyContract', $request->all());
@@ -64,7 +64,7 @@ class AgencyContractController extends AbsController
      */
     public function store(AgencyContractStoreRequest $request): \Illuminate\Http\RedirectResponse
     {
-        return redirect()->route('admin.agency.show', ['agency' => $this->agencyContractService->storeModel($request->all())->agency_id])->with('status', StatusMessage::STORE_SUCCESS);
+        return redirect()->route('admin.agency.show', ['agency' => $this->agencyContractService->storeModel($request->all())->agency_id])->with('status', StatusMessage::SAVED_SUCCESS);
     }
 
     /**
@@ -77,7 +77,7 @@ class AgencyContractController extends AbsController
      */
     public function show(string $agencyId, int $id): View
     {
-        Renderer::setPageTitle('Agency Contract ' . $id);
+        Renderer::setPageTitle('Hợp đồng đại lý ' . $id);
 
         if (empty($agencyContract = $this->agencyContractService->getViewModel(['id' => $id, 'agency_id' => $agencyId]))) {
             abort(404);
@@ -95,7 +95,7 @@ class AgencyContractController extends AbsController
      * @return View
      * @throws \Throwable
      */
-    public function createConfirm(AgencyContractStoreRequest $request) : view
+    public function createConfirm(AgencyContractStoreRequest $request): view
     {
         Renderer::setPageTitle('Agency Contract Create Confirm');
 
@@ -119,7 +119,7 @@ class AgencyContractController extends AbsController
         }
         $this->agencyContractService->deleteModel($agencyContract);
 
-        return redirect()->route('admin.agency.show', ['agency' => $agency_id])->with('status', StatusMessage::DELETE_SUCCESS);
+        return redirect()->route('admin.agency.show', ['agency' => $agency_id])->with('status', StatusMessage::DELETED_SUCCESS);
     }
 
     /**
@@ -142,6 +142,6 @@ class AgencyContractController extends AbsController
         $this->agencyContractService->updateModel($agencyContract, $request->all());
         $this->agencyService->updateModel($agency, $request->all());
 
-        return redirect()->route('admin.agency.show', ['agency' => $agency_id])->with('status', StatusMessage::UPDATE_SUCCESS);
+        return redirect()->route('admin.agency.show', ['agency' => $agency_id])->with('status', StatusMessage::UPDATED_SUCCESS);
     }
 }

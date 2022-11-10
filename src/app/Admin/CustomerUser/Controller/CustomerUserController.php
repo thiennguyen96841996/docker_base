@@ -36,9 +36,9 @@ class CustomerUserController extends AbsController
      */
     public function index(Request $request): View
     {
-        Renderer::setPageTitle('Customer List');
+        Renderer::setPageTitle('Danh sách khách hàng');
 
-        Renderer::setPaginator($this->customerService->getViewModelPaginator(url()->current(),$request->all()));
+        Renderer::setPaginator($this->customerService->getViewModelPaginator(url()->current(), $request->all()));
         Renderer::setSearchConditions($request->all());
 
         return view('customer-user.' . Arr::last(explode('.', Route::current()->getName())));
@@ -52,7 +52,7 @@ class CustomerUserController extends AbsController
      */
     public function show(string $id): View
     {
-        Renderer::setPageTitle('Customer ' . $id);
+        Renderer::setPageTitle('Khách hàng ' . $id);
 
         $customer = $this->customerService->getViewModel(['id' => $id]);
         if (is_null($customer)) {
@@ -72,7 +72,7 @@ class CustomerUserController extends AbsController
      */
     public function edit(Request $request, string $id): View
     {
-        Renderer::setPageTitle('Customer Edit');
+        Renderer::setPageTitle('Sửa thông tin khách hàng');
 
         $isBack = false;
         $customerUser = $this->customerService->getViewModel(['id' => $id]);
@@ -100,7 +100,7 @@ class CustomerUserController extends AbsController
      */
     public function editConfirm(CustomerUserUpdateRequest $request, string $id): View
     {
-        Renderer::setPageTitle('Customer Edit Comfirm');
+        Renderer::setPageTitle('Xác nhận cập nhật');
 
         return view('customer-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
@@ -121,7 +121,7 @@ class CustomerUserController extends AbsController
         $this->customerService->updateModel($customer, $request->all());
 
         return redirect()->route('admin.customer-user.show', ['customer_user' => $id])
-            ->with('status', StatusMessage::UPDATE_SUCCESS);
+            ->with('status', StatusMessage::UPDATED_SUCCESS);
     }
 
     /**
@@ -140,6 +140,6 @@ class CustomerUserController extends AbsController
         $this->customerService->deleteModel($customer);
 
         return redirect()->route('admin.customer-user.index')
-            ->with('status', StatusMessage::DELETE_SUCCESS);
+            ->with('status', StatusMessage::DELETED_SUCCESS);
     }
 }

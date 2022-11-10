@@ -18,7 +18,7 @@ class HomeController extends AbsController
      */
     public function index(): View
     {
-        Renderer::setPageTitle('Home');
+        Renderer::setPageTitle('Trang chủ');
 
         return view('home.index');
     }
