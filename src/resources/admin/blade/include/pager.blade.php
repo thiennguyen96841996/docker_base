@@ -1,4 +1,5 @@
-<div>Showing {{(Renderer::getPaginator()->currentpage()-1)*Renderer::getPaginator()->perpage()+1}} to {{Renderer::getPaginator()->currentpage()*Renderer::getPaginator()->perpage()}}
+<div>
+    {{(Renderer::getPaginator()->currentpage()-1)*Renderer::getPaginator()->perpage()+1}} - {{Renderer::getPaginator()->currentpage()*Renderer::getPaginator()->perpage()}}
     of  {{Renderer::getPaginator()->total()}} entries
 </div>
 @if ($paginator->hasPages())

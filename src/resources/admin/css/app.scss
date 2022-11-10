@@ -761,7 +761,12 @@ Custom bootstrap class
 */
 .btn-primary,
 .btn-primary:hover {
-    border-color: gray;
+    border-color: $gray-border-color;
+}
+
+.btn-outline-secondary,
+.btn-outline-secondary:hover {
+    border-color: $gray-border-color;
 }
 
 .btn-outline-secondary:hover {
