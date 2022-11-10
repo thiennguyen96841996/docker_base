@@ -61,10 +61,10 @@
             <div class="table-responsive"><table width="100%" class="table table-striped" id="dataTables-example">
                 <thead>
                     <tr>
-                        <th scope="col" width="150">Id</th>
+                        <th scope="col" width="50">Id</th>
                         <th scope="col" width="150">Name</th>
-                        <th scope="col" width="150">Tel</th>
-                        <th scope="col" width="150">Address</th>
+                        <th scope="col" width="100">Tel</th>
+                        <th scope="col" width="300">Address</th>
                     </tr>
                 </thead>
                 <tbody>
