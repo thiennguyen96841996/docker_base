@@ -1,6 +1,9 @@
+<div>Showing {{(Renderer::getPaginator()->currentpage()-1)*Renderer::getPaginator()->perpage()+1}} to {{Renderer::getPaginator()->currentpage()*Renderer::getPaginator()->perpage()}}
+    of  {{Renderer::getPaginator()->total()}} entries
+</div>
 @if ($paginator->hasPages())
     <nav>
-        <ul class="pagination d-flex justify-content-center">
+        <ul class="pagination d-flex justify-content-left">
             <li class="page-item @if ($paginator->onFirstPage()) disabled @endif">
                 <a class="page-link" href="{{ $paginator->previousPageUrl() }}">Previous</a>
             </li>

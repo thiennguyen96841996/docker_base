@@ -58,6 +58,7 @@
             <a href="{{ route('admin.agency.create') }}" class="btn btn-primary float-end"><i class="fas fa-plus-circle"></i> Add</a>
         </div>
         <div class="card-body">
+            {!! Renderer::renderPaginator('include.pager') !!}
             <div class="table-responsive"><table width="100%" class="table table-striped" id="dataTables-example">
                 <thead>
                     <tr>
