@@ -9,7 +9,7 @@
 
     {{-- Title --}}
     @section ('TITLE')
-        <title>{{ config('app.name') }}</title>
+        <title>{{ config('app.name') }} | @yield('title') </title>
     @show
 
     {{-- CSS --}}

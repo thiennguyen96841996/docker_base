@@ -2,6 +2,8 @@
 
 @php $post = Renderer::get('post') @endphp
 
+@section('title', Renderer::getPageTitle())
+
 @section('CONTENTS')
     @include('include.msg.status-msg')
 

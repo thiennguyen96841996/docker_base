@@ -1,8 +1,8 @@
 @extends('main')
 
-@php
-    $agency = Renderer::get('agency');
-@endphp
+@php $agency = Renderer::get('agency') @endphp
+
+@section('title', Renderer::getPageTitle())
 
 @section('CONTENTS')
     @include('include.msg.error-msg')

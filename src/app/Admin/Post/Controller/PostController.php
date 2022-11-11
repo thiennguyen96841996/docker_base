@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Admin\Post\Controller;
 
 use Illuminate\View\View;
@@ -38,10 +39,12 @@ class PostController extends AbsController
      */
     public function index(Request $request): View
     {
+        Renderer::setPageTitle('Post List');
+
         Renderer::setPaginator($this->postService->getViewModelPaginator(url()->current(), $request->all()));
         Renderer::setSearchConditions($request->all());
 
-        return view('post.'.Arr::last(explode('.', Route::current()->getName())));
+        return view('post.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -53,12 +56,14 @@ class PostController extends AbsController
      */
     public function show(string $id): View
     {
+        Renderer::setPageTitle('Post ' . $id);
+
         if (empty($post = $this->postService->getViewModel(['id' => $id]))) {
             abort(404);
         }
         Renderer::set('post', $post);
 
-        return view('post.'.Arr::last(explode('.', Route::current()->getName())));
+        return view('post.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -70,6 +75,8 @@ class PostController extends AbsController
      */
     public function edit(Request $request, string $id): View
     {
+        Renderer::setPageTitle('Post Edit');
+
         $isBack = false;
         if (empty($post = $this->postService->getViewModel(['id' => $id]))) {
             abort(404);
@@ -84,7 +91,7 @@ class PostController extends AbsController
         Renderer::set('isBack', $isBack);
         Renderer::set('post', $post);
 
-        return view('post.'.Arr::last(explode('.', Route::current()->getName())));
+        return view('post.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -96,11 +103,13 @@ class PostController extends AbsController
      */
     public function updateConfirm(PostUpdateRequest $request, string $id): View
     {
+        Renderer::setPageTitle('Post Update Confirm');
+
         if (!empty($post = $this->postService->getViewModel(['id' => $request->input('id')]))) {
             Renderer::set('post', $post);
         }
 
-        return view('post.'.Arr::last(explode('.', Route::current()->getName())));
+        return view('post.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**

@@ -2,6 +2,9 @@
 
 @php $agency = Renderer::get('agency') @endphp
 
+@section('title', Renderer::getPageTitle())
+
+
 @section('CONTENTS')
     @include('include.msg.status-msg')
     <div class="page-title">

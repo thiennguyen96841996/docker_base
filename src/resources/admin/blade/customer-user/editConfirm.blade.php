@@ -1,5 +1,7 @@
 @extends('main')
 
+@section('title', Renderer::getPageTitle())
+
 @section('CONTENTS')
     @include('include.error-msg')
 

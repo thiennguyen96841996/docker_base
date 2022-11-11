@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Admin\Agency\Controller;
 
 use App\Admin\Agency\Request\AgencyStoreRequest;
@@ -38,11 +39,13 @@ class AgencyController extends AbsController
      */
     public function index(Request $request): View
     {
+        Renderer::setPageTitle('Agency List');
+
         Renderer::setPaginator($this->agencyService->getViewModelPaginator(url()->current(), $request->all()));
         Renderer::setSearchConditions($request->all());
         $names = explode('.', Route::current()->getName());
 
-        return view('agency.'.Arr::last($names));
+        return view('agency.' . Arr::last($names));
     }
 
     /**
@@ -52,11 +55,13 @@ class AgencyController extends AbsController
      */
     public function create(Request $request): View
     {
+        Renderer::setPageTitle('Agency Create');
+
         if (!empty($request->all())) {
             Renderer::set('agency', $request->all());
         }
         $names = explode('.', Route::current()->getName());
-        return view('agency.'.Arr::last($names));
+        return view('agency.' . Arr::last($names));
     }
 
     /**
@@ -81,13 +86,15 @@ class AgencyController extends AbsController
      */
     public function show(int $id): View
     {
+        Renderer::setPageTitle('Agency ' . $id);
+
         if (empty($agency = $this->agencyService->getViewModel(['id' => $id]))) {
             abort(404);
         }
         Renderer::set('agency', $agency);
         $names = explode('.', Route::current()->getName());
 
-        return view('agency.'.Arr::last($names), ['agency' => $agency]);
+        return view('agency.' . Arr::last($names), ['agency' => $agency]);
     }
 
     /**
@@ -100,6 +107,8 @@ class AgencyController extends AbsController
      */
     public function edit(Request $request, int $id): View
     {
+        Renderer::setPageTitle('Agency Edit');
+
         if (empty($agency = $this->agencyService->getViewModel(['id' => $id]))) {
             abort(404);
         }
@@ -111,7 +120,7 @@ class AgencyController extends AbsController
         Renderer::set('agency', $agency);
 
         $names = explode('.', Route::current()->getName());
-        return view('agency.'.Arr::last($names));
+        return view('agency.' . Arr::last($names));
     }
 
     /**
@@ -123,11 +132,12 @@ class AgencyController extends AbsController
      */
     public function createConfirm(AgencyStoreRequest $request)
     {
+        Renderer::setPageTitle('Agency Create Confirm');
 
         Renderer::set('request', $request);
         $names = explode('.', Route::current()->getName());
 
-        return view('agency.'.Arr::last($names));
+        return view('agency.' . Arr::last($names));
     }
 
     /**
@@ -139,11 +149,12 @@ class AgencyController extends AbsController
      */
     public function updateConfirm(AgencyUpdateRequest $request)
     {
+        Renderer::setPageTitle('Agency Update Confirm');
 
         Renderer::set('request', $request);
         $names = explode('.', Route::current()->getName());
 
-        return view('agency.'.Arr::last($names));
+        return view('agency.' . Arr::last($names));
     }
 
     /**

@@ -1,8 +1,8 @@
 @extends('main')
 
-@php 
-    $customerUser = Renderer::get('customerUser');
-@endphp
+@php $customerUser = Renderer::get('customerUser') @endphp
+
+@section('title', Renderer::getPageTitle())
 
 @section('CONTENTS')
     @include('include.msg.status-msg')

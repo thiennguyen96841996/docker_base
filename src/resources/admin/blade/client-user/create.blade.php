@@ -5,6 +5,8 @@
     $clientUser = Renderer::get('clientUser');
 @endphp
 
+@section('title', Renderer::getPageTitle())
+
 @section('CONTENTS')
     @include('include.msg.error-msg')
 

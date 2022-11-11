@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Admin\Auth\Controller;
 
 use Throwable;
@@ -10,6 +11,7 @@ use Illuminate\View\View;
 use App\Common\Http\Controller\AbsController;
 use App\Common\AdminUser\Service\AdminUserService;
 use App\Admin\Auth\Request\LoginRequest;
+use App\Common\View\Facades\Renderer;
 
 /**
  * ログインに関連するリクエストを処理するクラス。
@@ -38,6 +40,8 @@ class LoginController extends AbsController
      */
     public function index(): View
     {
+        Renderer::setPageTitle('Login');
+
         return view('login.index');
     }
 
@@ -75,6 +79,6 @@ class LoginController extends AbsController
         $request->session()->invalidate();
         $request->session()->regenerateToken(); // CSRF
 
-        return redirect(route(config('auth.guest_route_name','login')));
+        return redirect(route(config('auth.guest_route_name', 'login')));
     }
 }

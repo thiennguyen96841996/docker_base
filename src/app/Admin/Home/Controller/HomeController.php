@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Admin\Home\Controller;
 
 use Illuminate\View\View;
@@ -16,6 +17,8 @@ class HomeController extends AbsController
      */
     public function index(): View
     {
+        Renderer::setPageTitle('Home');
+
         return view('home.index');
     }
 }

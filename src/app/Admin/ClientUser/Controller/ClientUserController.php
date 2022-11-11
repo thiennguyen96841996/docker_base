@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Admin\ClientUser\Controller;
 
 use App\Admin\ClientUser\Notifications\SendPassword;
@@ -47,11 +48,13 @@ class ClientUserController extends AbsController
      */
     public function index(Request $request): View
     {
+        Renderer::setPageTitle('Client List');
+
         Renderer::setPaginator($this->clientUserService->getViewModelPaginator(url()->current(), $request->all()));
         Renderer::setSearchConditions($request->all());
         $names = explode('.', Route::current()->getName());
 
-        return view('client-user.'.Arr::last($names));
+        return view('client-user.' . Arr::last($names));
     }
 
     /**
@@ -62,13 +65,15 @@ class ClientUserController extends AbsController
      */
     public function create(Request $request): View
     {
+        Renderer::setPageTitle('Client Create');
+
         if (!empty($request->all())) {
             Renderer::set('clientUser', $request->all());
         }
         $agencies = $this->agencyService->getViewModelCollection();
         Renderer::set('agencies', $agencies);
         $names = explode('.', Route::current()->getName());
-        return view('client-user.'.Arr::last($names));
+        return view('client-user.' . Arr::last($names));
     }
 
     /**
@@ -79,14 +84,16 @@ class ClientUserController extends AbsController
      */
     public function createConfirm(ClientUserStoreRequest $request): View
     {
+        Renderer::setPageTitle('Client Create Confirm');
+
         if (!empty($agency = $this->agencyService->getViewModel(['id' => $request->input('agency_id')]))) {
             Renderer::set('agency', $agency);
         }
         $names = explode('.', Route::current()->getName());
-        return view('client-user.'.Arr::last($names));
+        return view('client-user.' . Arr::last($names));
     }
 
-     /**
+    /**
      *  Saving DB
      *
      * @param Request $request
@@ -115,13 +122,15 @@ class ClientUserController extends AbsController
      */
     public function show(string $id): View
     {
+        Renderer::setPageTitle('Client ' . $id);
+
         if (empty($clientUser = $this->clientUserService->getViewModel(['id' => $id]))) {
             abort(404);
         }
         Renderer::set('clientUser', $clientUser);
         $names = explode('.', Route::current()->getName());
 
-        return view('client-user.'.Arr::last($names));
+        return view('client-user.' . Arr::last($names));
     }
 
     /**
@@ -133,6 +142,8 @@ class ClientUserController extends AbsController
      */
     public function edit(Request $request, string $id): View
     {
+        Renderer::setPageTitle('Client Edit');
+
         $isBack = false;
         if (empty($clientUser = $this->clientUserService->getViewModel(['id' => $id]))) {
             abort(404);
@@ -150,7 +161,7 @@ class ClientUserController extends AbsController
         Renderer::set('agencies', $agencies);
         $names = explode('.', Route::current()->getName());
 
-        return view('client-user.'.Arr::last($names));
+        return view('client-user.' . Arr::last($names));
     }
 
     /**
@@ -162,11 +173,13 @@ class ClientUserController extends AbsController
      */
     public function updateConfirm(ClientUserUpdateRequest $request, string $id): View
     {
+        Renderer::setPageTitle('Client Update Confirm');
+
         if (!empty($agency = $this->agencyService->getViewModel(['id' => $request->input('agency_id')]))) {
             Renderer::set('agency', $agency);
         }
         $names = explode('.', Route::current()->getName());
-        return view('client-user.'.Arr::last($names));
+        return view('client-user.' . Arr::last($names));
     }
 
     /**

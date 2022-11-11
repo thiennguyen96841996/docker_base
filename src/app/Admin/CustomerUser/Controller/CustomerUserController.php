@@ -36,6 +36,8 @@ class CustomerUserController extends AbsController
      */
     public function index(Request $request): View
     {
+        Renderer::setPageTitle('Customer List');
+
         Renderer::setPaginator($this->customerService->getViewModelPaginator(
             url()->current(),
             10,
@@ -54,6 +56,8 @@ class CustomerUserController extends AbsController
      */
     public function show(string $id): View
     {
+        Renderer::setPageTitle('Customer ' . $id);
+
         $customer = $this->customerService->getViewModel(['id' => $id]);
         if (is_null($customer)) {
             return view('error.404');
@@ -72,6 +76,8 @@ class CustomerUserController extends AbsController
      */
     public function edit(Request $request, string $id): View
     {
+        Renderer::setPageTitle('Customer Edit');
+
         $isBack = false;
         $customerUser = $this->customerService->getViewModel(['id' => $id]);
         if (is_null($customerUser)) {
@@ -98,6 +104,8 @@ class CustomerUserController extends AbsController
      */
     public function editConfirm(CustomerUserUpdateRequest $request, string $id): View
     {
+        Renderer::setPageTitle('Customer Edit Comfirm');
+
         return view('customer-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
 

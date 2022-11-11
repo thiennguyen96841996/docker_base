@@ -1,5 +1,7 @@
 @extends ('main')
 
+@section('title', Renderer::getPageTitle())
+
 {{-- Contents --}}
 @section ('CONTENTS')
     {{-- エラーメッセージ --}}

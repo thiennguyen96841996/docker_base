@@ -1,5 +1,7 @@
 @extends ('main')
 
+@section('title', Renderer::getPageTitle())
+
 @section('CSS')
     <link href="{{ busting('/css/login.css', 'admin') }}" rel="stylesheet">
 @stop

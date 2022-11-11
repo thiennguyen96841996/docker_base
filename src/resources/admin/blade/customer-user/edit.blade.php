@@ -1,9 +1,11 @@
 @extends('main')
 
-@php 
-$customerUser = Renderer::get('customerUser');
-$isBack = Renderer::get('isBack');
+@php
+    $customerUser = Renderer::get('customerUser');
+    $isBack = Renderer::get('isBack');
 @endphp
+
+@section('title', Renderer::getPageTitle())
 
 @section('CONTENTS')
     @include('include.error-msg')
