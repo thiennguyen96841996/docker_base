@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders\Partial;
 
 use App\Common\Database\MysqlCryptorTrait;
@@ -24,8 +25,8 @@ class AdminUserSeeder extends Seeder
             [
                 'name'         => $this->encrypt('glc@admin'),
                 'email'        => 'admin@glc.com',
-                'tel'          => $this->encrypt('08076382866'),
-                'password'     =>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'tel'          => $this->encrypt('0807638866'),
+                'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'is_available' => AvailableStatus::AVAILABLE->value
             ],
         ];
@@ -36,7 +37,7 @@ class AdminUserSeeder extends Seeder
 
             /** @var \Illuminate\Database\Eloquent\Builder $adminUser */
             $adminUser->updateOrCreate(
-                [ 'email' => $datum['email'] ],
+                ['email' => $datum['email']],
                 [
                     'name'         => $datum['name'],
                     'email'        => $datum['email'],

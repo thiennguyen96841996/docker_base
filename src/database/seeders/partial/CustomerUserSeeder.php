@@ -26,7 +26,7 @@ class CustomerUserSeeder extends Seeder
                 'name'         => $this->encrypt('スピード太郎'),
                 'birthday'     => $this->encrypt('1999/09/11'),
                 'email'        => 'tarou@dev.speedy',
-                'tel'          => $this->encrypt('09000000001'),
+                'tel'          => $this->encrypt('0900000001'),
                 'address'      => $this->encrypt('東京都新宿'),
                 'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             ],
@@ -39,7 +39,7 @@ class CustomerUserSeeder extends Seeder
             /** @var \Illuminate\Database\Eloquent\Builder $customerUser */
             $customerUser->fill([
                 'name'         => $this->encrypt($i % 3 ? 'Nguyễn Văn Lợi' : 'Nguyễn Đặng Thuỳ Huyền Trang'),
-                'tel'          => $this->encrypt('0909999' . rand(1000, 9999)),
+                'tel'          => $this->encrypt('090999' . rand(1000, 9999)),
                 'birthday'     => $this->encrypt('19' . rand(40, 99) . '/' . rand(0, 12) . '/' . rand(1, 30)),
                 'address'      => $this->encrypt('0011' . $i . ' PHAN KẾ BÍNH, PHƯỜNG CỐNG VỊ, QUẬN BA ĐÌNH, HÀ NỘI'),
                 'email'        => 'tarou0' .  $i . '@dev.speedy',

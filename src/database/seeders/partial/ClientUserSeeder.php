@@ -27,7 +27,7 @@ class ClientUserSeeder extends Seeder
                 'agency_id'    => rand(10001, 11000),
                 'name'         => $this->encrypt('スピード太郎'),
                 'email'        => 'tarou@dev.speedy',
-                'tel'          => $this->encrypt('09000000001'),
+                'tel'          => $this->encrypt('0900000001'),
                 'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'is_available' => AvailableStatus::AVAILABLE->value,
             ],
@@ -42,7 +42,7 @@ class ClientUserSeeder extends Seeder
                 'agency_id'    => rand(10001, 11000),
                 'name'         => $this->encrypt($i % 3 ? 'Nguyễn Văn Lợi' : 'Nguyễn Đặng Thuỳ Huyền Trang'),
                 'email'        => 'tarou' . $i . '@dev.speedy',
-                'tel'          => $this->encrypt('0909999' . rand(1000, 9999)),
+                'tel'          => $this->encrypt('090999' . rand(1000, 9999)),
                 'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'is_available' => $i % 4 ? AvailableStatus::AVAILABLE->value : AvailableStatus::NOT_AVAILABLE->value,
             ])->save();
