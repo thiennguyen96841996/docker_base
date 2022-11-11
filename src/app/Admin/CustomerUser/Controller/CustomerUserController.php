@@ -124,7 +124,7 @@ class CustomerUserController extends AbsController
         }
         $this->customerService->updateModel($customer, $request->all());
 
-        return redirect()->route('admin.customer-user.show', ['customerUser' => $id])
+        return redirect()->route('admin.customer-user.show', ['customer_user' => $id])
             ->with('status', StatusMessage::UPDATE_SUCCESS);
     }
 

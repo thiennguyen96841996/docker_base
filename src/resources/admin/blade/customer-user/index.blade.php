@@ -5,7 +5,7 @@
 @section('CONTENTS')
     @include('include.msg.status-msg')
 
-    <h3>Client list</h3>
+    <h3>Customer list</h3>
     <form method="GET" action="{{ route('admin.customer-user.index') }}">
         <label>Tel:</label><input type="text" name="tel" value="{{ Renderer::oldWithRequest('tel') }}">
         <label>Email:</label><input type="text" name="email" value="{{ Renderer::oldWithRequest('email') }}">

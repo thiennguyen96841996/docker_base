@@ -31,10 +31,9 @@ class CustomerUserUpdateRequest extends FormRequest
     public function validator(Factory $factory): Validator
     {
         list($controller, $method) = explode('@', \Route::currentRouteAction());
-
         switch ($method) {
             case 'update':
-            case 'updateConfirm':
+            case 'editConfirm':
                 $this->redirect = route('admin.customer-user.edit', $this->input('id'));
                 break;
             default:
@@ -75,7 +74,7 @@ class CustomerUserUpdateRequest extends FormRequest
     {
         return [
             'name'         => ['required', 'string', 'max:50'],
-            'tel'          => ['required', 'string', 'max:15'],
+            'tel'          => ['required', 'string', 'max:15', 'tel'],
             // 'password'     => [ 'required', 'string', 'min:8', 'max:32' ],
         ];
     }

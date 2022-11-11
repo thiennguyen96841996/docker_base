@@ -8,7 +8,7 @@
 @section('title', Renderer::getPageTitle())
 
 @section('CONTENTS')
-    @include('include.error-msg')
+    @include('include.msg.error-msg')
 
     <h3>Customer edit</h3>
     <form method="post" action="{{ route('admin.customer-user.editConfirm', $customerUser->id) }}">
@@ -20,6 +20,7 @@
         <label>Tel:</label><input type="text" name="tel" value="{{ $isBack ? $customerUser->tel : $customerUser->getTel() }}">
         <label>Email:</label><input type="text" name="email" value="{{ $isBack ? $customerUser->email : $customerUser->email }}">
         <label>Birthday:</label><input type="text" name="birthday" value="{{ $isBack ? $customerUser->birthday : $customerUser->getBirthday() }}">
+        <label>Gender:</label><input type="text" name="gender" value="{{ $isBack ? $customerUser->gender : $customerUser->getGender() }}">
         <label>Address:</label><input type="text" name="address" value="{{ $isBack ? $customerUser->address : $customerUser->getAddress() }}">
         <input type="submit" value="submit">
     </form>

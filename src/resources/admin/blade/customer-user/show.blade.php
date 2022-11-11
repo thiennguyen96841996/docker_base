@@ -6,7 +6,7 @@
 
 @section('CONTENTS')
     @include('include.msg.status-msg')
-    <h3>Client show</h3>
+    <h3>Customer show</h3>
     <p>Id: {{ $customerUser->id }}</p>
     <p>Name: {{ $customerUser->getName() }}</p>
     <p>Tel: {{ $customerUser->getTel() }}</p>

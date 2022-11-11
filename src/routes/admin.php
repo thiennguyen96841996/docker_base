@@ -70,9 +70,9 @@ Route::middleware('auth')->name('admin.')->group(function () {
     // Customer
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     Route::namespace('App\Admin\CustomerUser\Controller')->group(function () {
-        Route::resource('customer-user', 'CustomerUserController');
-        Route::put('customer-user/{customerUser}/edit', 'CustomerUserController@edit')->name('customer-user.edit');
-        Route::match(['get', 'post', 'put'], 'customer-user/{customerUser}/edit/confirm', 'CustomerUserController@editConfirm')->name('customer-user.editConfirm');
+        Route::resource('customer-user', 'CustomerUserController')->except('create');
+        Route::match(['post', 'put'], 'customer-user/{customer_user}/edit', 'CustomerUserController@edit')->name('customer-user.edit');
+        Route::match(['get', 'post', 'put'], 'customer-user/{customer_user}/edit/confirm', 'CustomerUserController@editConfirm')->name('customer-user.editConfirm');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Sample
