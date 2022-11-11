@@ -74,7 +74,7 @@ class ClientUserRepository implements ClientUserRepositoryContract
     {
         $params['name']     = !empty($params['name']) ? $this->encrypt(Arr::get($params, 'name')) : null;
         $params['tel']      = !empty($params['tel']) ? $this->encrypt(Arr::get($params, 'tel')) : null;
-        $params['password'] = Hash::make($params['password']);
+        // $params['password'] = Hash::make($params['password']);
         
         return $params;
     }

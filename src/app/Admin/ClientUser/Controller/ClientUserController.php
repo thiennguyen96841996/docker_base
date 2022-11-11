@@ -8,12 +8,12 @@ use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Common\View\Facades\Renderer;
 use Illuminate\Support\Facades\Route;
-use App\Common\ClientUser\Model\ClientUser;
 use App\Common\Agency\Service\AgencyService;
 use App\Common\Http\Controller\AbsController;
 use App\Common\ClientUser\Service\ClientUserService;
 use App\Admin\ClientUser\Request\ClientUserStoreRequest;
 use App\Admin\ClientUser\Request\ClientUserUpdateRequest;
+use App\Common\Definition\StatusMessage;
 
 /**
  * Client page in admin site。
@@ -52,9 +52,8 @@ class ClientUserController extends AbsController
 
         Renderer::setPaginator($this->clientUserService->getViewModelPaginator(url()->current(), $request->all()));
         Renderer::setSearchConditions($request->all());
-        $names = explode('.', Route::current()->getName());
 
-        return view('client-user.' . Arr::last($names));
+        return view('client-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -70,10 +69,9 @@ class ClientUserController extends AbsController
         if (!empty($request->all())) {
             Renderer::set('clientUser', $request->all());
         }
-        $agencies = $this->agencyService->getViewModelCollection();
-        Renderer::set('agencies', $agencies);
-        $names = explode('.', Route::current()->getName());
-        return view('client-user.' . Arr::last($names));
+        Renderer::set('agencies', $this->agencyService->getViewModelCollection());
+
+        return view('client-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -89,8 +87,8 @@ class ClientUserController extends AbsController
         if (!empty($agency = $this->agencyService->getViewModel(['id' => $request->input('agency_id')]))) {
             Renderer::set('agency', $agency);
         }
-        $names = explode('.', Route::current()->getName());
-        return view('client-user.' . Arr::last($names));
+
+        return view('client-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -110,7 +108,7 @@ class ClientUserController extends AbsController
         $clientViewModel = $this->clientUserService->getViewModel(['id' => $clientUser->id]);
         $clientUser->notify(new SendPassword($clientViewModel, $storeData['password']));
 
-        return redirect()->route('admin.clientUser.show', ['clientUser' => $clientUser->id])->with('status', 'store success');
+        return redirect()->route('admin.client-user.show', ['client_user' => $clientUser->id])->with('status', StatusMessage::UPDATE_SUCCESS);
     }
 
     /**
@@ -128,9 +126,8 @@ class ClientUserController extends AbsController
             abort(404);
         }
         Renderer::set('clientUser', $clientUser);
-        $names = explode('.', Route::current()->getName());
 
-        return view('client-user.' . Arr::last($names));
+        return view('client-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -155,13 +152,11 @@ class ClientUserController extends AbsController
             $isBack = true;
         }
 
-        $agencies = $this->agencyService->getViewModelCollection();
         Renderer::set('isBack', $isBack);
         Renderer::set('clientUser', $clientUser);
-        Renderer::set('agencies', $agencies);
-        $names = explode('.', Route::current()->getName());
+        Renderer::set('agencies', $this->agencyService->getViewModelCollection());
 
-        return view('client-user.' . Arr::last($names));
+        return view('client-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -178,8 +173,8 @@ class ClientUserController extends AbsController
         if (!empty($agency = $this->agencyService->getViewModel(['id' => $request->input('agency_id')]))) {
             Renderer::set('agency', $agency);
         }
-        $names = explode('.', Route::current()->getName());
-        return view('client-user.' . Arr::last($names));
+
+        return view('client-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
 
     /**
@@ -197,7 +192,7 @@ class ClientUserController extends AbsController
         }
         $this->clientUserService->updateModel($clientUser, $request->all());
 
-        return redirect()->route('admin.client-user.show', ['clientUser' => $id])->with('status', 'update success');
+        return redirect()->route('admin.client-user.show', ['client_user' => $id])->with('status', StatusMessage::UPDATE_SUCCESS);
     }
 
     /**
@@ -214,6 +209,6 @@ class ClientUserController extends AbsController
         }
         $this->clientUserService->deleteModel($clientUser);
 
-        return redirect()->route('admin.client-user.index')->with('status', 'delete success');
+        return redirect()->route('admin.client-user.index')->with('status', StatusMessage::DELETE_SUCCESS);
     }
 }

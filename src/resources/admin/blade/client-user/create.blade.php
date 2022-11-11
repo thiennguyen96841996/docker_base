@@ -19,7 +19,7 @@
         <label>Status:</label>
         <select name="is_available">
             @foreach(\App\Common\Database\Definition\AvailableStatus::cases() as $status)
-                @if (!empty($clientUser) && $clientUser['is_available'] == $status->value)
+                @if (!empty($clientUser) && Renderer::oldOrElse('is_available', $clientUser) == $status->value)
                     <option value="{{$status->value}}" selected>{{\App\Common\Database\Definition\AvailableStatus::getName($status->value)}}</option>
                 @else
                     <option value="{{$status->value}}">{{\App\Common\Database\Definition\AvailableStatus::getName($status->value)}}</option>
@@ -29,7 +29,7 @@
         <label>Agency:
         <select name="agency_id">
             @foreach($agencies as $agency)
-                @if (!empty($clientUser) && $clientUser['agency_id'] == $agency->id)
+                @if (!empty($clientUser) && Renderer::oldOrElse('agency_id', $clientUser) == $agency->id)
                     <option value="{{$agency->id}}" selected>{{$agency->name}}</option>
                 @else
                     <option value="{{$agency->id}}">{{$agency->name}}</option>

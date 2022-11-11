@@ -54,9 +54,9 @@ Route::middleware('auth')->name('admin.')->group(function () {
     Route::namespace('App\Admin\ClientUser\Controller')->group(function () {
         Route::resource('client-user', 'ClientUserController');
         Route::post('client-user/create', 'ClientUserController@create')->name('client-user.create');
-        Route::put('client-user/{clientUser}/edit', 'ClientUserController@edit')->name('client-user.edit');
+        Route::put('client-user/{client_user}/edit', 'ClientUserController@edit')->name('client-user.edit');
         Route::match(['get', 'post'], 'client-user/create/confirm', 'ClientUserController@createConfirm')->name('client-user.createConfirm');
-        Route::match(['get', 'post', 'put'], 'client-user/{clientUser}/edit/confirm', 'ClientUserController@updateConfirm')->name('client-user.updateConfirm');
+        Route::match(['get', 'post', 'put'], 'client-user/{client_user}/edit/confirm', 'ClientUserController@updateConfirm')->name('client-user.updateConfirm');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Post
