@@ -10,7 +10,7 @@
     <p>Tel: {{request()->input('tel')}}</p>
     <p>Email: {{request()->input('email')}}</p>
     <p>Birthday: {{request()->input('birthday')}}</p>
-    <p>Gender: {{request()->input('gender')}}</p>
+    <p>Gender: {{request()->input('gender') ? \App\Common\Database\Definition\Gender::getName(request()->input('gender')) : "--" }}</p>
     <p>Address: {{request()->input('address')}}</p>
     <form id="confirm-form" method="POST" action="{{ route('admin.customer-user.update', request()->input('id')) }}">
         @csrf

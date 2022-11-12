@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Common\Database\Definition\AvailableStatus;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\Customer\Model\Customer;
+use App\Common\Database\Definition\Gender;
 use App\Common\Database\MysqlCryptorTrait;
 
 /**
@@ -44,7 +45,7 @@ class CustomerUserSeeder extends Seeder
                 'address'      => $this->encrypt('0011' . $i . ' PHAN KẾ BÍNH, PHƯỜNG CỐNG VỊ, QUẬN BA ĐÌNH, HÀ NỘI'),
                 'email'        => 'tarou0' .  $i . '@dev.speedy',
                 'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'gender'       => $this->encrypt($i % 3 ? 'Nam' : 'Nữ'),
+                'gender'       => $this->encrypt($i % 3 ? Gender::MALE->value : Gender::FEMALE->value),
             ])->save();
         }
     }

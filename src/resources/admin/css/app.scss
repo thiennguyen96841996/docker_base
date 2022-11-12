@@ -14,7 +14,6 @@
 # blue: #2185d0
 # grey: #767676
 # */
-
 /*------------------------------------------------------------------
 [Typography]
 
@@ -24,7 +23,6 @@ parapgraph:     1em / "Lato", "Helvetica Neue", Arial, Helvetica, sans-serif;
 
 Notes:  decreasing heading by 0.4em with every subsequent heading level
 -------------------------------------------------------------------*/
-
 /*------------------------------------------------------------------
 [Table of contents]
 
@@ -40,7 +38,6 @@ Notes:  decreasing heading by 0.4em with every subsequent heading level
 10. Colors / .teal, .olive, .violet, .orange, .darkgray, .blue, .grey
 11. Responsive properties
 -------------------------------------------------------------------*/
-
 /*------------------------------------------------------------------
 [1. Body / #body]
 */
@@ -52,7 +49,6 @@ Notes:  decreasing heading by 0.4em with every subsequent heading level
 //     src: url("../font/Lato-Regular.eot");
 //     src: url("../font/Lato-Regular.eot?#iefix") format("embedded-opentype"), url("../font/Lato-Regular.woff") format("woff"), url("../font/Lato-Regular.ttf") format("truetype");
 // }
-
 body,
 h1,
 .h1,
@@ -82,11 +78,13 @@ body {
     color: #444;
 }
 
-input[readonly] {
+input[readonly],
+textarea[readonly] {
     background-color: #e9ecef;
 }
 
-input[readonly]:focus {
+input[readonly]:focus,
+textarea[readonly]:focus {
     background-color: #e9ecef;
     outline: none;
 }

@@ -15,26 +15,26 @@
         <div class="card-body">
             <div class="row g-2">
                 <div class="mb-3 col-md-6">
-                    <label for="name" class="form-label fw-bold">Name</label>
+                    <label class="form-label fw-bold">Name</label>
                     <input type="text" class="form-control" value="{{ $clientUser->getName() }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label for="tel" class="form-label fw-bold">Status</label>
+                    <label class="form-label fw-bold">Status</label>
                     <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\AvailableStatus::getName($clientUser->is_available) }}" readonly>
                 </div>
             </div>
             <div class="row g-2">
                 <div class="mb-3 col-md-6">
-                    <label for="name" class="form-label fw-bold">Email</label>
+                    <label class="form-label fw-bold">Email</label>
                     <input type="text" class="form-control" value="{{ $clientUser->email }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label for="tel" class="form-label fw-bold">Tel</label>
+                    <label class="form-label fw-bold">Tel</label>
                     <input type="text" class="form-control" value="{{ $clientUser->getTel() }}" readonly>
                 </div>
             </div>
             <div class="mb-3">
-                <label for="tel" class="form-label fw-bold">Agency</label>
+                <label class="form-label fw-bold">Agency</label>
                 <input type="text" class="form-control" value="{{ $clientUser->agency_name }}" readonly>
             </div>
         </div>

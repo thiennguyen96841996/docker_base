@@ -17,27 +17,27 @@
                 <div class="row g-2">
                     <input type="hidden" name="id" value="{{ request()->input('id') }}">
                     <div class="mb-3 col-md-6">
-                        <label for="name" class="form-label fw-bold required-mark">Name</label>
+                        <label class="form-label fw-bold">Name</label>
                         <input type="text" name="name" class="form-control" value="{{ request()->input('name') }}" readonly>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label for="tel" class="form-label fw-bold required-mark">Tel</label>
+                        <label class="form-label fw-bold">Tel</label>
                         <input type="text" name="tel" class="form-control" value="{{ request()->input('tel') }}" readonly>
                     </div>
                 </div>
                 <div class="row g-2">
                     <input type="hidden" name="is_available" value="{{ request()->input('is_available') }}">
                     <div class="mb-3 col-md-6">
-                        <label for="is_available" class="form-label fw-bold required-mark">Status</label>
+                        <label class="form-label fw-bold">Status</label>
                         <input type="text" name="is_available_text" class="form-control" value="{{ \App\Common\Database\Definition\AvailableStatus::getName(request()->input('is_available')) }}" readonly>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label for="name" class="form-label fw-bold required-mark">Email</label>
+                        <label class="form-label fw-bold">Email</label>
                         <input type="text" name="email" class="form-control" value="{{ request()->input('email') }}" readonly>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="tel" class="form-label fw-bold required-mark">Agency</label>
+                    <label class="form-label fw-bold">Agency</label>
                     <input type="hidden" name="agency_id" value="{{ request()->input('agency_id') }}"></br>
                     <input type="text" name="agency_name" class="form-control" value="{{ request()->input('agency_name') }}" readonly>
                 </div>

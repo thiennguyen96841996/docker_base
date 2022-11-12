@@ -1,7 +1,4 @@
-<div>
-    {{(Renderer::getPaginator()->currentpage()-1)*Renderer::getPaginator()->perpage()+1}} - {{Renderer::getPaginator()->currentpage()*Renderer::getPaginator()->perpage()}}
-    of  {{Renderer::getPaginator()->total()}} entries
-</div>
+<div>{{ Renderer::renderPaginatorTotalLine() }}</div>
 @if ($paginator->hasPages())
     <nav>
         <ul class="pagination d-flex justify-content-left">

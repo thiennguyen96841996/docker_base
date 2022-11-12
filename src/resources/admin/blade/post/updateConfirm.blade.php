@@ -9,69 +9,78 @@
     
     <div class="page-title">
         <h3>
-        Post Edit Confirmation
+            Post Edit Confirmation
         </h3>
     </div>
-    <div class="box">
-        <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <th scope="row">Id</th>
-                    <td>{{ request()->input('id') }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Title</th>
-                    <td>{{ request()->input('title') }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Status</th>
-                    <td>{{ request()->input('status') }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Content</th>
-                    <td>{{ request()->input('content') }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">City</th>
-                    <td>{{ request()->input('city') }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">District</th>
-                    <td>{{ request()->input('district') }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Address</th>
-                    <td>{{ request()->input('address') }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Price</th>
-                    <td>{{ request()->input('price') }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Area</th>
-                    <td>{{ request()->input('area') }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="d-flex d-flex justify-content-center text-center p-3">
-            <a id="btn_back_to_edit" class="btn btn-outline-secondary me-2" href="#" data-post-url="{{ route('admin.post.edit', ['post' => request()->input('id')]) }}">back</a>
-            <form method="POST" id="input_form" action="{{ route('admin.post.update', ['post' => request()->input('id')]) }}">
-                @method('PUT')
+    <div class="card">
+        <div class="card-body">
+            <form id="input_form" method="POST" action="{{ route('admin.post.update', ['post' => request()->input('id')]) }}">
+                @method('PUT')    
                 @csrf
                 <input type="hidden" name="id" value="{{ request()->input('id') }}">
-                <input type="hidden" name="title" value="{{ request()->input('title') }}">
-                <input type="hidden" name="status" value="{{ request()->input('status') }}">
-                <input type="hidden" name="content" value="{{ request()->input('content') }}">
-                <input type="hidden" name="city" value="{{ request()->input('city') }}">
-                <input type="hidden" name="district" value="{{ request()->input('district') }}">
-                <input type="hidden" name="address" value="{{ request()->input('address') }}">
-                <input type="hidden" name="price" value="{{ request()->input('price') }}">
-                <input type="hidden" name="area" value="{{ request()->input('area') }}">
-                <input type="hidden" name="client_id" value="{{ request()->input('client_id') }}">
-                <button type="submit" class="btn btn-primary" value="update"><i class="fas fa-save"></i> Update</button>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Title</label>
+                    <input type="text" name="title" class="form-control" value="{{ request()->input('title') }}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Content</label>
+                    <textarea name="content" class="form-control" rows="10" readonly>{{ request()->input('content') }}</textarea>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label fw-bold">City</label>
+                        <input type="text" name="city" value="{{ request()->input('city') }}" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label fw-bold">District</label>
+                        <input type="text" name="district" value="{{ request()->input('district') }}" class="form-control" readonly>
+                    </div>
+                </div>
+                <div class="mb-3">
+                        <label class="form-label fw-bold">Address</label>
+                        <input type="text" name="address" value="{{ request()->input('address') }}" class="form-control" readonly>
+                    </div>
+                <div class="row g-2">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label fw-bold">Price (VNĐ)</label>
+                        <input type="text" value="{{ number_format(request()->input('price')) }}" class="form-control" readonly>
+                        <input type="hidden" name="price" value="{{ request()->input('price') }}" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label fw-bold">Area (m2)</label>
+                        <input type="number" name="area" value="{{ request()->input('area') }}" class="form-control" readonly>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label fw-bold">Published At</label>
+                        <input type="text" name="published_at" class="form-control" value="{{ request()->input('published_at') }}" readonly>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label fw-bold">Closed At</label>
+                        <input type="text" name="closed_at" class="form-control" value="{{ request()->input('closed_at') }}" readonly>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label fw-bold">Client</label>
+                        <input type="text" name="client_id" class="form-control" value="{{ request()->input('client_id') }}" readonly>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label fw-bold">Status</label>
+                        <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\AvailableStatus::getName(request()->input('status')) }}" readonly>
+                        <input type="hidden" name="status" class="form-control" value="{{ request()->input('status') }}" readonly>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end text-center mt-4">
+                    <a id="btn_back_to_edit" href="#" data-post-url="{{ route('admin.post.edit', ['post' => request()->input('id')]) }}" class="btn btn-outline-secondary me-2">Back</a>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
+                </div>
             </form>
         </div>
     </div>
+
 @stop
 
 @section ('JAVASCRIPT')

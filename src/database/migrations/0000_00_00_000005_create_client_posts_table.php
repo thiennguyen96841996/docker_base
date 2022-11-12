@@ -34,8 +34,8 @@ class CreateClientPostsTable extends Migration
                     $table->unsignedDouble('price')->nullable();
                     $table->unsignedDouble('area')->nullable();
                     $table->unsignedBigInteger('view_counts')->nullable();
-                    $table->timestamp('closed_at')->nullable();
-                    $table->timestamp('published_at')->nullable();
+                    $table->string('closed_at', 20)->nullable();
+                    $table->string('published_at', 20)->nullable();
                     $table->timestamps();
                     $table->softDeletes();
                 });

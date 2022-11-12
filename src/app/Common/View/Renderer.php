@@ -53,7 +53,7 @@ class Renderer implements ArrayAccess, RendererContract
      * Paginatorの総件数を表示する文言のフォーマット。
      * @var string
      */
-    const PAGINATOR_TOTAL_LINE_FORMAT = '%1$d件中 %2$d〜%3$d件を表示（全%4$dページ）';
+    const PAGINATOR_TOTAL_LINE_FORMAT = 'Hiển thị %2$d〜%3$d trong tổng số %1$d mục';
 
     /**
      * 検索条件の配列を取得する。
@@ -191,7 +191,11 @@ class Renderer implements ArrayAccess, RendererContract
     public function oldOrElse(string $key, $else = null, ?string $property = null): mixed
     {
         if (session()->exists('_old_input.'.$key)) {
-            $data = old($key, '');
+            if ($key == 'published_at' || $key == 'closed_at') {
+                $data = old($key, date('Y-m-d'));
+            } else {
+                $data = old($key, '');
+            }
         } else {
             // ビューモデルがnullの場合はリクエストから取得
             if (is_null($else)) {

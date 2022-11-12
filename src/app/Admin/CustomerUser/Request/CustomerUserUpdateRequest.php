@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
 use App\Common\Database\Definition\AvailableStatus;
+use App\Common\Database\Definition\Gender;
 
 /**
  * Customer情報を登録する際のバリデーションを行うクラス。
@@ -72,11 +73,17 @@ class CustomerUserUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rule = [
             'name'         => ['required', 'string', 'max:50'],
             'tel'          => ['required', 'string', 'max:15', 'tel'],
             // 'password'     => [ 'required', 'string', 'min:8', 'max:32' ],
         ];
+
+        if (!is_null(request()->input('gender'))) {
+            $rule['gender'] = 'in:' . join(',', Gender::values());
+        }
+
+        return $rule;
     }
 
     /**

@@ -6,6 +6,7 @@
 
 @section('CONTENTS')
     @include('include.msg.status-msg')
+
     <div class="page-title">
         <h3>
             Customer User {{ $customerUser->id }}
@@ -39,7 +40,7 @@
                     <input type="text" class="form-control" value="{{ $customerUser->getBirthday() }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label for="tel" class="form-label fw-bold">Address</label>
+                    <label class="form-label fw-bold">Address</label>
                     <input type="text" class="form-control" value="{{ $customerUser->getAddress() }}" readonly>
                 </div>
             </div>
