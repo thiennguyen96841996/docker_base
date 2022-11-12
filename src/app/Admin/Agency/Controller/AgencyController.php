@@ -5,6 +5,7 @@ namespace App\Admin\Agency\Controller;
 use App\Admin\Agency\Request\AgencyStoreRequest;
 use App\Admin\Agency\Request\AgencyUpdateRequest;
 use App\Common\Agency\Service\AgencyService;
+use App\Common\Definition\StatusMessage;
 use App\Common\View\Facades\Renderer;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
@@ -39,10 +40,10 @@ class AgencyController extends AbsController
      */
     public function index(Request $request): View
     {
-        Renderer::setPageTitle('Agency List');
+        $this->renderer->setPageTitle('Agency List');
 
-        Renderer::setPaginator($this->agencyService->getViewModelPaginator(url()->current(), $request->all()));
-        Renderer::setSearchConditions($request->all());
+        $this->renderer->setPaginator($this->agencyService->getViewModelPaginator(url()->current(), $request->all()));
+        $this->renderer->setSearchConditions($request->all());
         $names = explode('.', Route::current()->getName());
 
         return view('agency.' . Arr::last($names));
@@ -55,12 +56,13 @@ class AgencyController extends AbsController
      */
     public function create(Request $request): View
     {
-        Renderer::setPageTitle('Agency Create');
+        $this->renderer->setPageTitle('Agency Create');
 
         if (!empty($request->all())) {
-            Renderer::set('agency', $request->all());
+            $this->renderer->set('agency', $request->all());
         }
         $names = explode('.', Route::current()->getName());
+
         return view('agency.' . Arr::last($names));
     }
 
@@ -74,7 +76,8 @@ class AgencyController extends AbsController
     public function store(AgencyStoreRequest $request): \Illuminate\Http\RedirectResponse
     {
         $agency = $this->agencyService->storeModel($request->all());
-        return redirect()->route('admin.agency.show', ['agency' => $agency->id])->with('status', 'store success');
+
+        return redirect()->route('admin.agency.show', ['agency' => $agency->id])->with('status', StatusMessage::STORE_SUCCESS);
     }
 
     /**
@@ -86,12 +89,12 @@ class AgencyController extends AbsController
      */
     public function show(int $id): View
     {
-        Renderer::setPageTitle('Agency ' . $id);
+        $this->renderer->setPageTitle('Agency ' . $id);
 
         if (empty($agency = $this->agencyService->getViewModel(['id' => $id]))) {
             abort(404);
         }
-        Renderer::set('agency', $agency);
+        $this->renderer->set('agency', $agency);
         $names = explode('.', Route::current()->getName());
 
         return view('agency.' . Arr::last($names), ['agency' => $agency]);
@@ -107,7 +110,7 @@ class AgencyController extends AbsController
      */
     public function edit(Request $request, int $id): View
     {
-        Renderer::setPageTitle('Agency Edit');
+        $this->renderer->setPageTitle('Agency Edit');
 
         if (empty($agency = $this->agencyService->getViewModel(['id' => $id]))) {
             abort(404);
@@ -117,9 +120,9 @@ class AgencyController extends AbsController
             $agency = $this->agencyService->convertArrayToViewModel($request->all());
             $agency->id = $id;
         }
-        Renderer::set('agency', $agency);
-
+        $this->renderer->set('agency', $agency);
         $names = explode('.', Route::current()->getName());
+
         return view('agency.' . Arr::last($names));
     }
 
@@ -130,11 +133,11 @@ class AgencyController extends AbsController
      * @return View
      * @throws \Throwable
      */
-    public function createConfirm(AgencyStoreRequest $request)
+    public function createConfirm(AgencyStoreRequest $request): View
     {
-        Renderer::setPageTitle('Agency Create Confirm');
+        $this->renderer->setPageTitle('Agency Create Confirm');
 
-        Renderer::set('request', $request);
+        $this->renderer->set('request', $request);
         $names = explode('.', Route::current()->getName());
 
         return view('agency.' . Arr::last($names));
@@ -147,11 +150,11 @@ class AgencyController extends AbsController
      * @return View
      * @throws \Throwable
      */
-    public function updateConfirm(AgencyUpdateRequest $request)
+    public function updateConfirm(AgencyUpdateRequest $request): View
     {
-        Renderer::setPageTitle('Agency Update Confirm');
+        $this->renderer->setPageTitle('Agency Update Confirm');
 
-        Renderer::set('request', $request);
+        $this->renderer->set('request', $request);
         $names = explode('.', Route::current()->getName());
 
         return view('agency.' . Arr::last($names));
@@ -172,7 +175,7 @@ class AgencyController extends AbsController
         }
         $this->agencyService->updateModel($agency, $request->all());
 
-        return redirect()->route('admin.agency.show', ['agency' => $id])->with('status', 'update success');
+        return redirect()->route('admin.agency.show', ['agency' => $id])->with('status', StatusMessage::UPDATE_SUCCESS);
     }
 
     /**
@@ -189,6 +192,6 @@ class AgencyController extends AbsController
         }
         $this->agencyService->deleteModel($agency);
 
-        return redirect()->route('admin.agency.index')->with('status', 'delete success');
+        return redirect()->route('admin.agency.index')->with('status', StatusMessage::DELETE_SUCCESS);
     }
 }
