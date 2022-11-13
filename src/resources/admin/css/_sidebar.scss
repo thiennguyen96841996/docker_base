@@ -10,6 +10,7 @@
     color: #fff;
     transition: all 0.3s;
     border-right: 1px solid #e6ecf5;
+    background-color: white;
 }
 
 #sidebar.active {
@@ -36,7 +37,7 @@
 }
 
 #sidebar ul li a {
-    padding: 0.8rem 1.5rem;
+    padding: 1.2rem 1.5rem;
     font-size: 1rem;
     display: block;
     color: #424242;
@@ -50,8 +51,7 @@
 }
 
 #sidebar ul li a.active {
-    color: black;
-    font-weight: 600;
+   background-color: $primary;
 }
 
 #sidebar ul li.active > a,

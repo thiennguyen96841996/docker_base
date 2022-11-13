@@ -17,7 +17,7 @@
                 <div class="row g-2">
                     <div class="mb-3 col-md-6">
                         <div class="row">
-                            <label for="inputPassword fw-bold" class="col-sm-2 col-form-label ps-4 fw-bold">ID: </label>
+                            <label for="id" class="col-sm-2 col-form-label ps-4 fw-bold">ID: </label>
                             <div class="col-sm-10 ps-0">
                                 <input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
                             </div>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <div class="row">
-                            <label for="inputPassword fw-bold ml-3" class="col-sm-2 col-form-label ps-4 fw-bold">Title: </label>
+                            <label for="title" class="col-sm-2 col-form-label ps-4 fw-bold">Title: </label>
                             <div class="col-sm-10 ps-0">
                                 <input type="text" name="title" value="{{ Renderer::oldWithRequest('title') }}" class="form-control">
                             </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <div class="row">
-                            <label for="inputPassword fw-bold" class="col-sm-2 col-form-label ps-4 fw-bold">Address: </label>
+                            <label for="address" class="col-sm-2 col-form-label ps-4 fw-bold">Address: </label>
                             <div class="col-sm-10 ps-0 ">
                                 <input type="number" name="address" class="form-control" value="{{ Renderer::oldWithRequest('address') }}">
                             </div>

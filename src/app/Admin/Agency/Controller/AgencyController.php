@@ -74,7 +74,7 @@ class AgencyController extends AbsController
     public function store(AgencyStoreRequest $request): \Illuminate\Http\RedirectResponse
     {
         $agency = $this->agencyService->storeModel($request->all());
-        return redirect()->route('admin.agency.show', ['agency' => $agency->id])->with('status', 'store success');
+        return redirect()->route('admin.agency.show', ['agency' => $agency->id])->with('status', StatusMessage::STORE_SUCCESS);
     }
 
     /**
@@ -172,7 +172,7 @@ class AgencyController extends AbsController
         }
         $this->agencyService->updateModel($agency, $request->all());
 
-        return redirect()->route('admin.agency.show', ['agency' => $id])->with('status', 'update success');
+        return redirect()->route('admin.agency.show', ['agency' => $id])->with('status', StatusMessage::UPDATE_SUCCESS);
     }
 
     /**

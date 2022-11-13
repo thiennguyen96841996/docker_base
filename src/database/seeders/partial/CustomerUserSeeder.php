@@ -38,7 +38,7 @@ class CustomerUserSeeder extends Seeder
 
             /** @var \Illuminate\Database\Eloquent\Builder $customerUser */
             $customerUser->fill([
-                'name'         => $this->encrypt($i % 3 ? 'Nguyễn Văn Lợi' : 'Nguyễn Đặng Thuỳ Huyền Trang'),
+                'name'         => $this->encrypt($i % 3 ? 'Nguyễn Văn Lợi' : 'Nguyễn Thuỳ Huyền Trang'),
                 'tel'          => $this->encrypt('090999' . rand(1000, 9999)),
                 'birthday'     => $this->encrypt('19' . rand(40, 99) . '/' . rand(0, 12) . '/' . rand(1, 30)),
                 'address'      => $this->encrypt('0011' . $i . ' PHAN KẾ BÍNH, PHƯỜNG CỐNG VỊ, QUẬN BA ĐÌNH, HÀ NỘI'),
