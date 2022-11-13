@@ -37,7 +37,9 @@ class CustomerViewModel implements ViewModelContract
      */
     public function getBirthday(): string
     {
-        return $this->decrypt($this->birthday);
+        $birthDate = strtotime($this->decrypt($this->birthday));
+
+        return date('d/m/Y',$birthDate);
     }
 
     /**
