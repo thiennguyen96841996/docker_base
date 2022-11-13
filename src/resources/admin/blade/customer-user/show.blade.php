@@ -21,7 +21,7 @@
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label fw-bold">Gender</label>
-                    <input type="text" class="form-control" value="{{ $customerUser->getGender() }}" readonly>
+                    <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\Gender::getName($customerUser->getGender()) }}" readonly>
                 </div>
             </div>
             <div class="row g-2">

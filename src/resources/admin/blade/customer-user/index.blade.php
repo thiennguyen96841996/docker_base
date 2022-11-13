@@ -76,7 +76,7 @@
                         <td>{{ $val->getName() }}</td>
                         <td>{{ $val->getTel() }}</td>
                         <td>{{ $val->email }}</td>
-                        <td>{{ $val->getGender() }}</td>
+                        <td>{{ \App\Common\Database\Definition\Gender::getName($val->getGender()) }}</td>
                         <td>{{ $val->getBirthday() }}</td>
                         <td>{{ $val->getAddress() }}</td>
                     </tr>

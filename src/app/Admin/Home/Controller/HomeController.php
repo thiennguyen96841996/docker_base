@@ -3,6 +3,7 @@
 namespace App\Admin\Home\Controller;
 
 use Illuminate\View\View;
+use App\Common\View\Facades\Renderer;
 use App\Common\Http\Controller\AbsController;
 
 /**

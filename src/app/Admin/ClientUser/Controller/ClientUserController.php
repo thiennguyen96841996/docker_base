@@ -154,7 +154,6 @@ class ClientUserController extends AbsController
 
         Renderer::set('isBack', $isBack);
         Renderer::set('clientUser', $clientUser);
-        Renderer::set('agencies', $this->agencyService->getViewModelCollection());
 
         return view('client-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
