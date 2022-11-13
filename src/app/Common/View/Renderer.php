@@ -191,11 +191,7 @@ class Renderer implements ArrayAccess, RendererContract
     public function oldOrElse(string $key, $else = null, ?string $property = null): mixed
     {
         if (session()->exists('_old_input.'.$key)) {
-            if ($key == 'published_at' || $key == 'closed_at') {
-                $data = old($key, date('Y-m-d'));
-            } else {
-                $data = old($key, '');
-            }
+            $data = old($key, '');
         } else {
             // ビューモデルがnullの場合はリクエストから取得
             if (is_null($else)) {
