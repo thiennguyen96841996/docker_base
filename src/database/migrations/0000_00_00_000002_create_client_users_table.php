@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -22,15 +23,18 @@ class CreateClientUsersTable extends Migration
                 ->create('client_users', function (Blueprint $table) {
                     $table->engine = 'InnoDB';
                     $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
-                    $table->integer('agency_id');
+                    $table->string('email', 50)->unique();
+                    $table->string('password', 100);
                     $table->binary('name');
-                    $table->string('email')->unique();
-                    $table->binary('tel');
-                    $table->string('password');
-                    $table->rememberToken();
-                    $table->char('is_available', 2);
+                    $table->binary('tel');    // validate max string: 10
                     $table->timestamp('email_verified_at')->nullable();
                     $table->timestamp('last_login_at')->nullable();
+                    $table->integer('agency_id');
+                    $table->char('status', 2)->default(02);  //01: active, 02:inactive
+                    $table->integer('region_code');
+                    $table->binary('hotline');   // validate max string: 10
+                    $table->binary('avatar')->nullable();
+                    $table->rememberToken();
                     $table->timestamps();
                     $table->softDeletes();
                 });
@@ -39,8 +43,7 @@ class CreateClientUsersTable extends Migration
                 ->statement('ALTER TABLE `client_users` ROW_FORMAT=DYNAMIC;');
             DB::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
                 ->statement('ALTER TABLE `client_users` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;');
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             $this->down();
             throw $e;
         }

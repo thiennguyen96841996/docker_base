@@ -25,9 +25,8 @@ class AdminUserSeeder extends Seeder
             [
                 'name'         => $this->encrypt('glc@admin'),
                 'email'        => 'admin@glc.com',
-                'tel'          => $this->encrypt('0807638866'),
                 'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'is_available' => AvailableStatus::AVAILABLE->value
+                'last_login_at'     => '2022-11-16'
             ],
         ];
 
@@ -37,13 +36,12 @@ class AdminUserSeeder extends Seeder
 
             /** @var \Illuminate\Database\Eloquent\Builder $adminUser */
             $adminUser->updateOrCreate(
-                ['email' => $datum['email']],
                 [
-                    'name'         => $datum['name'],
-                    'email'        => $datum['email'],
-                    'tel'          => $datum['tel'],
-                    'password'     => $datum['password'],
-                    'is_available' => $datum['is_available'],
+                    'email'         => $datum['email'],
+                    'name'          => $datum['name'],
+                    'email'         => $datum['email'],
+                    'password'      => $datum['password'],
+                    'last_login_at' => $datum['last_login_at'],
                 ]
             );
         }

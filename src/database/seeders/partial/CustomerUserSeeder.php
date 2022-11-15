@@ -7,6 +7,8 @@ use App\Common\Database\Definition\AvailableStatus;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\Customer\Model\Customer;
 use App\Common\Database\Definition\Gender;
+use App\Common\Database\Definition\Status;
+use App\Common\Database\Definition\StatusUser;
 use App\Common\Database\MysqlCryptorTrait;
 
 /**
@@ -46,6 +48,7 @@ class CustomerUserSeeder extends Seeder
                 'email'        => 'tarou0' .  $i . '@dev.speedy',
                 'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'gender'       => $this->encrypt($i % 3 ? Gender::MALE->value : Gender::FEMALE->value),
+                'status'       => $this->encrypt($i % 3 ? StatusUser::ACTIVE->value : StatusUser::INACTIVE->value),
             ])->save();
         }
     }

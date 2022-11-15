@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Schema;
 use App\Common\Database\Definition\DatabaseDefs;
 
 /**
- * admin_usersテーブルを作成するマイグレーションクラス。
+ * bookmark_linksテーブルを作成するマイグレーションクラス。
  */
-class CreateAdminUsersTable extends Migration
+class CreateBookmarkLinksTable extends Migration
 {
     /**
      * マイグレーションを実行する。
@@ -20,22 +20,19 @@ class CreateAdminUsersTable extends Migration
     {
         try {
             Schema::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
-                ->create('admin_users', function (Blueprint $table) {
+                ->create('bookmark_links', function (Blueprint $table) {
                     $table->engine = 'InnoDB';
                     $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
-                    $table->string('email', 50)->unique();
-                    $table->string('password', 100);
-                    $table->binary('name');
-                    $table->timestamp('last_login_at');
-                    $table->rememberToken();
+                    $table->string('name', 50);
+                    $table->string('link', 150);
                     $table->timestamps();
                     $table->softDeletes();
                 });
 
             DB::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
-                ->statement('ALTER TABLE `admin_users` ROW_FORMAT=DYNAMIC;');
+                ->statement('ALTER TABLE `bookmark_links` ROW_FORMAT=DYNAMIC;');
             DB::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
-                ->statement('ALTER TABLE `admin_users` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;');
+                ->statement('ALTER TABLE `bookmark_links` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;');
         } catch (PDOException $e) {
             $this->down();
             throw $e;
@@ -49,6 +46,6 @@ class CreateAdminUsersTable extends Migration
     public function down(): void
     {
         Schema::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
-            ->dropIfExists('admin_users');
+            ->dropIfExists('bookmark_links');
     }
 }
