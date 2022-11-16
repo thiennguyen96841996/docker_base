@@ -1,4 +1,4 @@
-<div>{{ Renderer::renderPaginatorTotalLine() }}</div>
+<div class="mb-1">{{ Renderer::renderPaginatorTotalLine() }}</div>
 @if ($paginator->hasPages())
     <nav>
         <ul class="pagination d-flex justify-content-left">
