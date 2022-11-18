@@ -90,11 +90,11 @@ class Agency extends Model
                 // id
                 'id' => !empty($value) ? $builder->where($this->qualifyColumn('id'), '=', $value) : null,
                 // name
-                'name' => !empty($value) ? $builder->where($this->qualifyColumn('name'), 'like', "%{$value}%") :null,
+                'name' => !empty($value) ? $builder->whereRaw("lower(name) LIKE '%". mb_strtolower($value) . "%'") :null,
                 // tel
                 'tel' => !empty($value) ? $builder->where($this->qualifyColumn('tel'), '=', $value) : null,
                 // address
-                'address' => !empty($value) ? $builder->where($this->qualifyColumn('address'),'=', $value) : null,
+                'address' => !empty($value) ? $builder->whereRaw("lower(address) LIKE '%". mb_strtolower($value) . "%'") : null,
                 default => null,
             };
         }
