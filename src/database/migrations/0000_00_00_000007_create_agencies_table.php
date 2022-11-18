@@ -26,7 +26,7 @@ class CreateAgenciesTable extends Migration
                     $table->string('name', 100);
                     $table->string('tel', 15);
                     $table->string('address', 100);
-                    $table->char('status', 2)->default(01);  //01: active, 02: inactive
+                    $table->char('status', 2)->default('01');  //01: active, 02: inactive
                     $table->string('agency_director', 100)->nullable();
                     $table->dateTime('establishment_date')->nullable();
                     $table->timestamps();
