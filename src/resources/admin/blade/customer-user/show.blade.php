@@ -15,13 +15,17 @@
     <div class="card">
         <div class="card-body">
             <div class="row g-2">
-                <div class="mb-3 col-md-6">
+                <div class="mb-3 col-md-4">
                     <label class="form-label fw-bold">Name</label>
                     <input type="text" class="form-control" value="{{ $customerUser->getName() }}" readonly>
                 </div>
-                <div class="mb-3 col-md-6">
+                <div class="mb-3 col-md-4">
                     <label class="form-label fw-bold">Gender</label>
                     <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\Gender::getName($customerUser->getGender()) }}" readonly>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label class="form-label fw-bold">Status</label>
+                    <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\AvailableStatus::getName($customerUser->getStatus()) }}" readonly>
                 </div>
             </div>
             <div class="row g-2">
