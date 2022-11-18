@@ -31,8 +31,8 @@ class PostUpdateRequest extends FormRequest
         list($controller, $method) = explode('@', \Route::currentRouteAction());
 
         switch ($method) {
-            case 'store':
-            case 'createConfirm':
+            case 'update':
+            case 'updateConfirm':
             $this->redirect = route('client.post.edit', ['post' => $this->input('id')]);
                 break;
             default:
@@ -71,10 +71,30 @@ class PostUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'title'         => [ 'required', 'string', 'max:50' ],
-            'content'      => [ 'required', 'string', 'max:255' ],
-        ];
+        list($controller, $method) = explode('@', \Route::currentRouteAction());
+        $rule = [];
+
+        switch ($method) {
+            case 'update':
+            case 'updateConfirm':
+                $rule = [
+                    'title'         => [ 'required', 'string', 'max:150' ],
+                    'content'       => [ 'required', 'string', 'max:5000' ],
+                    'city'          => [ 'required', 'string', 'max:25' ],
+                    'district'      => [ 'required', 'string', 'max:20' ],
+                    'status'        => [ 'required', 'string', 'max:2' ],
+                    'address'       => [ 'required', 'string', 'max:100' ],
+                    'price'         => [ 'required', 'integer' ],
+                    'area'          => [ 'required', 'integer' ]
+                ];
+                if ($this->hasFile('avatar') && $this->file('avatar')->isValid()) {
+                    $rule['avatar'] =  ['mimes:jpeg,png,jpg,gif', 'max: 5120'];
+                }
+                break;
+            default:
+                break;
+        }
+        return $rule;
     }
 
     /**
