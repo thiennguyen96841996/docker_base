@@ -3,6 +3,7 @@
 @php
     $customerUser = Renderer::get('customerUser');
     $isBack = Renderer::get('isBack');
+    $gender = $isBack ? $customerUser->gender : $customerUser->getGender();
 @endphp
 
 @section('title', Renderer::getPageTitle())
@@ -20,7 +21,17 @@
         <label>Tel:</label><input type="text" name="tel" value="{{ $isBack ? $customerUser->tel : $customerUser->getTel() }}">
         <label>Email:</label><input type="text" name="email" value="{{ $isBack ? $customerUser->email : $customerUser->email }}">
         <label>Birthday:</label><input type="text" name="birthday" value="{{ $isBack ? $customerUser->birthday : $customerUser->getBirthday() }}">
-        <label>Gender:</label><input type="text" name="gender" value="{{ $isBack ? $customerUser->gender : $customerUser->getGender() }}">
+        <label>Gender:</label>
+        <select name="gender">
+            <option value="">--</option>
+            @foreach(\App\Common\Database\Definition\Gender::cases() as $status)
+                @if (!empty($customerUser) && $gender == $status->value)
+                    <option value="{{$status->value}}" selected>{{\App\Common\Database\Definition\Gender::getName($status->value)}}</option>
+                @else
+                    <option value="{{$status->value}}">{{\App\Common\Database\Definition\Gender::getName($status->value)}}</option>
+                @endif
+            @endforeach
+        </select>
         <label>Address:</label><input type="text" name="address" value="{{ $isBack ? $customerUser->address : $customerUser->getAddress() }}">
         <input type="submit" value="submit">
     </form>

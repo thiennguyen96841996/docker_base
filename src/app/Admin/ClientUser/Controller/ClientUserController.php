@@ -108,7 +108,7 @@ class ClientUserController extends AbsController
         $clientViewModel = $this->clientUserService->getViewModel(['id' => $clientUser->id]);
         $clientUser->notify(new SendPassword($clientViewModel, $storeData['password']));
 
-        return redirect()->route('admin.client-user.show', ['client_user' => $clientUser->id])->with('status', StatusMessage::UPDATE_SUCCESS);
+        return redirect()->route('admin.client-user.show', $clientUser->id)->with('status', StatusMessage::STORE_SUCCESS);
     }
 
     /**
@@ -154,7 +154,6 @@ class ClientUserController extends AbsController
 
         Renderer::set('isBack', $isBack);
         Renderer::set('clientUser', $clientUser);
-        Renderer::set('agencies', $this->agencyService->getViewModelCollection());
 
         return view('client-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
@@ -192,7 +191,7 @@ class ClientUserController extends AbsController
         }
         $this->clientUserService->updateModel($clientUser, $request->all());
 
-        return redirect()->route('admin.client-user.show', ['client_user' => $id])->with('status', StatusMessage::UPDATE_SUCCESS);
+        return redirect()->route('admin.client-user.show', $id)->with('status', StatusMessage::UPDATE_SUCCESS);
     }
 
     /**

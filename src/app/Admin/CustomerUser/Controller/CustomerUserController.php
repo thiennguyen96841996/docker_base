@@ -38,11 +38,7 @@ class CustomerUserController extends AbsController
     {
         Renderer::setPageTitle('Customer List');
 
-        Renderer::setPaginator($this->customerService->getViewModelPaginator(
-            url()->current(),
-            10,
-            $request->all()
-        ));
+        Renderer::setPaginator($this->customerService->getViewModelPaginator(url()->current(),$request->all()));
         Renderer::setSearchConditions($request->all());
 
         return view('customer-user.' . Arr::last(explode('.', Route::current()->getName())));

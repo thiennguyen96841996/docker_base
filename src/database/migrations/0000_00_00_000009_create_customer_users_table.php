@@ -23,17 +23,18 @@ class CreateCustomerUsersTable extends Migration
                 ->create('customer_users', function (Blueprint $table) {
                     $table->engine = 'InnoDB';
                     $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
+                    $table->string('email', 50)->unique();
+                    $table->string('password', 100);
                     $table->binary('name');
-                    $table->binary('tel');
-                    $table->binary('birthday');
-                    $table->binary('address');
-                    $table->string('email')->unique();
-                    $table->string('password')->nullable();
-                    $table->rememberToken();
-                    $table->binary('gender')->nullable();
+                    $table->binary('tel');    //validate max string: 10
+                    $table->binary('birthday')->nullable();  //datetime
+                    $table->binary('gender')->nullable();  //char. 01: Nam, 02: Nu, 03: Other
                     $table->binary('avatar')->nullable();
+                    $table->binary('address');
                     $table->timestamp('email_verified_at')->nullable();
                     $table->timestamp('last_login_at')->nullable();
+                    $table->binary('status'); //char. 01: active, 02: inactive (default)
+                    $table->rememberToken();
                     $table->timestamps();
                     $table->softDeletes();
                 });

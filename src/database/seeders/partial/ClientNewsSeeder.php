@@ -5,6 +5,8 @@ namespace Database\Seeders\Partial;
 use Illuminate\Database\Seeder;
 use App\Common\Database\Definition\AvailableStatus;
 use App\Common\Database\Definition\DatabaseDefs;
+use App\Common\Database\Definition\Status;
+use App\Common\Database\Definition\StatusPost;
 use App\Common\Database\MysqlCryptorTrait;
 use App\Common\News\Model\News;
 use Illuminate\Support\Str;
@@ -30,7 +32,8 @@ class ClientNewsSeeder extends Seeder
             $clientNews->fill([
                 'client_id'    => rand(10001, 11000),
                 'title'        => 'Chuyên gia: Bỏ khung giá đất khiến nguồn cung bất động sản càng khan hiếm',
-                'status'       => $i % 4 ? AvailableStatus::AVAILABLE->value : AvailableStatus::NOT_AVAILABLE->value,
+                'status'       => $i % 4 ? StatusPost::PRIVATE->value : StatusPost::PUBLIC->value,
+                'avatar'       => 'not-image',
                 'content'      => "Việc bỏ khung giá đất sau 30 năm áp dụng – một điều khoản trong Dự thảo Luật Đất đai (sửa đổi) mới được Bộ Tài nguyên và Môi trường đưa ra lấy ý kiến đang là vấn đề nóng trên nghị trường quốc hội.
                 Tác động tích cực đầu tiên của việc bỏ khung giá đất là giá đất sẽ theo sát mặt bằng giá thực tế, tạo cơ sở tính thuế đầy đủ, tránh gây thất thu thuế cho Nhà nước, đồng thời từng bước xóa bỏ “cơ chế 2 giá” vốn gây khó khăn trong công tác quản lý cũng như triển khai các dự án có sử dụng đất.
                 Bên cạnh đó, việc bỏ khung giá đất giao UBND cấp tỉnh ban hành bảng giá đất và công bố định kỳ hàng năm, có điều chỉnh theo biến động của thị trường được kỳ vọng sẽ bảo đảm quyền lợi cho người dân bị thu hồi đất và giảm thiểu tình trạng sai phạm trong lĩnh vực đất đai, giảm thiểu kiện cáo khi thu hồi đất.

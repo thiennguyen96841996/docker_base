@@ -9,6 +9,17 @@
         <label>Title:</label><input type="text" name="title" value="{{ Renderer::oldWithRequest('title') }}">
         <label>Content:</label><input type="text" name="content" value="{{ Renderer::oldWithRequest('content') }}">
         <label>Address:</label><input type="text" name="address" value="{{ Renderer::oldWithRequest('address') }}">
+        <label>Status:</label>
+        <select name="status">
+            <option value="">--</option>
+            @foreach(\App\Common\Database\Definition\AvailableStatus::cases() as $status)
+                @if (Renderer::oldWithRequest('status') == $status->value)
+                    <option value="{{$status->value}}" selected>{{\App\Common\Database\Definition\AvailableStatus::getName($status->value)}}</option>
+                @else
+                    <option value="{{$status->value}}">{{\App\Common\Database\Definition\AvailableStatus::getName($status->value)}}</option>
+                @endif
+            @endforeach
+        </select>
         <input type="submit" value="search">
     </form>
     <a href="{{ route('client.post.create') }}">Create</a>
@@ -36,8 +47,8 @@
             <tr>
                 <td><a href="{{ route('client.post.show', $val->id) }}">{{ $val->id }}</a></td>
                 <td>{{ $val->title }}</td>
-                <td>{{ $val->status }}</td>
-                <td>{{ $val->avatar }}</td>
+                <td>{{ \App\Common\Database\Definition\AvailableStatus::getName($val->status) }}</td>
+                <td><img class="image" style="width: 192px; height: 130px;" src="{{ $val->avatar != null ? \App\Common\AWS\S3Service::displayWebp(\App\Common\Post\Definition\PostAvatar::POST_AVATAR_FOLDER, $val->id . '/' . \Carbon\Carbon::now()->format('Y') . '_' . \Carbon\Carbon::now()->format('m') . '/' . \App\Common\Post\Definition\PostAvatar::POST_WEBP_FOLDER . '/' . $val->avatar) : asset(\App\Common\Post\Definition\PostAvatar::CLIENT_POST_DEFAULT_AVATAR) }}" alt="{{ $val->avatar }}" /></td>
                 <td>{{ $val->content }}</td>
                 <td>{{ $val->city }}</td>
                 <td>{{ $val->district }}</td>

@@ -78,6 +78,7 @@ class PostUpdateRequest extends FormRequest
             'city'          => [ 'required', 'string' ],
             'district'      => [ 'required', 'string' ],
             'address'       => [ 'required', 'string', 'max:100' ],
+            'client_id'     => [ 'required', 'integer' ],
         ];
     }
 

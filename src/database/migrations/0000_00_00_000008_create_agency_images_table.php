@@ -24,7 +24,7 @@ class CreateAgencyImagesTable extends Migration
                     $table->engine = 'InnoDB';
                     $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
                     $table->integer('agency_id');
-                    $table->string('name', 150);
+                    $table->string('image_name', 150);
                     $table->timestamps();
                     $table->softDeletes();
                 });
@@ -33,8 +33,7 @@ class CreateAgencyImagesTable extends Migration
                 ->statement('ALTER TABLE `agency_images` ROW_FORMAT=DYNAMIC;');
             DB::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
                 ->statement('ALTER TABLE `agency_images` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;');
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             $this->down();
             throw $e;
         }

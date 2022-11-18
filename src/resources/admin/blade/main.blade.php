@@ -32,7 +32,7 @@
             <!-- navbar navigation component -->
             @include('include.layout.navbar')
             <!-- end of navbar navigation -->
-            <div class="content">
+            <div class="content py-4">
                 <div class="container">
                     @yield ('CONTENTS')
                 </div>

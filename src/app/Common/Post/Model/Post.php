@@ -56,7 +56,8 @@ class Post extends Model
         'price',
         'area',
         'client_id',
-        'view_counts'
+        'published_at',
+        'closed_at'
     ];
 
 
@@ -65,8 +66,6 @@ class Post extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'closed_at'         => 'datetime:Y/m/d H:i:s',
-        'published_at'      => 'datetime:Y/m/d H:i:s',
         'created_at'        => 'datetime:Y/m/d H:i:s',
         'updated_at'        => 'datetime:Y/m/d H:i:s',
         'deleted_at'        => 'datetime:Y/m/d H:i:s',
@@ -89,8 +88,10 @@ class Post extends Model
             'address'            => '「Address」',
             'price'              => '「Price」',
             'area'               => '「Area」',
-            'Client_id'          => '「Client_id」',
+            'client_id'          => '「Client_id」',
             'view_counts'        => '「View_counts」',
+            'published_at'       => '「Published At」',
+            'closed_at'          => '「Closed At」',
         ];
     }
 
@@ -108,13 +109,13 @@ class Post extends Model
                 // id
                 'id' => !empty($value) ? $builder->where($this->qualifyColumn('id'), '=', $value) : null,
                 // title
-                'title' => !empty($value) ? $builder->where($this->qualifyColumn('title'), 'like', "%{$value}%") : null,
+                'title' => !empty($value) ? $builder->whereRaw("lower(title) LIKE '%". mb_strtolower($value) ."%'") : null,
                 // content
-                'content' => !empty($value) ? $builder->where($this->qualifyColumn('content'), 'like', "%{$value}%") :null,
+                'content' => !empty($value) ? $builder->whereRaw("lower(content) LIKE '%". mb_strtolower($value) ."%'") : null,
                 // status
                 'status' => !empty($value) ? $builder->where($this->qualifyColumn('status'), '=', $value) : null,
                 // address
-                'address' => !empty($value) ? $builder->where($this->qualifyColumn('address'),'=', $value) : null,
+                'address' => !empty($value) ? $builder->whereRaw("lower(address) LIKE '%". mb_strtolower($value) ."%'") : null,
                 // client_id
                 'client_id' => !empty($value) ? $builder->where($this->qualifyColumn('client_id'),'=', $value) : null,
                 default => null,

@@ -127,7 +127,7 @@ class ClientUser extends Authenticatable
                 // id
                 'id' => !empty($value) ? $builder->where($this->qualifyColumn('id'), '=', $value) : null,
                 // email
-                'email' => !empty($value) ? $builder->where($this->qualifyColumn('email'), '=', $value) : null,
+                'email' => !empty($value) ? $builder->whereRaw("lower(email) = '". mb_strtolower($value) . "'") : null,
                 // tel
                 'tel' => !empty($value) ? $builder->where($this->qualifyColumn('tel'), '=', $this->encrypt($value)) : null,
                 // is_available

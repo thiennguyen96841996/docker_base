@@ -14,7 +14,6 @@
 # blue: #2185d0
 # grey: #767676
 # */
-
 /*------------------------------------------------------------------
 [Typography]
 
@@ -24,7 +23,6 @@ parapgraph:     1em / "Lato", "Helvetica Neue", Arial, Helvetica, sans-serif;
 
 Notes:  decreasing heading by 0.4em with every subsequent heading level
 -------------------------------------------------------------------*/
-
 /*------------------------------------------------------------------
 [Table of contents]
 
@@ -40,7 +38,6 @@ Notes:  decreasing heading by 0.4em with every subsequent heading level
 10. Colors / .teal, .olive, .violet, .orange, .darkgray, .blue, .grey
 11. Responsive properties
 -------------------------------------------------------------------*/
-
 /*------------------------------------------------------------------
 [1. Body / #body]
 */
@@ -52,7 +49,6 @@ Notes:  decreasing heading by 0.4em with every subsequent heading level
 //     src: url("../font/Lato-Regular.eot");
 //     src: url("../font/Lato-Regular.eot?#iefix") format("embedded-opentype"), url("../font/Lato-Regular.woff") format("woff"), url("../font/Lato-Regular.ttf") format("truetype");
 // }
-
 body,
 h1,
 .h1,
@@ -82,12 +78,20 @@ body {
     color: #444;
 }
 
-input[readonly] {
+input[readonly],
+textarea[readonly] {
     background-color: #e9ecef;
 }
 
-input[readonly]:focus {
+input[readonly]:focus,
+textarea[readonly]:focus {
     background-color: #e9ecef;
+    outline: none;
+}
+
+select:focus {
+    border-color: #e9ecef !important;
+    box-shadow: none !important;
     outline: none;
 }
 
@@ -167,7 +171,8 @@ input[readonly]:focus {
 */
 .search-form {
     label {
-        min-width: 100px;
+        min-width: 75px;
+        margin-left: 10px;
     }
     input[readonly] {
         background-color: white;
@@ -317,6 +322,7 @@ a:focus {
 .table td,
 .table th {
     vertical-align: middle;
+    padding: 15px 5px;
 }
 
 table thead tr {
@@ -641,20 +647,6 @@ a:focus {
     transition: all 0.3s;
 }
 
-.btn.focus,
-.btn:focus {
-    box-shadow: none;
-}
-
-.btn.btn-square {
-    border-radius: 0;
-}
-
-.table td,
-.table th {
-    vertical-align: middle;
-}
-
 table.dataTable thead .sorting:before,
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting_asc:before,
@@ -702,6 +694,18 @@ table.dataTable > tbody > tr.child ul.dtr-details {
 Util class
 */
 .text-link {
+    text-decoration: underline;
+}
+/*------------------------------------------------------------------
+Util class
+*/
+.text-link {
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.text-link:hover {
+    color: #0d6efd;
     text-decoration: underline;
 }
 
@@ -759,11 +763,6 @@ Util class
 /*-----------------------------------------------------------------
 Custom bootstrap class
 */
-.btn-primary,
-.btn-primary:hover {
-    border-color: $gray-border-color;
-}
-
 .btn-outline-secondary,
 .btn-outline-secondary:hover {
     border-color: $gray-border-color;

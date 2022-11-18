@@ -39,7 +39,7 @@ class CustomerViewModel implements ViewModelContract
     {
         $birthDate = strtotime($this->decrypt($this->birthday));
 
-        return date('d/m/Y',$birthDate);
+        return date('d/m/Y', $birthDate);
     }
 
     /**

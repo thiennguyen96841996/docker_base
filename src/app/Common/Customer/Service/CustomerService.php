@@ -172,7 +172,7 @@ class CustomerService
      * @param  array $searchConditions 検索条件の配列
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function getViewModelPaginator(string $path, int $page, array $searchConditions = []): LengthAwarePaginator
+    public function getViewModelPaginator(string $path, array $searchConditions = [], int $perPage = 30): LengthAwarePaginator
     {
         /** @var \App\Common\Customer\Model\Customer $builder */
         $builder = Customer::on($this->getConnection(DatabaseDefs::CONNECTION_NAME_READ))
@@ -182,7 +182,7 @@ class CustomerService
             ->orderBy('updated_at', 'desc');
 
         /** @var \Illuminate\Pagination\LengthAwarePaginator $paginator */
-        $paginator = $builder->whereMultiConditions($searchConditions)->paginate($page);
+        $paginator = $builder->whereMultiConditions($searchConditions)->paginate($perPage);
         $collection = $this->makeViewModels($paginator->getCollection());
         $paginator->setCollection($collection);
 

@@ -14,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  * Customer情報のモデル。
  * @package \App\Common\Customer
- * 
+ *
  * @method \Illuminate\Database\Eloquent\Builder whereMultiConditions(array $searchConditions)
  */
 class Customer extends User
@@ -127,7 +127,7 @@ class Customer extends User
                 //address
                 'address' => !empty($value) ? $builder->where($this->qualifyColumn('address'), 'like', "%{$this->encrypt($value)}%") : null,
                 // email
-                'email' => !empty($value) ? $builder->where($this->qualifyColumn('email'), '=', $value) : null,
+                'email' => !empty($value) ? $builder->whereRaw("lower(email) = '". mb_strtolower($value) . "'") : null,
                 // tel
                 'tel' => !empty($value) ? $builder->where($this->qualifyColumn('tel'), '=', $this->encrypt($value)) : null,
 

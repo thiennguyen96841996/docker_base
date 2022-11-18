@@ -83,7 +83,7 @@ class NewsController extends AbsController
     {
         $news = $this->newsService->storeModel($request->all());
 
-        return redirect()->route('client.news.show', ['news' => $news->id])->with('status', 'store success');
+        return redirect()->route('client.news.show', ['news' => $news->id])->with('status', StatusMessage::STORE_SUCCESS);
     }
 
     /**
@@ -156,7 +156,7 @@ class NewsController extends AbsController
 
         $this->newsService->updateModel($news, $request->all());
 
-        return redirect()->route('client.news.show', ['news' => $news->id])->with('status', 'update success');
+        return redirect()->route('client.news.show', ['news' => $news->id])->with('status', StatusMessage::UPDATE_SUCCESS);
     }
 
     /**

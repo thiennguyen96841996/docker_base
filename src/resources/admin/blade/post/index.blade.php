@@ -10,45 +10,63 @@
             Post List
         </h3>
     </div>
-    <div class="card">
+    <div class="search-form card">
         <div class="card-header">Search</div>
-        <div class="card-body  p-4">
+        <div class="card-body">
             <form class="mb-2" method="GET" action="{{ route('admin.post.index') }}">
                 <div class="row g-2">
                     <div class="mb-3 col-md-6">
-                        <div class="row">
-                            <label for="inputPassword fw-bold" class="col-sm-2 col-form-label ps-4 fw-bold">ID: </label>
-                            <div class="col-sm-10 ps-0">
-                                <input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
+                        <div class="d-flex">
+                            <label for="id" class="col-form-label fw-bold">ID: </label>
+                            <div class="flex-fill">
+                                <input type="number" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <div class="row">
-                            <label for="inputPassword fw-bold ml-3" class="col-sm-2 col-form-label ps-4 fw-bold">Title: </label>
-                            <div class="col-sm-10 ps-0">
+                        <div class="d-flex">
+                            <label for="title" class="col-form-label fw-bold">Title: </label>
+                            <div class="flex-fill">
                                 <input type="text" name="title" value="{{ Renderer::oldWithRequest('title') }}" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <div class="row">
-                            <label for="inputPassword fw-bold" class="col-sm-2 col-form-label ps-4 fw-bold">Address: </label>
-                            <div class="col-sm-10 ps-0 ">
-                                <input type="number" name="address" class="form-control" value="{{ Renderer::oldWithRequest('address') }}">
+                        <div class="d-flex">
+                            <label for="client_id" class="col-form-label fw-bold">Status: </label>
+                            <div class="flex-fill ">
+                                <select name="status" class="form-select">
+                                    <option value="">--</option>
+                                    @foreach(\App\Common\Database\Definition\AvailableStatus::cases() as $status)
+                                        @if (Renderer::oldWithRequest('status') == $status->value)
+                                            <option value="{{$status->value}}" selected>{{\App\Common\Database\Definition\AvailableStatus::getName($status->value)}}</option>
+                                        @else
+                                            <option value="{{$status->value}}">{{\App\Common\Database\Definition\AvailableStatus::getName($status->value)}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <div class="row">
-                            <label for="inputPassword fw-bold ml-3" class="col-sm-2 col-form-label ps-4 fw-bold">Client: </label>
-                            <div class="col-sm-10 ps-0 ">
-                                <input type="text" name="client_id" value="{{ Renderer::oldWithRequest('client_id') }}" class="form-control">
+                        <div class="d-flex">
+                            <label for="address" class="col-form-label fw-bold">Address: </label>
+                            <div class="flex-fill">
+                                <input type="text" name="address" class="form-control" value="{{ Renderer::oldWithRequest('address') }}">
                             </div>
                         </div>
                     </div>
+                    <div class="mb-3 col-md-6">
+                        <div class="d-flex">
+                            <label for="client_id" class="col-form-label fw-bold">Client: </label>
+                            <div class="flex-fill ">
+                                <input type="number" name="client_id" value="{{ Renderer::oldWithRequest('client_id') }}" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                   
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
                     </div>  
                 </div>
             </form>
@@ -57,18 +75,18 @@
     </div>
     <div class="card mt-5">
         <div class="card-body">
+            {!! Renderer::renderPaginator('include.pager') !!}
+
             <div class="table-responsive"><table width="100%" class="table table-striped" id="dataTables-example">
                 <thead>
                     <tr>
-                        <th scope="col" width="150">Id</th>
-                        <th scope="col" width="150">Title</th>
-                        <th scope="col" width="150">Status</th>
-                        <th scope="col" width="150">City</th>
-                        <th scope="col" width="150">District</th>
-                        <th scope="col" width="150">Address</th>
-                        <th scope="col" width="150">Price</th>
-                        <th scope="col" width="150">Area</th>
-                        <th scope="col" width="150">Client</th>
+                        <th scope="col" width="50">Id</th>
+                        <th scope="col" width="200">Title</th>
+                        <th scope="col" width="300">Address</th>
+                        <th scope="col" width="100">Price(VNĐ)</th>
+                        <th scope="col" width="50">Area(m2)</th>
+                        <th scope="col" width="50">Client</th>
+                        <th scope="col" width="50">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,17 +94,15 @@
                     <tr>
                         <td><a href="{{ route('admin.post.show', $val->id) }}" class="text-link">{{ $val->id }}</a></td>
                         <td>{{ $val->title }}</td>
-                        <td>{{ $val->status }}</td>
-                        <td>{{ $val->city }}</td>
-                        <td>{{ $val->district }}</td>
                         <td>{{ $val->address }}</td>
-                        <td>{{ $val->price }}</td>
+                        <td>{{ number_format($val->price) }}</td>
                         <td>{{ $val->area }}</td>
-                        <td>{{ $val->client_id }}</td>
+                        <td><a href="{{ route('admin.client-user.show', $val->client_id) }}" class="text-link">{{ $val->client_id }}</a></td>
+                        <td>{{ \App\Common\Database\Definition\AvailableStatus::getName($val->status) }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td class="text-center" colspan="4"><p>No results </p></td>
+                        <td class="text-center" colspan="7"><p>No results </p></td>
                     </tr>
                 @endforelse
                 </tbody>

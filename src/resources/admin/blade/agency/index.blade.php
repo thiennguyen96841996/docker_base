@@ -17,7 +17,7 @@
                 <div class="row g-2">
                     <div class="mb-3 col-md-6">
                         <div class="d-flex">
-                            <label for="inputPassword fw-bold" class="col-form-label fw-bold">ID: </label>
+                            <label for="id" class="col-form-label fw-bold">ID: </label>
                             <div class="flex-fill">
                                 <input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
                             </div>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <div class="d-flex">
-                            <label for="inputPassword fw-bold" class="col-form-label ps-3 fw-bold">Name: </label>
+                            <label for="name" class="col-form-label fw-bold">Name: </label>
                             <div class="flex-fill">
                                 <input type="text" name="name" value="{{ Renderer::oldWithRequest('name') }}" class="form-control">
                             </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <div class="d-flex">
-                            <label for="inputPassword fw-bold" class="col-form-label fw-bold">Tel: </label>
+                            <label for="tel" class="col-form-label fw-bold">Tel: </label>
                             <div class="flex-fill">
                                 <input type="text" name="tel" class="form-control" value="{{ Renderer::oldWithRequest('tel') }}">
                             </div>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <div class="d-flex">
-                            <label for="inputPassword fw-bold" class="col-form-label ps-3 fw-bold">Address: </label>
+                            <label for="address" class="col-form-label fw-bold">Address: </label>
                             <div class="flex-fill">
                                 <input type="text" name="address" value="{{ Renderer::oldWithRequest('address') }}" class="form-control">
                             </div>
@@ -52,8 +52,7 @@
                     </div>  
                 </div>
             </form>
-        </div>
-        
+        </div>    
     </div>
     <div class="card mt-5">
         <div class="card-header">

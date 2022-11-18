@@ -30,3 +30,33 @@ function makeRandomStrForPassword(): string
 
     return str_shuffle(implode($password));
 }
+
+/**
+ * 開発環境かどうかを取得する。
+ *
+ * @return bool
+ */
+function is_local(): bool
+{
+    return config('app.env') === 'development';
+}
+
+/**
+ * ステージング環境かどうかを取得する。
+ *
+ * @return bool
+ */
+function is_staging(): bool
+{
+    return config('app.env') === 'staging';
+}
+
+/**
+ * 本番環境かどうかを取得する。
+ *
+ * @return bool
+ */
+function is_production(): bool
+{
+    return config('app.env') === 'production';
+}

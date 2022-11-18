@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use App\Common\Database\Definition\AvailableStatus;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\ClientUser\Model\ClientUser;
+use App\Common\Database\Definition\Status;
+use App\Common\Database\Definition\StatusUser;
 use App\Common\Database\MysqlCryptorTrait;
 use Illuminate\Support\Str;
 
@@ -29,7 +31,6 @@ class ClientUserSeeder extends Seeder
                 'email'        => 'tarou@dev.speedy',
                 'tel'          => $this->encrypt('0900000001'),
                 'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'is_available' => AvailableStatus::AVAILABLE->value,
             ],
         ];
 
@@ -44,7 +45,9 @@ class ClientUserSeeder extends Seeder
                 'email'        => 'tarou' . $i . '@dev.speedy',
                 'tel'          => $this->encrypt('090999' . rand(1000, 9999)),
                 'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'is_available' => $i % 4 ? AvailableStatus::AVAILABLE->value : AvailableStatus::NOT_AVAILABLE->value,
+                'status'       => $i % 4 ? StatusUser::ACTIVE->value : StatusUser::INACTIVE->value,
+                'region_code'    => rand(100001, 99999),
+                'hotline'      => $this->encrypt('090999' . rand(1000, 9999)),
             ])->save();
         }
     }

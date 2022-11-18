@@ -25,11 +25,9 @@ class CreateClientNewsTable extends Migration
                     $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
                     $table->integer('client_id');
                     $table->string('title', 150);
-                    $table->char('status', 2)->nullable();
-                    $table->string('avatar', 50)->nullable();
-                    $table->string('content', 5000)->nullable();
-                    $table->timestamp('closed_at')->nullable();
-                    $table->timestamp('published_at')->nullable();
+                    $table->char('status', 2)->default(02);    //01: public, 02: private
+                    $table->string('avatar', 50);
+                    $table->longText('content');
                     $table->timestamps();
                     $table->softDeletes();
                 });
@@ -38,8 +36,7 @@ class CreateClientNewsTable extends Migration
                 ->statement('ALTER TABLE `client_news` ROW_FORMAT=DYNAMIC;');
             DB::connection(DatabaseDefs::CONNECTION_NAME_MIGRATION)
                 ->statement('ALTER TABLE `client_news` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;');
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             $this->down();
             throw $e;
         }
