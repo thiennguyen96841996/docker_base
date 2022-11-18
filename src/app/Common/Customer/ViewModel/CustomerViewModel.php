@@ -65,4 +65,13 @@ class CustomerViewModel implements ViewModelContract
             return $this->decrypt($this->gender);
         }
     }
+
+    public function getStatus(): string
+    {
+        if (is_null($this->status)) {
+            return '';
+        } else {
+            return $this->decrypt($this->status);
+        }
+    }
 }

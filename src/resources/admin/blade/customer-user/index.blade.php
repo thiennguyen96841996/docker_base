@@ -67,6 +67,7 @@
                         <th scope="col" width="100">Gender</th>
                         <th scope="col" width="100">Birthday</th>
                         <th scope="col" width="300">Address</th>
+                        <th scope="col" width="100">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,10 +80,11 @@
                         <td>{{ \App\Common\Database\Definition\Gender::getName($val->getGender()) }}</td>
                         <td>{{ $val->getBirthday() }}</td>
                         <td>{{ $val->getAddress() }}</td>
+                        <td>{{ \App\Common\Database\Definition\AvailableStatus::getName($val->getStatus()) }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td class="text-center" colspan="6"><p>No results </p></td>
+                        <td class="text-center" colspan="8"><p>No results </p></td>
                     </tr>
                 @endforelse
                 </tbody>

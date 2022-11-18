@@ -91,12 +91,13 @@ class Customer extends User
             'id'                 => '「ID」',
             'name'               => '「Name」',
             'tel'                => '「Tel」',
+            'status'             => '「Status」',
             'birthday'           => '「Birthday」',
             'email'              => '「Email」',
             'password'           => '「Password」',
             'address'            => '「Address」',
             'gender'             => '「Gender」',
-            'avatar'             => '「Avatar」'
+            'avatar'             => '「Avatar」',
         ];
     }
 
