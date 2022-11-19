@@ -1,6 +1,7 @@
 <?php
 namespace App\Admin\Agency\Request;
 
+use App\Common\Agency\Definition\AgencyStatus;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -72,9 +73,12 @@ class AgencyStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => [ 'required', 'string', 'max:50' ],
-            'address'      => [ 'required', 'string', 'max:255' ],
-            'tel'          => [ 'required', 'tel' ],
+            'name'                      => [ 'required', 'string', 'max:50' ],
+            'address'                   => [ 'required', 'string', 'max:255' ],
+            'tel'                       => [ 'required', 'tel' ],
+            'status'                    => [ 'required', 'in:' . join(',', AgencyStatus::values()) ],
+            'agency_director'           => [ 'required', 'string', 'max:50' ],
+            'establishment_date'        => [ 'required', 'date_format:Y-m-d' ],
         ];
     }
 

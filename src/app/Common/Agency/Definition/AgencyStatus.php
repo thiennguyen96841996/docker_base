@@ -1,17 +1,17 @@
 <?php
-namespace App\Common\Database\Definition;
+namespace App\Common\Agency\Definition;
 
 /**
- * 利用状態を表す列挙型。
- * @package \App\Common\Database
+ * 利用状態Agencyを表す列挙型。
+ * @package \App\Common\Agency\Definition;
  */
-enum AvailableStatus: string
+enum AgencyStatus: string
 {
     /** 利用中 */
-    case AVAILABLE = '01';
+    case ACTIVE = '01';
 
     /** 利用停止 */
-    case NOT_AVAILABLE = '02';
+    case INACTIVE = '02';
 
     /**
      * 定義値に対応した名称を取得する。
@@ -21,8 +21,8 @@ enum AvailableStatus: string
     public static function getName(string $value): string
     {
         return match ($value) {
-            AvailableStatus::AVAILABLE->value     => 'Đang hoạt động',
-            AvailableStatus::NOT_AVAILABLE->value => 'Ngừng hoạt động',
+            AgencyStatus::ACTIVE->value     => 'Đang hoạt động',
+            AgencyStatus::INACTIVE->value   => 'Ngừng hoạt động',
         };
     }
 
