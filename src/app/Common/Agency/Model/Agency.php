@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use App\Common\Database\Definition\DatabaseDefs;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Agency情報のモデル。
@@ -15,6 +16,7 @@ use Carbon\Carbon;
  */
 class Agency extends Model
 {
+    use SoftDeletes;
 
     /**
      * テーブル名の定義。

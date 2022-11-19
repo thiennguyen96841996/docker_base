@@ -2,6 +2,9 @@
 
 namespace App\Admin\AgencyContract\Controller;
 
+use App\Admin\AgencyContract\Request\AgencyContractCancel;
+use App\Admin\AgencyContract\Request\AgencyContractStoreRequest;
+use App\Common\Agency\Service\AgencyService;
 use App\Common\AgencyContract\Service\AgencyContractService;
 use App\Common\Definition\StatusMessage;
 use App\Common\View\Facades\Renderer;
@@ -23,27 +26,17 @@ class AgencyContractController extends AbsController
     private AgencyContractService $agencyContractService;
 
     /**
-     * constructor.
+     * @var AgencyService
      */
-    public function __construct(AgencyContractService $agencyContractService)
-    {
-        $this->agencyContractService = $agencyContractService;
-    }
+    private AgencyService $agencyService;
 
     /**
-     * index
-     *
-     * @param Request $request
-     * @return View
+     * constructor.
      */
-    public function index(Request $request): View
+    public function __construct(AgencyContractService $agencyContractService, AgencyService $agencyService,)
     {
-        Renderer::setPageTitle('Agency Contract List');
-
-        Renderer::setPaginator($this->agencyContractService->getViewModelPaginator(url()->current(), $request->all()));
-        Renderer::setSearchConditions($request->all());
-
-        return view('agency-contract.' . Arr::last(explode('.', Route::current()->getName())));
+        $this->agencyService = $agencyService;
+        $this->agencyContractService = $agencyContractService;
     }
 
     /**
@@ -71,49 +64,25 @@ class AgencyContractController extends AbsController
      */
     public function store(AgencyContractStoreRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $agencyContract = $this->agencyContractService->storeModel($request->all());
-        return redirect()->route('admin.agency-contract.show', ['agency-contract' => $agencyContract->id])->with('status', StatusMessage::STORE_SUCCESS);
+        return redirect()->route('admin.agency.show', ['agency' => $this->agencyContractService->storeModel($request->all())->agency_id])->with('status', StatusMessage::STORE_SUCCESS);
     }
 
     /**
      * show
      *
+     * @param string $agencyId
      * @param int $id
      * @return View
      * @throws \Throwable
      */
-    public function show(int $id): View
+    public function show(string $agencyId, int $id): View
     {
         Renderer::setPageTitle('Agency Contract ' . $id);
 
-        if (empty($agencyContract = $this->agencyContractService->getViewModel(['id' => $id]))) {
+        if (empty($agencyContract = $this->agencyContractService->getViewModel(['id' => $id, 'agency_id' => $agencyId]))) {
             abort(404);
         }
-        Renderer::set('agencyContract', $agencyContract);
-
-        return view('agency-contract.' . Arr::last(explode('.', Route::current()->getName())));
-    }
-
-    /**
-     * edit
-     *
-     * @param Request $request
-     * @param int $id
-     * @return View
-     * @throws \Throwable
-     */
-    public function edit(Request $request, int $id): View
-    {
-        Renderer::setPageTitle('Agency Contract Edit');
-
-        if (empty($agencyContract = $this->agencyContractService->getViewModel(['id' => $id]))) {
-            abort(404);
-        }
-
-        if (!empty($request->all())) {
-            $agencyContract = $this->agencyContractService->convertArrayToViewModel($request->all());
-            $agencyContract->id = $id;
-        }
+        Renderer::set('agency', $this->agencyService->getViewModel(['id' => $agencyId]));
         Renderer::set('agencyContract', $agencyContract);
 
         return view('agency-contract.' . Arr::last(explode('.', Route::current()->getName())));
@@ -126,7 +95,7 @@ class AgencyContractController extends AbsController
      * @return View
      * @throws \Throwable
      */
-    public function createConfirm(AgencyContractStoreRequest $request)
+    public function createConfirm(AgencyContractStoreRequest $request) : view
     {
         Renderer::setPageTitle('Agency Contract Create Confirm');
 
@@ -136,53 +105,43 @@ class AgencyContractController extends AbsController
     }
 
     /**
-     * updateConfirm
-     *
-     * @param AgencyContractUpdateRequest $request
-     * @return View
-     * @throws \Throwable
-     */
-    public function updateConfirm(AgencyContractUpdateRequest $request)
-    {
-        Renderer::setPageTitle('Agency Contract Update Confirm');
-
-        Renderer::set('request', $request);
-
-        return view('agency-contract.' . Arr::last(explode('.', Route::current()->getName())));
-    }
-
-    /**
-     * update
-     *
-     * @param AgencyContractUpdateRequest $request
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Throwable
-     */
-    public function update(AgencyContractUpdateRequest $request, int $id): \Illuminate\Http\RedirectResponse
-    {
-        if (empty($agencyContract = $this->agencyContractService->getModel(['id' => $id]))) {
-            abort(404);
-        }
-        $this->agencyContractService->updateModel($agencyContract, $request->all());
-
-        return redirect()->route('admin.agency-contract.show', ['agency' => $id])->with('status', StatusMessage::UPDATE_SUCCESS);
-    }
-
-    /**
      * destroy
      *
      * @param int $id
+     * @param string $agency_id
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(string $agency_id, int $id): \Illuminate\Http\RedirectResponse
     {
         if (empty($agencyContract = $this->agencyContractService->getModel(['id' => $id]))) {
             abort(404);
         }
         $this->agencyContractService->deleteModel($agencyContract);
 
-        return redirect()->route('admin.agency-contract.index')->with('status', StatusMessage::DELETE_SUCCESS);
+        return redirect()->route('admin.agency.show', ['agency' => $agency_id])->with('status', StatusMessage::DELETE_SUCCESS);
+    }
+
+    /**
+     * cancel
+     *
+     * @param AgencyContractCancel $request
+     * @param string $agency_id
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Throwable
+     */
+    public function cancel(AgencyContractCancel $request, string $agency_id, int $id): \Illuminate\Http\RedirectResponse
+    {
+        if (empty($agencyContract = $this->agencyContractService->getModel(['id' => $id]))) {
+            abort(404);
+        }
+        if (empty($agency = $this->agencyService->getModel(['id' => $agency_id]))) {
+            abort(404);
+        }
+        $this->agencyContractService->updateModel($agencyContract, $request->all());
+        $this->agencyService->updateModel($agency, $request->all());
+
+        return redirect()->route('admin.agency.show', ['agency' => $agency_id])->with('status', StatusMessage::UPDATE_SUCCESS);
     }
 }

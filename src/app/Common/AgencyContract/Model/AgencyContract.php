@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use App\Common\Database\Definition\DatabaseDefs;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * AgencyContract情報のモデル。
@@ -15,7 +16,7 @@ use Carbon\Carbon;
  */
 class AgencyContract extends Model
 {
-
+    use SoftDeletes;
     /**
      * テーブル名の定義。
      * @var string
@@ -92,12 +93,22 @@ class AgencyContract extends Model
             match ($key) {
                 // id
                 'id' => !empty($value) ? $builder->where($this->qualifyColumn('id'), '=', $value) : null,
+                // agency_id
+                'agency_id' => !empty($value) ? $builder->where($this->qualifyColumn('agency_id'), '=', $value) : null,
                 // expire_in
                 'expire_in' => !empty($value) ? $builder->where($this->qualifyColumn('expire_in'), '=', $value) : null,
                 // start_date
                 'start_date' => !empty($value) ? $builder->where($this->qualifyColumn('start_date'), '=', Carbon::parse($value)->format('Y/m/d')) : null,
+                // start_date_from
+                'start_date_from' => !empty($value) ? $builder->where($this->qualifyColumn('start_date'), '>=', Carbon::parse($value)->format('Y/m/d')) : null,
+                // start_date_to
+                'start_date_to' => !empty($value) ? $builder->where($this->qualifyColumn('start_date'), '<', Carbon::parse($value)->format('Y/m/d')) : null,
                 // end_date
                 'end_date' => !empty($value) ? $builder->where($this->qualifyColumn('end_date'), '=', Carbon::parse($value)->format('Y/m/d')) : null,
+                // end_date_from
+                'end_date_from' => !empty($value) ? $builder->where($this->qualifyColumn('end_date'), '>=', Carbon::parse($value)->format('Y/m/d')) : null,
+                // end_date_to
+                'end_date_to' => !empty($value) ? $builder->where($this->qualifyColumn('end_date'), '<=', Carbon::parse($value)->format('Y/m/d')) : null,
                 default => null,
             };
         }

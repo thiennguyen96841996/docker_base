@@ -49,6 +49,18 @@ Route::middleware('auth')->name('admin.')->group(function () {
         Route::match(['get', 'post', 'put'], 'agency/{agency}/edit/confirm', 'AgencyController@updateConfirm')->name('agency.updateConfirm');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    // Agency Contract
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Route::namespace('App\Admin\AgencyContract\Controller')->group(function () {
+        Route::get('agency-contract', 'AgencyContractController@index')->name('agency-contract.index');
+        Route::get('{agency_id}/agency-contract/{agency_contract}', 'AgencyContractController@show')->name('agency-contract.show')->where(['agency_contract' => '[1-9][0-9]{4,}']);
+        Route::match(['get', 'post'],'{agency_id}/agency-contract/create', 'AgencyContractController@create')->name('agency-contract.create');
+        Route::match(['get', 'post'], '{agency_id}/agency-contract/create/confirm', 'AgencyContractController@createConfirm')->name('agency-contract.createConfirm');
+        Route::post('{agency_id}/agency-contract/store', 'AgencyContractController@store')->name('agency-contract.store');
+        Route::delete('{agency_id}/agency-contract/{agency_contract}', 'AgencyContractController@destroy')->name('agency-contract.delete')->where(['agency_contract' => '[1-9][0-9]{4,}']);
+        Route::match(['get', 'put'], '{agency_id}/agency-contract/{agency_contract}/cancel', 'AgencyContractController@cancel')->name('agency-contract.cancel')->where(['agency_contract' => '[1-9][0-9]{4,}']);
+    });
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Client
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     Route::namespace('App\Admin\ClientUser\Controller')->group(function () {

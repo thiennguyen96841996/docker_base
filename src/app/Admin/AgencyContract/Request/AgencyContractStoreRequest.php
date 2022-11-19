@@ -1,6 +1,7 @@
 <?php
 namespace App\Admin\AgencyContract\Request;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -33,7 +34,7 @@ class AgencyContractStoreRequest extends FormRequest
         switch ($method) {
             case 'store':
             case 'createConfirm':
-                $this->redirect = route('admin.agency-contract.create');
+                $this->redirect = route('admin.agency-contract.create', ['agency_id' => $this->input('agency_id')]);
                 break;
             default:
                 break;
@@ -71,11 +72,14 @@ class AgencyContractStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'start_date'        => [ 'required', 'date_format:Y-m-d' ],
-            'end_date'          => [ 'required', 'date_format:Y-m-d', 'after:start_date' ],
+        $rules = [
+            'start_date'        => [ 'required', 'date_format:Y-m-d', 'after:' . Carbon::now()->format('Y-m-d') ],
             'expire_in'         => [ 'required' ],
         ];
+        if (!empty($this->input('end_date'))) {
+            $rules['end_date'] =  ['date_format:Y-m-d', 'after:start_date'];
+        }
+        return $rules;
     }
 
     /**

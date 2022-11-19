@@ -4,6 +4,7 @@ namespace App\Common\AgencyContract\Service;
 use App\Common\AgencyContract\ViewModel\AgencyContractViewModel;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\Repository\ViewModelRepositoryTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -163,9 +164,31 @@ class AgencyContractService
             ->orderBy('updated_at', 'desc')
         ;
 
-        /** @var AgencyContract $builder */
+        /** @var \Illuminate\Pagination\LengthAwarePaginator $paginator */
         $paginator = $builder->whereMultiConditions($searchConditions)->paginate($perPage);
+        $collection = $this->makeViewModels($paginator->getCollection());
+        $paginator->setCollection($collection);
 
-        return $paginator->setCollection($paginator->getCollection());
+        return $paginator;
+    }
+
+    /**
+     * getContractNow
+     *
+     * @param array $searchConditions
+     * @return Collection|null
+     */
+    public function getContractNow(array $searchConditions = []) : ? Collection
+    {
+        $builder =  AgencyContract::on($this->getConnection(DatabaseDefs::CONNECTION_NAME_READ))
+            ->addSelect([
+                AgencyContract::TABLE_NAME.'.*',
+            ])
+            ->where('end_date', '>', Carbon::now()->format('Y/m/d'))
+            ->orWhere('start_date', '>', Carbon::now()->format('Y/m/d'))
+            ->orWhereNull('end_date')
+            ->orderBy('start_date', 'desc');
+
+        return $this->makeViewModels($builder->whereMultiConditions($searchConditions)->get());
     }
 }

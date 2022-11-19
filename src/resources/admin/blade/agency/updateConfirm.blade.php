@@ -56,13 +56,5 @@
 @stop
 
 @section ('JAVASCRIPT')
-    <script>
-        // btn_back_to_edit
-        $('#btn_back_to_edit').on('click', function(e) {
-            e.preventDefault();
-            var $input_form = $('#input_form');
-            $input_form.attr('action', $(this).data('post-url'));
-            $input_form.submit();
-        });
-    </script>
+    <script type="application/javascript" src="{{ busting('/js/agency.js', 'admin') }}"></script>
 @stop

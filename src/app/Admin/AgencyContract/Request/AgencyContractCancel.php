@@ -1,16 +1,16 @@
 <?php
 namespace App\Admin\AgencyContract\Request;
 
+use App\Common\Agency\Definition\AgencyStatus;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Common\AgencyContract\Model\AgencyContract;
 
 /**
- * Agency情報を登録する際のバリデーションを行うクラス。
+ * AgencyAgencyContract情報をキャンセル際のバリデーションを行うクラス。
  * @package App\Admin\AgencyContract\Request
  */
-class AgencyContractUpdateRequest extends FormRequest
+class AgencyContractCancel extends FormRequest
 {
     /**
      * リクエストが可能かどうかを返す。
@@ -31,9 +31,8 @@ class AgencyContractUpdateRequest extends FormRequest
         list($controller, $method) = explode('@', \Route::currentRouteAction());
 
         switch ($method) {
-            case 'update':
-            case 'updateConfirm':
-                $this->redirect = route('admin.agency-contract.edit', ['agency-contract' => $this->input('id')]);
+            case 'cancel':
+                $this->redirect = route('admin.agency.show', ['agency' => $this->agency_id]);
                 break;
             default:
                 break;
@@ -62,7 +61,10 @@ class AgencyContractUpdateRequest extends FormRequest
      */
     public function validationData(): array
     {
-        return $this->only((new AgencyContract)->getFillable());
+        return [
+            'status' => $this->input('status'),
+            'end_date' => $this->input('end_date')
+        ];
     }
 
     /**
@@ -72,9 +74,8 @@ class AgencyContractUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_date'        => [ 'required', 'date_format:Y-m-d' ],
-            'end_date'          => [ 'required', 'date_format:Y-m-d', 'after:start_date' ],
-            'expire_in'         => [ 'required' ],
+            'status'            => [ 'required', 'in:' . join(',', AgencyStatus::values()) ],
+            'end_date'          => [ 'required', 'date_format:Y-m-d' ]
         ];
     }
 
@@ -97,6 +98,9 @@ class AgencyContractUpdateRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return AgencyContract::getAttributeNames();
+        return [
+            'end_date'   => '「Ngày kết thúc hợp đồng」',
+            'status'     => '「Trạng thái」',
+            ];
     }
 }
