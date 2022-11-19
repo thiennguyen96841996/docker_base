@@ -1,6 +1,8 @@
 <?php
 namespace App\Common\Post\Repository;
 
+use App\Common\CityMaster\Model\CityMaster;
+use App\Common\ClientUser\Model\ClientUser;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -8,6 +10,7 @@ use App\Common\Post\Contract\PostRepository as PostRepositoryContract;
 use App\Common\Post\Model\Post;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\Database\RepositoryConnection;
+use App\Common\DistrictMaster\Model\DistrictMaster;
 
 /**
  * Agencyモデルのデータ操作を扱うクラス。
@@ -25,7 +28,17 @@ class PostRepository implements PostRepositoryContract
      */
     public function fetchAll(array $searchConditions, array $selectColumns = ['*']): Collection
     {
-        return $this->makeBasicBuilder($searchConditions, $selectColumns)->get();
+        $selectColumns = [
+            Post::TABLE_NAME . '.*',
+            ClientUser::TABLE_NAME . '.name AS client_name',
+            CityMaster::TABLE_NAME . '.city_name',
+            DistrictMaster::TABLE_NAME . '.district_name',
+        ];
+        return $this->makeBasicBuilder($searchConditions, $selectColumns)
+        ->leftJoin(ClientUser::TABLE_NAME, Post::TABLE_NAME . '.client_id','=', ClientUser::TABLE_NAME . '.id')
+        ->leftJoin(CityMaster::TABLE_NAME, Post::TABLE_NAME . '.city_code','=', CityMaster::TABLE_NAME . '.city_code')
+        ->leftJoin(DistrictMaster::TABLE_NAME, Post::TABLE_NAME . '.district_code','=', DistrictMaster::TABLE_NAME . '.district_code')
+        ->get();
     }
 
     /**

@@ -209,6 +209,21 @@ class Renderer implements ArrayAccess, RendererContract
     }
 
     /**
+     * <p>old()に指定されたデータがある場合はそれを、ない場合はリクエスト・モデル・配列からデータを取得する。
+     * <br>※使用用途は入力テンプレートで編集時に現在の登録内容をテンプレートに反映するのがメイン。</p>
+     *
+     * @param  string $key 取得したいデータのキー
+     * @param  mixed $else decrypted data
+     * @return mixed 取得したデータ
+     */
+    public function oldOrElseForEncrypted(string $key, mixed $else): mixed
+    {
+        if (session()->exists('_old_input.'.$key)) {
+            return old($key, '');
+        } else return $else;
+    }
+
+    /**
      * old()でデータが取得できない場合に同様のキーでリクエストデータを探し、ある場合にはそれを返す。
      * ※ Form(GET)での使用を想定。
      *

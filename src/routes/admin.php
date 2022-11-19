@@ -74,9 +74,7 @@ Route::middleware('auth')->name('admin.')->group(function () {
     // Post
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     Route::namespace('App\Admin\Post\Controller')->group(function () {
-        Route::resource('post', 'PostController')->except('create', 'store');
-        Route::put('post/{post}/edit', 'PostController@edit')->name('post.edit');
-        Route::match(['get', 'post', 'put'], 'post/{post}/edit/confirm', 'PostController@updateConfirm')->name('post.updateConfirm');
+        Route::resource('post', 'PostController')->only('index', 'show');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Customer

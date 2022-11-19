@@ -38,7 +38,7 @@ class AppRegistrant implements AppRegistrantContract
         AgencyContractServiceProvider::class,
         ClientUserServiceProvider::class,
         CustomerServiceProvider::class,
-        PostServiceProvider::class
+        PostServiceProvider::class,
     ];
 
     /**

@@ -1,12 +1,11 @@
 <?php
 namespace App\Admin\ClientUser\Request;
 
-
+use App\Common\ClientUser\Definition\ClientStatus;
 use App\Common\ClientUser\Model\ClientUser;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
-use App\Common\Database\Definition\AvailableStatus;
 
 /**
  * クライアント情報を登録する際のバリデーションを行うクラス。
@@ -76,8 +75,10 @@ class ClientUserUpdateRequest extends FormRequest
         return [
             'name'         => [ 'required', 'string', 'max:50' ],
             'tel'          => [ 'required', 'string', 'max:15', 'tel' ],
+            'hotline'      => [ 'required', 'string', 'max:15', 'tel' ],
+            'region_code'  => [ 'required', 'integer' ],
             // 'password'     => [ 'required', 'string', 'min:8', 'max:32' ],
-            'is_available' => [ 'in:' . join(',', AvailableStatus::values()) ],
+            'status'       => [ 'in:' . join(',', ClientStatus::values()) ],
         ];
     }
 
@@ -90,7 +91,8 @@ class ClientUserUpdateRequest extends FormRequest
         // メッセージはlang下のファイルで管理する。
         // 上書きしたいメッセージがある場合にのみ設定すること。
         return [
-            'tel' => 'The :attribute field is unvalid telephone'
+            'tel'     => 'The :attribute field is unvalid telephone',
+            'hotline' => 'The :attribute field is unvalid telephone'
         ];
     }
 

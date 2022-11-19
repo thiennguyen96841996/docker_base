@@ -30,6 +30,7 @@ _ide_*.php
 /src/public/hot
 /src/public/storage
 /src/storage/*.key
+/src/composer.lock
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # For Vagrant

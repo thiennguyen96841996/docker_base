@@ -53,8 +53,11 @@ class ClientUser extends Authenticatable
         'email',
         'tel',
         'password',
-        'is_available',
-        'agency_id'
+        'status',
+        'agency_id',
+        'region_code',
+        'hotline',
+        'avatar'
     ];
 
     /**
@@ -91,7 +94,10 @@ class ClientUser extends Authenticatable
             'email'            => '「Email」',
             'tel'              => '「Tel」',
             'password'         => '「Password」',
-            'is_available'     => '「Status」',
+            'status'           => '「Status」',
+            'region_code'      => '「Region」',
+            'hotline'          => '「Hotline」',
+            'avatar'           => '「Avatar」',
         ];
     }
 
@@ -130,8 +136,8 @@ class ClientUser extends Authenticatable
                 'email' => !empty($value) ? $builder->whereRaw("lower(email) = '". mb_strtolower($value) . "'") : null,
                 // tel
                 'tel' => !empty($value) ? $builder->where($this->qualifyColumn('tel'), '=', $this->encrypt($value)) : null,
-                // is_available
-                'is_available' => !empty($value) ? $builder->where($this->qualifyColumn('is_available'), '=', $value) : null,
+                // status
+                'status' => !empty($value) ? $builder->where($this->qualifyColumn('status'), '=', $value) : null,
 
                 default => null,
             };

@@ -69,7 +69,7 @@ class ClientUserController extends AbsController
         if (!empty($request->all())) {
             Renderer::set('clientUser', $request->all());
         }
-        Renderer::set('agencies', $this->agencyService->getViewModelCollection());
+        Renderer::set('agency', $this->agencyService->getViewModel(['id' => $request->query('agency_id')]));
 
         return view('client-user.' . Arr::last(explode('.', Route::current()->getName())));
     }
@@ -94,11 +94,11 @@ class ClientUserController extends AbsController
     /**
      *  Saving DB
      *
-     * @param Request $request
+     * @param ClientUserStoreRequest $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(ClientUserStoreRequest $request): \Illuminate\Http\RedirectResponse
     {
         $storeData = $request->all();
         $storeData['password'] = makeRandomStrForPassword();
@@ -179,12 +179,12 @@ class ClientUserController extends AbsController
     /**
      * Update DB
      *
-     * @param Request $request
+     * @param ClientUserUpdateRequest $request
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
-    public function update(Request $request, string $id): \Illuminate\Http\RedirectResponse
+    public function update(ClientUserUpdateRequest $request, string $id): \Illuminate\Http\RedirectResponse
     {
         if (empty($clientUser = $this->clientUserService->getModel(['id' => $id]))) {
             abort(404);

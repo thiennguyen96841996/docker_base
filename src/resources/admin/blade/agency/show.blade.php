@@ -47,6 +47,9 @@
         <a href="{{ route('admin.agency.index') }}" class="btn btn-outline-secondary">Quay lại danh sách</a>
         <div class="d-flex justify-content-start text-center">
             <div class="mx-1">
+                <a href="{{ route('admin.client-user.create', ['agency_id' => $agency->id]) }}" class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Thêm client</a>
+            </div>
+            <div class="mx-1">
                 <a href="{{ route('admin.agency.edit', $agency->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Chỉnh sửa</a>
             </div>
             <div>

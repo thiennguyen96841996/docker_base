@@ -12,11 +12,19 @@
             Post {{ $post->id }}
         </h3>
     </div>
-    <div class="card">
+    <div class="card detail-page">
         <div class="card-body">
             <div class="mb-3">
+                <label class="form-label fw-bold">Avatar</label>
+                <div><img src="{{ $post->avatar != null ? \App\Common\AWS\S3Service::display(\App\Common\Post\Definition\PostAvatar::POST_AVATAR_FOLDER, $post->id . '/' . \Carbon\Carbon::now()->format('Y') . '_' . \Carbon\Carbon::now()->format('m') . '/' . \App\Common\Post\Definition\PostAvatar::POST_IMAGE_FOLDER . '/' . $post->avatar) : asset(\App\Common\Post\Definition\PostAvatar::CLIENT_POST_DEFAULT_AVATAR) }}" alt="postAvatar"></div>
+            </div>
+            <div class="mb-3">
                 <label class="form-label fw-bold">Title</label>
-                <input type="text" class="form-control" value="{{ $post->title }}" readonly>
+                <div class="form-control">{{ $post->title }}</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Slug</label>
+                <div class="form-control">{{ $post->slug }}</div>
             </div>
             <div class="mb-3">
                 <label class="form-label fw-bold">Content</label>
@@ -25,89 +33,59 @@
             <div class="row g-2">
                 <div class="mb-3 col-md-6">
                     <label class="form-label fw-bold">City</label>
-                    <input type="text" value="{{ $post->city }}" class="form-control" readonly>
+                    <div class="form-control">{{ $post->city_name }}</div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label fw-bold">District</label>
-                    <input type="text" value="{{ $post->district }}" class="form-control" readonly>
+                    <div class="form-control">{{ $post->district_name }}</div>
                 </div>
             </div>
             <div class="mb-3">
                     <label class="form-label fw-bold">Address</label>
-                    <input type="text" value="{{ $post->address }}" class="form-control" readonly>
+                    <div class="form-control">{{ $post->address }}</div>
                 </div>
             <div class="row g-2">
                 <div class="mb-3 col-md-6">
                     <label class="form-label fw-bold">Price (VNĐ)</label>
-                    <input type="text" value="{{ number_format($post->price) }}" class="form-control" readonly>
+                    <div class="form-control">{{ number_format($post->price) }}</div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label fw-bold">Area (m2)</label>
-                    <input type="number" value="{{ $post->area }}" class="form-control" readonly>
+                    <div class="form-control">{{ $post->area }}</div>
                 </div>
             </div>
             <div class="row g-2">
                 <div class="mb-3 col-md-6">
                     <label class="form-label fw-bold">Published At</label>
-                    <input type="text" class="form-control" value="{{ $post->published_at }}" readonly>
+                    <div class="form-control">{{ $post->getPublishedAt() }}</div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label fw-bold">Closed At</label>
-                    <input type="text" class="form-control" value="{{ $post->closed_at }}" readonly>
+                    <div class="form-control">{{ $post->getClosedAt() }}</div>
                 </div>
             </div>
             <div class="row g-2">
                 <div class="mb-3 col-md-6">
-                    <label class="form-label fw-bold">Client</label>
-                    <input type="text" class="form-control" value="{{ $post->client_id }}" readonly>
+                    <label class="form-label fw-bold">Client ID</label>
+                    <div class="form-control"><a href="{{ route('admin.client-user.show', $post->client_id) }}" class="text-link">{{ $post->client_id }}</a></div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label fw-bold">Client Name</label>
+                    <div class="form-control">{{ $post->getClientName() }}</div>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label fw-bold">Views</label>
+                    <div class="form-control">{{ number_format($post->views) }}</div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label fw-bold">Status</label>
-                    <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\AvailableStatus::getName($post->status) }}" readonly>
-                </div>
-            </div>
-            <div class="row g-2">
-                <div class="mb-3 col-md-6">
-                    <label class="form-label fw-bold">View count</label>
-                    <input type="text" class="form-control" value="{{ $post->view_counts }}" readonly>
+                    <div class="form-control">{{ \App\Common\Post\Definition\PostStatus::getName($post->status) }}</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center">
-        <a href="{{ route('admin.post.index') }}" class="btn btn-outline-secondary">Back to list</a>
-        <div class="d-flex justify-content-start text-center">
-            <div class="mx-1">
-                <a href="{{ route('admin.post.edit', $post->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</a>
-            </div>
-            <div>
-                <form method="POST" name="delete_form" action="{{ route('admin.post.destroy', $post->id) }}" onClick="delete_post('{{ $post->id }}', '{{ $post->title }}'); return false;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-@stop
-
-@section ('JAVASCRIPT')
-    <script>
-        /**
-         * post delete
-         * @param {String} post_id
-         * @param {String} post_title
-         */
-        function delete_post(post_id, post_title) {
-            // 確認ダイアログ用テキスト
-            var confirm_txt = '';
-            confirm_txt  = 'Bạn có chắc chắn muốn xoá thông tin post dưới không?\n\n';
-            confirm_txt += post_id + ' : ' + post_title;
-            // 論理削除処理
-            if(confirm(confirm_txt)) {
-                document.delete_form.submit();
-            }
-        }
-    </script>
+    <a href="{{ route('admin.post.index') }}" class="btn btn-outline-secondary">Back to list</a>
 @stop

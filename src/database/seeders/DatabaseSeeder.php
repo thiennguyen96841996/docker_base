@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             \Database\Seeders\Partial\ClientPostSeeder::class,
             \Database\Seeders\Partial\ClientNewsSeeder::class,
             \Database\Seeders\Partial\CustomerUserSeeder::class,
+            \Database\Seeders\Partial\CityAndDistrictSeeder::class,
+            \Database\Seeders\Partial\RegionMasterSeeder::class,
             \Database\Seeders\Partial\SampleSeeder::class,
         ]);
     }

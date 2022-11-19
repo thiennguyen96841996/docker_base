@@ -170,10 +170,6 @@ select:focus {
 [5. SearchForm / #sidebar] - see /components/sidebar/sidebar-default.css
 */
 .search-form {
-    label {
-        min-width: 75px;
-        margin-left: 10px;
-    }
     input[readonly] {
         background-color: white;
     }
@@ -251,6 +247,10 @@ select:focus {
 .card .content .stats {
     display: inline-block;
     color: #a9a9a9;
+}
+
+.card.detail-page div.form-control {
+    background-color: #e9ecef !important;
 }
 
 /*------------------------------------------------------------------
@@ -791,10 +791,6 @@ Custom bootstrap class
 @media (max-width: 768px) {
     .display-absolute {
         position: relative;
-    }
-
-    .search-form label {
-        padding-left: 0 !important;
     }
 }
 
