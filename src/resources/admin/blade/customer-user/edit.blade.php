@@ -21,7 +21,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"></h5>
-                    <form method="POST" action="{{ route('admin.client-user.updateConfirm',  $customerUser->id) }}" class="common-form">
+                    <form method="POST" action="{{ route('admin.customer-user.updateConfirm',  $customerUser->id) }}" class="common-form">
                         @csrf
                         <input type="hidden" name="id" value="{{ $customerUser->id }}">
                         <div class="row g-2">
@@ -29,7 +29,7 @@
                                 <label for="status" class="form-label fw-bold required-mark">Status</label>
                                 <select name="status" class="form-select">
                                     @foreach(\App\Common\Database\Definition\AvailableStatus::cases() as $status)
-                                        @if ($status->value === Renderer::oldOrElse('is_available', $customerUser))
+                                        @if ($status->value === Renderer::oldOrElse('status', $customerUser))
                                             <option value="{{$status->value}}" selected>{{\App\Common\Database\Definition\AvailableStatus::getName($status->value)}}</option>
                                         @else
                                             <option value="{{$status->value}}">{{\App\Common\Database\Definition\AvailableStatus::getName($status->value)}}</option>
@@ -42,31 +42,31 @@
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
                                 <label for="name" class="form-label fw-bold">Name</label>
-                                <input type="text" class="form-control" placeholder="Nguyễn Văn A" value="{{ $isBack ? $customerUser->name : $customerUser->getName() }}" readonly>
+                                <input type="text" name="name" class="form-control" placeholder="Nguyễn Văn A" value="{{ $isBack ? $customerUser->name : $customerUser->getName() }}" readonly>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label fw-bold">Gender</label>
-                                <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\Gender::getName($customerUser->getGender()) }}" readonly>
+                                <input type="text" name="gender" class="form-control" value="{{ \App\Common\Database\Definition\Gender::getName($customerUser->getGender()) }}" readonly>
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
                                 <label for="name" class="form-label fw-bold">Email</label>
-                                <input type="text" class="form-control" value="{{ $customerUser->email }}" readonly>
+                                <input type="text" name="email" class="form-control" value="{{ $customerUser->email }}" readonly>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="tel" class="form-label fw-bold">Tel</label>
-                                <input type="text" placeholder="0123456789" class="form-control" value="{{ $isBack ? $customerUser->tel : $customerUser->getTel() }}" readonly>
+                                <input type="text" name="tel" placeholder="0123456789" class="form-control" value="{{ $isBack ? $customerUser->tel : $customerUser->getTel() }}" readonly>
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
                                 <label class="form-label fw-bold">Birthday</label>
-                                <input type="text" class="form-control" value="{{ $isBack ? $customerUser->birthday : $customerUser->getBirthday() }}" readonly>
+                                <input type="text" name="birthday" class="form-control" value="{{ $isBack ? $customerUser->birthday : $customerUser->getBirthday() }}" readonly>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label fw-bold">Address</label>
-                                <input type="text" class="form-control" value="{{ $customerUser->getAddress() }}" readonly>
+                                <input type="text" name="address" class="form-control" value="{{ $customerUser->getAddress() }}" readonly>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end text-center mt-4">

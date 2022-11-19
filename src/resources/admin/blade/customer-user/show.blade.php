@@ -25,7 +25,7 @@
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label fw-bold">Status</label>
-                    <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\AvailableStatus::getName($customerUser->getStatus()) }}" readonly>
+                    <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\AvailableStatus::getName($customerUser->status) }}" readonly>
                 </div>
             </div>
             <div class="row g-2">

@@ -34,7 +34,7 @@ class CustomerUserUpdateRequest extends FormRequest
         list($controller, $method) = explode('@', \Route::currentRouteAction());
         switch ($method) {
             case 'update':
-            case 'editConfirm':
+            case 'updateConfirm':
                 $this->redirect = route('admin.customer-user.edit', $this->input('id'));
                 break;
             default:
@@ -73,15 +73,8 @@ class CustomerUserUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rule = [
-            'name'         => ['required', 'string', 'max:50'],
-            'tel'          => ['required', 'string', 'max:15', 'tel'],
-            // 'password'     => [ 'required', 'string', 'min:8', 'max:32' ],
-        ];
-
-        if (!is_null(request()->input('gender'))) {
-            $rule['gender'] = 'in:' . join(',', Gender::values());
-        }
+        $rule = [];
+        $rule['status'] = 'in:' . join(',', AvailableStatus::values());
 
         return $rule;
     }

@@ -24,17 +24,6 @@ class CustomerUserSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
-            [
-                'name'         => $this->encrypt('スピード太郎'),
-                'birthday'     => $this->encrypt('1999/09/11'),
-                'email'        => 'tarou@dev.speedy',
-                'tel'          => $this->encrypt('0900000001'),
-                'address'      => $this->encrypt('東京都新宿'),
-                'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            ],
-        ];
-
         for ($i = 1; $i <= 10000; $i++) {
             $customerUser = new Customer();
             $customerUser->setConnection(DatabaseDefs::CONNECTION_NAME_MIGRATION);
@@ -48,7 +37,6 @@ class CustomerUserSeeder extends Seeder
                 'email'        => 'tarou0' .  $i . '@dev.speedy',
                 'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'gender'       => $this->encrypt($i % 3 ? Gender::MALE->value : Gender::FEMALE->value),
-                'status'       => $this->encrypt($i % 3 ? StatusUser::ACTIVE->value : StatusUser::INACTIVE->value),
             ])->save();
         }
     }

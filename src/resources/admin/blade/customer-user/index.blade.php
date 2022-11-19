@@ -80,7 +80,7 @@
                         <td>{{ \App\Common\Database\Definition\Gender::getName($val->getGender()) }}</td>
                         <td>{{ $val->getBirthday() }}</td>
                         <td>{{ $val->getAddress() }}</td>
-                        <td>{{ \App\Common\Database\Definition\AvailableStatus::getName($val->getStatus()) }}</td>
+                        <td>{{ \App\Common\Database\Definition\AvailableStatus::getName($val->status) }}</td>
                     </tr>
                 @empty
                     <tr>

@@ -13,6 +13,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
+use App\Common\Database\Definition\DatabaseDefs;
+
 /**
  * Customer page in admin site。
  * @package \App\Admin\CustomerUser
@@ -98,7 +100,7 @@ class CustomerUserController extends AbsController
      * @param string $id
      * @return View
      */
-    public function editConfirm(CustomerUserUpdateRequest $request, string $id): View
+    public function updateConfirm(CustomerUserUpdateRequest $request, string $id): View
     {
         Renderer::setPageTitle('Customer Edit Comfirm');
 
@@ -112,13 +114,16 @@ class CustomerUserController extends AbsController
      * @param  string $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function updateStatus(Request $request, string $id): RedirectResponse
     {
         $customer = $this->customerService->getModel(['id' => $id]);
         if (is_null($customer)) {
             return view('error.404');
         }
-        $this->customerService->updateModel($customer, $request->all());
+
+        $customer->status = $request['status'];
+        $customer->setConnection(DatabaseDefs::CONNECTION_NAME_WRITE);
+        $customer->save();
 
         return redirect()->route('admin.customer-user.show', ['customer_user' => $id])
             ->with('status', StatusMessage::UPDATE_SUCCESS);
