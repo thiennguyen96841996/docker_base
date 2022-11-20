@@ -57,7 +57,7 @@
                 <a href="{{ route('admin.customer-user.edit', $customerUser->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</a>
             </div>
             <div>
-                <form method="POST" name="delete_form" action="{{ route('admin.customer-user.destroy', $customerUser->id) }}" onClick="delete_client_user('{{ $customerUser->id }}', '{{ $customerUser->getName() }}'); return false;">
+                <form method="POST" name="delete_form" action="{{ route('admin.customer-user.destroy', $customerUser->id) }}" onClick="delete_customer_user('{{ $customerUser->id }}', '{{ $customerUser->getName() }}'); return false;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</button>
@@ -65,4 +65,8 @@
             </div>
         </div>
     </div>
+@stop
+
+@section ('JAVASCRIPT')
+    <script type="application/javascript" src="{{ busting('/js/customer.js', 'admin') }}"></script>
 @stop

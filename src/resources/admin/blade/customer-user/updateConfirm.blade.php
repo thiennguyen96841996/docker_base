@@ -58,14 +58,6 @@
     </div>
 @stop
 
-@section('JAVASCRIPT')
-    <script>
-        $("input[type=button]").on('click', function(e) {
-            e.preventDefault();
-
-            let form = $('#confirm-form');
-            form.attr('action', $(this).data('post-url'));
-            form.submit();
-        });
-    </script>
+@section ('JAVASCRIPT')
+    <script type="application/javascript" src="{{ busting('/js/customer.js', 'admin') }}"></script>
 @stop
