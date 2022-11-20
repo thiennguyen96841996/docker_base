@@ -1,7 +1,7 @@
 @extends('main')
 
 @php 
-    $agencies = Renderer::get('agencies');
+    $agency = Renderer::get('agency');
     $clientUser = Renderer::get('clientUser');
 @endphp
 
@@ -25,42 +25,46 @@
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
                                 <label for="name" class="form-label fw-bold required-mark">Name</label>
-                                <input type="text" name="name" class="form-control" placeholder="Nguyễn Văn A" value="{{ Renderer::oldOrElse('name', $clientUser) }}">
+                                <input type="text" name="name" class="form-control" value="{{ Renderer::oldOrElse('name', $clientUser) }}">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="tel" class="form-label fw-bold required-mark">Tel</label>
-                                <input type="text" name="tel" placeholder="0123456789" class="form-control" value="{{ Renderer::oldOrElse('tel', $clientUser) }}">
+                                <label for="region_code" class="form-label fw-bold required-mark">Region</label>
+                                <input type="text" name="region_code" class="form-control" value="{{ Renderer::oldOrElse('region_code', $clientUser) }}">
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
-                                <label for="email" class="form-label fw-bold required-mark">Email</label>
-                                <input type="text" name="email" class="form-control" placeholder="abc@example.com" value="{{ Renderer::oldOrElse('email', $clientUser) }}">
+                                <label for="tel" class="form-label fw-bold required-mark">Tel</label>
+                                <input type="text" name="tel" class="form-control" value="{{ Renderer::oldOrElse('tel', $clientUser) }}">
                             </div>
                             <div class="mb-3 col-md-6">
+                                <label for="hotline" class="form-label fw-bold required-mark">Hotline</label>
+                                <input type="text" name="hotline" class="form-control" value="{{ Renderer::oldOrElse('hotline', $clientUser) }}">
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="mb-3 col-md-6">
                                 <label for="status" class="form-label fw-bold required-mark">Status</label>
-                                <select name="is_available" class="form-select">
-                                    @foreach(\App\Common\Database\Definition\AvailableStatus::cases() as $status)
-                                        @if (!empty($clientUser) && Renderer::oldOrElse('is_available', $clientUser) == $status->value)
-                                            <option value="{{$status->value}}" selected>{{\App\Common\Database\Definition\AvailableStatus::getName($status->value)}}</option>
+                                <select name="status" class="form-select">
+                                    @foreach(\App\Common\ClientUser\Definition\ClientStatus::cases() as $status)
+                                        @if (!empty($clientUser) && Renderer::oldOrElse('status', $clientUser) == $status->value)
+                                            <option value="{{$status->value}}" selected>{{\App\Common\ClientUser\Definition\ClientStatus::getName($status->value)}}</option>
                                         @else
-                                            <option value="{{$status->value}}">{{\App\Common\Database\Definition\AvailableStatus::getName($status->value)}}</option>
+                                            <option value="{{$status->value}}">{{\App\Common\ClientUser\Definition\ClientStatus::getName($status->value)}}</option>
                                         @endif
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="email" class="form-label fw-bold required-mark">Email</label>
+                                <input type="text" name="email" class="form-control" value="{{ Renderer::oldOrElse('email', $clientUser) }}">
+                            </div>
                         </div>
+                        <div class="line my-3"></div>
                         <div class="mb-3">
-                            <label for="agency_id" class="form-label fw-bold required-mark">Agency</label>
-                            <select name="agency_id" class="form-select">
-                            @foreach(Renderer::get('agencies') as $agency)
-                                @if (!empty($clientUser) && Renderer::oldOrElse('agency_id', $clientUser) == $agency->id)
-                                    <option value="{{$agency->id}}" selected>{{$agency->name}}</option>
-                                @else
-                                    <option value="{{$agency->id}}">{{$agency->name}}</option>
-                                @endif
-                            @endforeach
-                            </select>
+                            <label for="agency_name" class="form-label fw-bold">Agency</label>
+                            <input type="text" name="agency_name" class="form-control" value="{{ $agency->name }}" readonly>
+                            <input type="hidden" name="agency_id" class="form-control" value="{{ $agency->id }}">
                         </div>
                         <div class="d-flex justify-content-end text-center mt-4">
                             <a href="{{ route('admin.client-user.index') }}" class="btn btn-outline-secondary me-2">Back to list</a>

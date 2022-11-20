@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Common\Database\Definition;
+namespace App\Common\Post\Definition;
 
 /**
  * status definition
- * @package \App\Common\Database
+ * @package \App\Common\Post
  */
-enum StatusPost: string
+enum PostStatus: string
 {
     /** init */
     case INIT = '00';
@@ -25,9 +25,9 @@ enum StatusPost: string
     public static function getName(string $value): string
     {
         return match ($value) {
-            Status::INIT->value   => 'Mặc định',
-            Status::PUBLIC->value   => 'Công khai',
-            Status::PRIVATE->value   => 'Riêng tư',
+            PostStatus::INIT->value     => 'Mặc định',
+            PostStatus::PUBLIC->value   => 'Công khai',
+            PostStatus::PRIVATE->value  => 'Riêng tư',
         };
     }
 

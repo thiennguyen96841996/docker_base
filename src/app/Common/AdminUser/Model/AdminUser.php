@@ -94,9 +94,9 @@ class AdminUser extends Authenticatable
         return [
             'id'               => '「ID」',
             'name'             => '「ユーザー名」',
-            'email'            => '「メールアドレス」',
+            'email'            => '「Email」',
             'tel'              => '「電話番号」',
-            'password'         => '「パスワード」',
+            'password'         => '「Mật khẩu」',
             'password_confirm' => '「パスワード(確認)」',
             'is_available'     => '「利用可否」',
             'is_available.*'   => '「利用可否」',

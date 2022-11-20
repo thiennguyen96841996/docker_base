@@ -1,11 +1,11 @@
 <?php
 namespace App\Admin\ClientUser\Request;
 
+use App\Common\ClientUser\Model\ClientUser;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
-use App\Common\ClientUser\Model\ClientUser;
-use App\Common\Database\Definition\AvailableStatus;
+use App\Common\ClientUser\Definition\ClientStatus;
 
 class ClientUserStoreRequest extends FormRequest
 {
@@ -30,7 +30,7 @@ class ClientUserStoreRequest extends FormRequest
         switch ($method) {
             case 'store':
             case 'createConfirm':
-                $this->redirect = route('admin.client-user.create');
+                $this->redirect = route('admin.client-user.create', ['agency_id' => $this->request->get('agency_id')]);
                 break;
             default:
                 break;
@@ -72,7 +72,10 @@ class ClientUserStoreRequest extends FormRequest
             'name'         => [ 'required', 'string', 'max:50' ],
             'email'        => [ 'required', 'string', 'email', 'unique:client_users' ],
             'tel'          => [ 'required', 'string', 'max:15', 'tel' ],
-            'is_available' => [ 'required', 'in:' . join(',', AvailableStatus::values()) ],
+            'hotline'      => [ 'required', 'string', 'max:15', 'tel' ],
+            'region_code'  => [ 'required', 'integer' ],
+            // 'password'     => [ 'required', 'string', 'min:8', 'max:32' ],
+            'status'       => [ 'in:' . join(',', ClientStatus::values()) ],
         ];
     }
 
@@ -85,7 +88,8 @@ class ClientUserStoreRequest extends FormRequest
         // メッセージはlang下のファイルで管理する。
         // 上書きしたいメッセージがある場合にのみ設定すること。
         return [
-            'tel' => 'The :attribute field is unvalid telephone'
+            'tel'     => 'The :attribute field is unvalid telephone',
+            'hotline' => 'The :attribute field is unvalid telephone'
         ];
     }
 

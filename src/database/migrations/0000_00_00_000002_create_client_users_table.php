@@ -30,7 +30,7 @@ class CreateClientUsersTable extends Migration
                     $table->timestamp('email_verified_at')->nullable();
                     $table->timestamp('last_login_at')->nullable();
                     $table->integer('agency_id');
-                    $table->char('status', 2)->default(02);  //01: active, 02:inactive
+                    $table->char('status', 2)->default('02');  //01: active, 02:inactive
                     $table->integer('region_code');
                     $table->binary('hotline');   // validate max string: 10
                     $table->binary('avatar')->nullable();

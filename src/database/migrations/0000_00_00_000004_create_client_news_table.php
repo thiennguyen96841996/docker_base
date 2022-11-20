@@ -25,7 +25,7 @@ class CreateClientNewsTable extends Migration
                     $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
                     $table->integer('client_id');
                     $table->string('title', 150);
-                    $table->char('status', 2)->default(02);    //01: public, 02: private
+                    $table->char('status', 2)->default('02');    //01: public, 02: private
                     $table->string('avatar', 50);
                     $table->longText('content');
                     $table->timestamps();

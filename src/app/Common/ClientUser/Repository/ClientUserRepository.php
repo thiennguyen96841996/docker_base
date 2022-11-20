@@ -12,7 +12,7 @@ use App\Common\Database\RepositoryConnection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\ClientUser\Contract\ClientUserRepository as ClientUserRepositoryContract;
-use Illuminate\Support\Facades\Hash;
+use App\Common\RegionMaster\Model\RegionMaster;
 
 /**
  * ClientUserモデルのデータ操作を扱うクラス。
@@ -33,9 +33,11 @@ class ClientUserRepository implements ClientUserRepositoryContract
         $selectColumns = [
             ClientUser::TABLE_NAME . '.*',
             Agency::TABLE_NAME . '.name AS agency_name',
+            RegionMaster::TABLE_NAME . '.region_name'
         ];
         return $this->makeBasicBuilder($searchConditions, $selectColumns)
             ->leftJoin(Agency::TABLE_NAME, ClientUser::TABLE_NAME . '.agency_id','=', Agency::TABLE_NAME . '.id')
+            ->leftJoin(RegionMaster::TABLE_NAME, ClientUser::TABLE_NAME . '.region_code','=', RegionMaster::TABLE_NAME . '.region_code')
             ->get();
     }
 
@@ -74,6 +76,8 @@ class ClientUserRepository implements ClientUserRepositoryContract
     {
         $params['name']     = !empty($params['name']) ? $this->encrypt(Arr::get($params, 'name')) : null;
         $params['tel']      = !empty($params['tel']) ? $this->encrypt(Arr::get($params, 'tel')) : null;
+        $params['hotline']  = !empty($params['hotline']) ? $this->encrypt(Arr::get($params, 'hotline')) : null;
+        $params['avatar']   = !empty($params['avatar']) ? $this->encrypt(Arr::get($params, 'avatar')) : null;
         // $params['password'] = Hash::make($params['password']);
         
         return $params;

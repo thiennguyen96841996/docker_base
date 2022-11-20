@@ -33,7 +33,7 @@ class CreateCustomerUsersTable extends Migration
                     $table->binary('address');
                     $table->timestamp('email_verified_at')->nullable();
                     $table->timestamp('last_login_at')->nullable();
-                    $table->binary('status'); //char. 01: active, 02: inactive (default)
+                    $table->char('status', 2)->default('02'); //char. 01: active, 02: inactive (default)
                     $table->rememberToken();
                     $table->timestamps();
                     $table->softDeletes();

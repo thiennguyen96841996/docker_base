@@ -21,8 +21,8 @@ enum AvailableStatus: string
     public static function getName(string $value): string
     {
         return match ($value) {
-            AvailableStatus::AVAILABLE->value     => 'Available',
-            AvailableStatus::NOT_AVAILABLE->value => 'Unavailable',
+            AvailableStatus::AVAILABLE->value     => 'Đang hoạt động',
+            AvailableStatus::NOT_AVAILABLE->value => 'Ngừng hoạt động',
         };
     }
 

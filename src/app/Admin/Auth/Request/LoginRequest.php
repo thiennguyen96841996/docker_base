@@ -83,7 +83,11 @@ class LoginRequest extends FormRequest
     {
         // メッセージはlang下のファイルで管理する。
         // 上書きしたいメッセージがある場合にのみ設定すること。
-        return [];
+        return [
+            'email.required'    => ':attribute không được trống.',
+            'email.email'       => ':attribute không đúng định dạng.',
+            'password.required' => ':attribute không được trống.'
+        ];
     }
 
     /**

@@ -11,31 +11,52 @@
             Client User {{ $clientUser->id }}
         </h3>
     </div>
-    <div class="card">
+    <div class="card detail-page">
         <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Avatar</label>
+                <div><img src="{{ $clientUser->getAvatar() }}" alt="clientUserAvatar"></div>
+                
+            </div>
             <div class="row g-2">
                 <div class="mb-3 col-md-6">
                     <label class="form-label fw-bold">Name</label>
-                    <input type="text" class="form-control" value="{{ $clientUser->getName() }}" readonly>
+                    <div class="form-control">{{ $clientUser->getName() }}</div>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label fw-bold">Status</label>
-                    <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\AvailableStatus::getName($clientUser->is_available) }}" readonly>
+                    <label class="form-label fw-bold">Region</label>
+                    <div class="form-control">{{ $clientUser->region_code }}</div>
                 </div>
             </div>
             <div class="row g-2">
                 <div class="mb-3 col-md-6">
-                    <label class="form-label fw-bold">Email</label>
-                    <input type="text" class="form-control" value="{{ $clientUser->email }}" readonly>
+                    <label class="form-label fw-bold">Tel</label>
+                    <div class="form-control">{{ $clientUser->getTel() }}</div>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label class="form-label fw-bold">Tel</label>
-                    <input type="text" class="form-control" value="{{ $clientUser->getTel() }}" readonly>
+                    <label class="form-label fw-bold">Hotline</label>
+                    <div class="form-control">{{ $clientUser->getHotline() }}</div>
                 </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label fw-bold">Agency</label>
-                <input type="text" class="form-control" value="{{ $clientUser->agency_name }}" readonly>
+            <div class="row g-2">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label fw-bold">Status</label>
+                    <div class="form-control">{{ \App\Common\ClientUser\Definition\ClientStatus::getName($clientUser->status) }}</div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label fw-bold">Email</label>
+                    <div class="form-control">{{ $clientUser->email }}</div>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label fw-bold">Agency</label>
+                    <div class="form-control"><a href="{{ route('admin.agency.show', $clientUser->agency_id) }}" class="text-link">{{ $clientUser->agency_name }}</a></div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label fw-bold">Created At</label>
+                    <div class="form-control">{{ $clientUser->getCreatedAt() }}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -57,16 +78,5 @@
 @stop
 
 @section ('JAVASCRIPT')
-    <script>
-        function delete_client_user(id, name) {
-            // 確認ダイアログ用テキスト
-            var confirm_txt = '';
-            confirm_txt  = 'Bạn có chắc chắn muốn xoá thông tin nhân viên đại lý dưới không?\n\n';
-            confirm_txt += id + ' : ' + name;
-            // 論理削除処理
-            if(confirm(confirm_txt)) {
-                document.delete_form.submit();
-            }
-        }
-    </script>
+    <script type="application/javascript" src="{{ busting('/js/client.js', 'admin') }}"></script>
 @stop

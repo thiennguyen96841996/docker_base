@@ -5,7 +5,8 @@ namespace App\Common\Agency\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use App\Common\Database\Definition\DatabaseDefs;
-use Illuminate\Support\Arr;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Agency情報のモデル。
@@ -15,6 +16,7 @@ use Illuminate\Support\Arr;
  */
 class Agency extends Model
 {
+    use SoftDeletes;
 
     /**
      * テーブル名の定義。
@@ -48,6 +50,9 @@ class Agency extends Model
         'name',
         'tel',
         'address',
+        'status',
+        'agency_director',
+        'establishment_date',
     ];
 
 
@@ -56,9 +61,10 @@ class Agency extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'created_at'        => 'datetime:Y/m/d H:i:s',
-        'updated_at'        => 'datetime:Y/m/d H:i:s',
-        'deleted_at'        => 'datetime:Y/m/d H:i:s',
+        'created_at'            => 'datetime:Y/m/d H:i:s',
+        'updated_at'            => 'datetime:Y/m/d H:i:s',
+        'deleted_at'            => 'datetime:Y/m/d H:i:s',
+        'establishment_date'    => 'datetime:Y/m/d H:i:s',
     ];
 
     /**
@@ -69,10 +75,13 @@ class Agency extends Model
     public static function getAttributeNames(): array
     {
         return [
-            'id'              => '「ID」',
-            'name'            => '「Name」',
-            'tel'             => '「Tel」',
-            'address'         => '「Address」',
+            'id'                        => '「ID」',
+            'name'                      => '「Tên」',
+            'tel'                       => '「Sđt」',
+            'address'                   => '「Địa chỉ」',
+            'status'                    => '「Status」',
+            'agency_director'           => '「Giám đốc đại lý」',
+            'establishment_date'        => '「Ngày thành lập」',
         ];
     }
 
@@ -95,6 +104,12 @@ class Agency extends Model
                 'tel' => !empty($value) ? $builder->where($this->qualifyColumn('tel'), '=', $value) : null,
                 // address
                 'address' => !empty($value) ? $builder->whereRaw("lower(address) LIKE '%". mb_strtolower($value) . "%'") : null,
+                // status
+                'status' => !empty($value) ? $builder->where($this->qualifyColumn('status'), '=', $value) : null,
+                // agency_director
+                'agency_director' => !empty($value) ? $builder->whereRaw("lower(agency_director) LIKE '%". mb_strtolower($value) . "%'") : null,
+                // establishment_date
+                'establishment_date' => !empty($value) ? $builder->where($this->qualifyColumn('establishment_date'), '=', Carbon::parse($value)->format('Y/m/d')) : null,
                 default => null,
             };
         }

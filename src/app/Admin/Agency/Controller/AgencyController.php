@@ -5,8 +5,10 @@ namespace App\Admin\Agency\Controller;
 use App\Admin\Agency\Request\AgencyStoreRequest;
 use App\Admin\Agency\Request\AgencyUpdateRequest;
 use App\Common\Agency\Service\AgencyService;
+use App\Common\AgencyContract\Service\AgencyContractService;
 use App\Common\Definition\StatusMessage;
 use App\Common\View\Facades\Renderer;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
@@ -25,11 +27,17 @@ class AgencyController extends AbsController
     private AgencyService $agencyService;
 
     /**
+     * @var AgencyContractService
+     */
+    private AgencyContractService $agencyContractService;
+
+    /**
      * constructor.
      */
-    public function __construct(AgencyService $agencyService)
+    public function __construct(AgencyService $agencyService, AgencyContractService $agencyContractService)
     {
         $this->agencyService = $agencyService;
+        $this->agencyContractService = $agencyContractService;
     }
 
     /**
@@ -92,6 +100,10 @@ class AgencyController extends AbsController
             abort(404);
         }
         Renderer::set('agency', $agency);
+        // Get agency contract now information
+        Renderer::set('getContractNow', $this->agencyContractService->getContractNow(['agency_id' => $id]));
+        // Get agency contract history information
+        Renderer::setPaginator($this->agencyContractService->getViewModelPaginator(url()->current(), ['agency_id' => $id, 'end_date_to' => Carbon::now()]));
 
         return view('agency.' . Arr::last(explode('.', Route::current()->getName())));
     }

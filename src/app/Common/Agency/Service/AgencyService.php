@@ -165,9 +165,11 @@ class AgencyService
             ->orderBy('updated_at', 'desc')
         ;
 
-        /** @var \App\Common\Agency\Model\Agency $builder */
+        /** @var \Illuminate\Pagination\LengthAwarePaginator $paginator */
         $paginator = $builder->whereMultiConditions($searchConditions)->paginate($perPage);
+        $collection = $this->makeViewModels($paginator->getCollection());
+        $paginator->setCollection($collection);
 
-        return $paginator->setCollection($paginator->getCollection());
+        return $paginator;
     }
 }

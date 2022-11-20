@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use App\Common\Database\Definition\DatabaseDefs;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 /**
  * 管理ユーザー情報のモデル。
@@ -15,7 +16,7 @@ use App\Common\Database\Definition\DatabaseDefs;
  */
 class Post extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Sluggable;
 
     /**
      * テーブル名の定義。
@@ -50,8 +51,8 @@ class Post extends Model
         'status',
         'avatar',
         'content',
-        'city',
-        'district',
+        'city_code',
+        'district_code',
         'address',
         'price',
         'area',
@@ -66,10 +67,26 @@ class Post extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'published_at'      => 'datetime:Y/m/d',
+        'closed_at'         => 'datetime:Y/m/d',
         'created_at'        => 'datetime:Y/m/d H:i:s',
         'updated_at'        => 'datetime:Y/m/d H:i:s',
         'deleted_at'        => 'datetime:Y/m/d H:i:s',
     ];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
     /**
      * パラメーター毎の表示名の定義を取得する。

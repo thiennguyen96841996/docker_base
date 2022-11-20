@@ -25,7 +25,7 @@ class CreateClientPostsTable extends Migration
                     $table->integer('id')->autoIncrement()->startingValue(DatabaseDefs::ID_START_POSITION);
                     $table->integer('client_id');
                     $table->string('title', 150);
-                    $table->char('status', 2)->default(00);     //00: Init, 01: Public, 02: Private, TODO
+                    $table->char('status', 2)->default('00');     //00: Init, 01: Public, 02: Private, TODO
                     $table->string('avatar', 50);
                     $table->longText('content');
                     $table->integer('city_code');

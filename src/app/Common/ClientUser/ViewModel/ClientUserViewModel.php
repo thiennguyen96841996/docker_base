@@ -2,16 +2,17 @@
 
 namespace App\Common\ClientUser\ViewModel;
 
+use Carbon\Carbon;
+use App\Common\View\ViewModelable;
 use App\Common\Database\MysqlCryptorTrait;
 use App\Common\View\Contract\ViewModel as ViewModelContract;
-use App\Common\View\ViewModelable;
 
 class ClientUserViewModel implements ViewModelContract
 {
     use ViewModelable, MysqlCryptorTrait;
 
     /**
-     * 氏名を取得
+     * get client's name
      *
      * @return string
      */
@@ -21,12 +22,43 @@ class ClientUserViewModel implements ViewModelContract
     }
 
     /**
-     * 電話を取得
+     * get client's tel
      *
      * @return string
      */
     public function getTel(): string
     {
         return $this->decrypt($this->tel);
+    
+    }
+
+    /**
+     * get client's avatar
+     *
+     * @return string
+     */
+    public function getAvatar(): string
+    {
+        return $this->avatar ? $this->decrypt($this->avatar) : '';
+    }
+
+    /**
+     * get client's hotline
+     *
+     * @return string
+     */
+    public function getHotline(): string
+    {
+        return $this->decrypt($this->hotline);
+    }
+
+    /**
+     * get created at
+     *
+     * @return string
+     */
+    public function getCreatedAt(): string
+    {
+        return Carbon::parse($this->created_at)->format('d-m-Y');
     }
 }
