@@ -11,7 +11,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'failed'   => 'Những thông tin đăng nhập này không khớp với hồ sơ của chúng tôi.',
-    'password' => 'Mật khẩu được cung cấp không chính xác.',
-    'throttle' => 'Quá nhiều lần thử đăng nhập. Vui lòng thử lại sau :seconds giây.',
+    'failed'   => 'Thông tin tài khoản không tìm thấy trong hệ thống.',
+    'password' => 'Mật khẩu không đúng.',
+    'throttle' => 'Vượt quá số lần đăng nhập cho phép. Vui lòng thử lại sau :seconds giây.',
 ];
