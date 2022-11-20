@@ -121,9 +121,7 @@ class CustomerUserController extends AbsController
             return view('error.404');
         }
 
-        $customer->status = $request['status'];
-        $customer->setConnection(DatabaseDefs::CONNECTION_NAME_WRITE);
-        $customer->save();
+        $this->customerService->updateStatus($customer, $request->all());
 
         return redirect()->route('admin.customer-user.show', ['customer_user' => $id])
             ->with('status', StatusMessage::UPDATE_SUCCESS);

@@ -104,6 +104,20 @@ class CustomerRepository implements CustomerRepositoryContract
         $customer->update($this->encryptData($params));
     }
 
+     /**
+     * Update user status
+     * @param  String $status
+     * @param  Customer $customer
+     * @return void
+     * @throws \Throwable
+     */
+    public function updateStatus(Customer $customer, String $status): void
+    {
+        $customer->status = $status;
+        $customer->setConnection(DatabaseDefs::CONNECTION_NAME_WRITE);
+        $customer->save();
+    }
+
     /**
      * 単一のユーザー情報を削除する。
      * @param  Customer $customer

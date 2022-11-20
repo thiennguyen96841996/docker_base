@@ -98,6 +98,19 @@ class CustomerService
         });
     }
 
+        /**
+     * Update user status
+     * @param  Customer $customer
+     * @param  array<string, mixed> $params
+     * @return void
+     * @throws \Throwable
+     */
+    public function updateStatus(Customer $customer, array $params): void
+    {
+        DB::transaction(function () use ($customer, $params) {
+            $this->customerRepository->updateStatus($customer, $params['status']);
+        });
+    }
     /**
      * 単一のユーザー情報を削除する。
      * @param  Customer $customer
