@@ -4,14 +4,15 @@
 
 @section('title', Renderer::getPageTitle())
 
+@section('MSG')
+    @include('include.msg.status-msg')
+@stop
+
+@section('page-heading')
+    Hợp đồng {{ $agencyContract->id }} đại lý {{ $agencyContract->agency_id }}
+@stop
 
 @section('CONTENTS')
-    @include('include.msg.status-msg')
-    <div class="page-title">
-        <h3>
-            Hợp đồng {{ $agencyContract->id }} đại lý {{ $agencyContract->agency_id }}
-        </h3>
-    </div>
     <div class="card">
         <div class="card-body">
             <div class="row g-2">

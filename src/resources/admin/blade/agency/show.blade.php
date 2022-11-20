@@ -4,18 +4,20 @@
 
 @section('title', Renderer::getPageTitle())
 
-
-@section('CONTENTS')
+@section('MSG')
     @include('include.msg.status-msg')
     @include('include.msg.error-msg')
-    <div class="page-title">
-        <h3>
-            Đại lý {{ $agency->id }}
-            <div class="float-end">
-                <a href="{{ route('admin.client-user.create', ['agency_id' => $agency->id]) }}" class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Tạo mới nhân viên</a>
-            </div>
-        </h3>
-    </div>
+@stop
+
+@section('page-heading')
+    Đại lý {{ $agency->id }}
+@stop
+
+@section('HEADING-RIGHTBLOCK')
+    <a href="{{ route('admin.client-user.create', ['agency_id' => $agency->id]) }}" class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Tạo mới nhân viên</a>
+@stop
+
+@section('CONTENTS')
     <div class="card">
         <div class="card-body">
             <div class="row g-2">

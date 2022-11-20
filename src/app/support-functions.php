@@ -60,38 +60,3 @@ function is_production(): bool
 {
     return config('app.env') === 'production';
 }
-
-/**
- * Format datetime to d-m-Y
- *
- * @param DateTimeInterface $date
- * @return string|false
- */
-function dateFormat(DateTimeInterface $date): string|false
-{
-    return $date ? date_format($date, 'd-m-Y') : '';
-}
-
-/**
- * Generate slug
- *
- * @param string $name
- * @return string
- */
-function generateSlug(string $name): string
-{
-    // Generate slug
-    $slug = mb_strtolower($name);
-    $slug = str_replace(' - ', '-', $slug);
-    $slug = preg_replace('/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/', 'a', $slug);
-    $slug = preg_replace('/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/', 'e', $slug);
-    $slug = preg_replace('/(ì|í|ị|ỉ|ĩ)/', 'i', $slug);
-    $slug = preg_replace('/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/', 'o', $slug);
-    $slug = preg_replace('/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/', 'u', $slug);
-    $slug = preg_replace('/(ỳ|ý|ỵ|ỷ|ỹ)/', 'y', $slug);
-    $slug = preg_replace('/(đ)/', 'd', $slug);
-    $slug = preg_replace('/[^a-z0-9-\s]/', '', $slug);
-    $slug = preg_replace('/([\s]+)/', '-', $slug);
-
-    return $slug;
-}

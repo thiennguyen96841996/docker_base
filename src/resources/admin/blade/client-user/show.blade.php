@@ -4,14 +4,15 @@
 
 @section('title', Renderer::getPageTitle())
 
-@section('CONTENTS')
+@section('MSG')
     @include('include.msg.status-msg')
+@stop
 
-    <div class="page-title">
-        <h3>
-            Thông tin nhân viên {{ $clientUser->id }}
-        </h3>
-    </div>
+@section('page-heading')
+    Thông tin nhân viên {{ $clientUser->id }}
+@stop
+
+@section('CONTENTS')
     <div class="card detail-page">
         <div class="card-body">
             <div class="mb-3">

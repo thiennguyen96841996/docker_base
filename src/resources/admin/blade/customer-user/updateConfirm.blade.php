@@ -2,13 +2,11 @@
 
 @section('title', Renderer::getPageTitle())
 
+@section('page-heading')
+    Xác nhận chỉnh sửa thông tin khách hàng
+@stop
+
 @section('CONTENTS')
-    @include('include.msg.error-msg')
-    <div class="page-title">
-        <h3>
-            Xác nhận chỉnh sửa thông tin khách hàng
-        </h3>
-    </div>
     <div class="card">
         <div class="card-body">
             <form method="POST" id="input_form" action="{{ route('admin.customer-user.updateStatus', request()->input('id')) }}">
@@ -26,7 +24,7 @@
                     <div class="mb-3 col-md-4">
                         <label class="form-label fw-bold">Trạng thái</label>
                         <input type="hidden" name="status" class="form-control" value="{{ request()->input('status') }}" readonly>
-                        <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\AvailableStatus::getName(request()->input('status')) }}" readonly>
+                        <input type="text" class="form-control" value="{{ \App\Common\Customer\Definition\CustomerStatus::getName(request()->input('status')) }}" readonly>
                     </div>
                 </div>
                 <div class="row g-2">

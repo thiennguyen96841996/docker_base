@@ -4,7 +4,6 @@ namespace Database\Seeders\Partial;
 
 use App\Common\Database\MysqlCryptorTrait;
 use Illuminate\Database\Seeder;
-use App\Common\Database\Definition\AvailableStatus;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\AdminUser\Model\AdminUser;
 

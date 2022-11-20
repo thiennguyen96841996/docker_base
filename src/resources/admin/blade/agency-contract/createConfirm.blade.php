@@ -2,16 +2,11 @@
 
 @section('title', Renderer::getPageTitle())
 
-{{-- Contents --}}
-@section ('CONTENTS')
-    {{-- エラーメッセージ --}}
-    @include('include.msg.status-msg')
+@section('page-heading')
+    Xác nhận tạo mới hợp đồng đại lý {{ request()->input('agency_id') }}
+@stop
 
-    <div class="page-title">
-        <h3>
-        Xác nhận tạo mới hợp đồng đại lý {{ request()->input('agency_id') }}
-        </h3>
-    </div>
+@section ('CONTENTS')
     <div class="card">
         <div class="card-body">
             <form method="POST" id="input_form" action="{{ route('admin.agency-contract.store', ['agency_id' => request()->input('agency_id')]) }}">

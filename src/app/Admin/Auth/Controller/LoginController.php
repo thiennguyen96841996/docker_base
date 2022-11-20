@@ -11,6 +11,7 @@ use Illuminate\View\View;
 use App\Common\Http\Controller\AbsController;
 use App\Common\AdminUser\Service\AdminUserService;
 use App\Admin\Auth\Request\LoginRequest;
+use App\Common\BookmarkLink\Service\BookmarkLinkService;
 use App\Common\View\Facades\Renderer;
 
 /**
@@ -26,12 +27,19 @@ class LoginController extends AbsController
     private AdminUserService $service;
 
     /**
+     * 管理ユーザー情報に関連する処理を行うクラス。
+     * @var \App\Common\BookmarkLink\Service\BookmarkLinkService
+     */
+    private BookmarkLinkService $bookmark;
+
+    /**
      * constructor.
      */
-    public function __construct(AdminUserService $service)
+    public function __construct(AdminUserService $service, BookmarkLinkService $bookmark)
     {
         $this->middleware('guest')->except('logout');
         $this->service = $service;
+        $this->bookmark = $bookmark;
     }
 
     /**
@@ -63,6 +71,8 @@ class LoginController extends AbsController
         } catch (Throwable $e) {
             Log::error($e->getMessage());
         }
+
+        $request->session()->put('bookmark', $this->bookmark->getCollection([])->toArray());
 
         // 前の画面に戻す
         return redirect()->intended(route('admin.post.index'));

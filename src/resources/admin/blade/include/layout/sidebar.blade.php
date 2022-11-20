@@ -26,5 +26,8 @@
         <li>
             <a href="/post" class="{{ str_contains(Route::current()->getName(), '.post') ? 'active' : '' }}"><i class="fas fa-building"></i> BÀI ĐĂNG</a>
         </li>
+        <li>
+            <a href="/bookmark" class="{{ str_contains(Route::current()->getName(), '.bookmark') ? 'active' : '' }}"><i class="fas fa-bookmark"></i> Bookmark</a>
+        </li>
     </ul>
 </nav>

@@ -7,14 +7,15 @@
 
 @section('title', Renderer::getPageTitle())
 
-@section('CONTENTS')
+@section('MSG')
     @include('include.msg.error-msg')
+@stop
 
-    <div class="page-title">
-        <h3>
-            Tạo mới nhân viên
-        </h3>
-    </div>
+@section('page-heading')
+    Tạo mới nhân viên
+@stop
+
+@section('CONTENTS')
     <div class="row">
         <div class="col-lg-12">
             <div class="card">

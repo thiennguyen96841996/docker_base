@@ -4,14 +4,15 @@
 
 @section('title', Renderer::getPageTitle())
 
-@section('CONTENTS')
+@section('MSG')
     @include('include.msg.status-msg')
+@stop
 
-    <div class="page-title">
-        <h3>
-            Thông tin khách hàng {{ $customerUser->id }}
-        </h3>
-    </div>
+@section('page-heading')
+    Thông tin khách hàng {{ $customerUser->id }}
+@stop
+
+@section('CONTENTS')
     <div class="card">
         <div class="card-body">
             <div class="row g-2">
@@ -21,11 +22,11 @@
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label fw-bold">Giới tính</label>
-                    <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\Gender::getName($customerUser->getGender()) }}" readonly>
+                    <input type="text" class="form-control" value="{{ \App\Common\Customer\Definition\CustomerGender::getName($customerUser->getGender()) }}" readonly>
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label fw-bold">Trạng thái</label>
-                    <input type="text" class="form-control" value="{{ \App\Common\Database\Definition\AvailableStatus::getName($customerUser->status) }}" readonly>
+                    <input type="text" class="form-control" value="{{ \App\Common\Customer\Definition\CustomerStatus::getName($customerUser->status) }}" readonly>
                 </div>
             </div>
             <div class="row g-2">

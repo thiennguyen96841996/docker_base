@@ -2,9 +2,11 @@
 @if ($paginator->hasPages())
     <nav>
         <ul class="pagination d-flex justify-content-left">
-            <li class="page-item @if ($paginator->onFirstPage()) disabled @endif">
-                <a class="page-link" href="{{ $paginator->previousPageUrl() }}">Trang trước</a>
-            </li>
+            @if (!$paginator->onFirstPage())
+                <li class="page-item">
+                    <a class="page-link" href="{{ $paginator->previousPageUrl() }}"><i class="fas fa-chevron-left"></i></a>
+                </li>
+            @endif
 
             @foreach ($elements as $element)
                 {{-- "Three Dots" Separator --}}
@@ -28,9 +30,11 @@
                 @endif
             @endforeach
 
-            <li class="page-item @if (!$paginator->hasMorePages()) disabled @endif">
-                <a class="page-link" href="{{ $paginator->nextPageUrl() }}">Trang sau</a>
-            </li>
+            @if ($paginator->hasMorePages())
+                <li class="page-item">
+                    <a class="page-link" href="{{ $paginator->nextPageUrl() }}"><i class="fas fa-chevron-right"></i></a>
+                </li>
+            @endif
         </ul>
     </nav>
 @endif

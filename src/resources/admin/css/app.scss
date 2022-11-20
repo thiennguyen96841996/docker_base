@@ -134,12 +134,51 @@ select:focus {
     color: #fff;
 }
 
+.navbar .nav-dropdown .dropdown-menu ul li a {
+    color: #0d6efd !important;
+    text-decoration: none;
+}
+
+.navbar .nav-dropdown .dropdown-menu ul li a:hover {
+    color: #0d6efd !important;
+    text-decoration: underline;
+    background-color: #f4cc2c !important;
+}
+
+.navbar .nav-dropdown .dropdown-menu .dropdown-content {
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar .nav-dropdown ul.nav-list {
+    overflow: auto;
+    min-height: 0;
+    flex-grow: 1;
+}
+
 /*------------------------------------------------------------------
 [4. Content / #content]
 */
 #body > .content {
     position: relative;
     padding: 0.5rem;
+}
+
+.content .bookmark-text {
+    color: #f4cc2c;
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+.content #bookmark-create-btn svg {
+    font-size: 2rem !important;
+}
+
+.content #bookmark-create-btn svg path {
+    fill: none !important;
+    stroke: #000 !important;
+    stroke-width: 15px !important;
 }
 
 .page-header {
@@ -689,12 +728,6 @@ table.dataTable > tbody > tr.child ul.dtr-details {
     color: #007bff;
     background-color: #fff;
     border-bottom: 2px solid #22a1f9;
-}
-/*------------------------------------------------------------------
-Util class
-*/
-.text-link {
-    text-decoration: underline;
 }
 /*------------------------------------------------------------------
 Util class

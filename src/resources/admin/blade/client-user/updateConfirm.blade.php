@@ -2,14 +2,11 @@
 
 @section('title', Renderer::getPageTitle())
 
-@section('CONTENTS')
-    @include('include.msg.error-msg')
+@section('page-heading')
+    Xác nhận chỉnh sửa thông tin nhân viên
+@stop
 
-    <div class="page-title">
-        <h3>
-            Xác nhận chỉnh sửa thông tin nhân viên
-        </h3>
-    </div>
+@section('CONTENTS')
     <div class="card">
         <div class="card-body">
             <form method="POST" id="input_form" action="{{ route('admin.client-user.update', request()->input('id')) }}">

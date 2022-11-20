@@ -2,16 +2,11 @@
 
 @section('title', Renderer::getPageTitle())
 
-{{-- Contents --}}
-@section ('CONTENTS')
-    {{-- エラーメッセージ --}}
-    @include('include.msg.status-msg')
+@section('page-heading')
+    Xác nhận chỉnh sửa đại lý {{ request()->input('id') }}
+@stop
 
-    <div class="page-title">
-        <h3>
-            Xác nhận chỉnh sửa đại lý {{ request()->input('id') }}
-        </h3>
-    </div>
+@section ('CONTENTS')
     <div class="card">
         <div class="card-body">
             <form method="POST" id="input_form" action="{{ route('admin.agency.update', ['agency' => request()->input('id')]) }}">

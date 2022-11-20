@@ -4,13 +4,15 @@
 
 @section('title', Renderer::getPageTitle())
 
-@section('CONTENTS')
+@section('MSG')
     @include('include.msg.error-msg')
-    <div class="page-title">
-        <h3>
-            Chỉnh sửa đại lý {{ $agency->id }}
-        </h3>
-    </div>
+@stop
+
+@section('page-heading')
+    Chỉnh sửa đại lý {{ $agency->id }}
+@stop
+
+@section('CONTENTS')
     <div class="card">
         <div class="card-body">
             <h5 class="card-title"></h5>

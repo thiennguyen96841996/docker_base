@@ -2,14 +2,15 @@
 
 @section('title', Renderer::getPageTitle())
 
-@section('CONTENTS')
+@section('MSG')
     @include('include.msg.status-msg')
+@stop
 
-    <div class="page-title">
-        <h3>
-            Dánh sách bài đăng
-        </h3>
-    </div>
+@section('page-heading')
+    Danh sách bài đăng
+@stop
+
+@section('CONTENTS')
     <div class="search-form card">
         <div class="card-header">Tìm kiếm</div>
         <div class="card-body">

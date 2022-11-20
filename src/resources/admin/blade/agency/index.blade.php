@@ -2,14 +2,15 @@
 
 @section('title', Renderer::getPageTitle())
 
-@section('CONTENTS')
+@section('MSG')
     @include('include.msg.status-msg')
+@stop
 
-    <div class="page-title">
-        <h3>
-            Danh sách đại lý
-        </h3>
-    </div>
+@section('page-heading')
+    Danh sách đại lý
+@stop
+
+@section('CONTENTS')
     <div class="search-form card">
         <div class="card-header">Tìm kiếm</div>
         <div class="card-body">
@@ -64,39 +65,41 @@
             <a href="{{ route('admin.agency.create') }}" class="btn btn-primary float-end"><i class="fas fa-plus-circle"></i> Tạo mới</a>
         </div>
         <div class="card-body">
-            {!! Renderer::renderPaginator('include.pager') !!}
-            <div class="table-responsive"><table width="100%" class="table table-striped" id="dataTables-example">
-                <thead>
-                    <tr>
-                        <th scope="col" width="50">ID</th>
-                        <th scope="col" width="150">Tên đại lý</th>
-                        <th scope="col" width="100">Số điện thoại</th>
-                        <th scope="col" width="300">Địa chỉ</th>
-                        <th scope="col" width="100">Trạng thái</th>
-                        <th scope="col" width="150">Giám đốc đại lý</th>
-                        <th scope="col" width="100">Ngày thành lập</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @forelse(Renderer::getPaginator() ?? [] as $val)
-                    <tr>
-                        <td><a href="{{ route('admin.agency.show', $val->id) }}" class="text-link">{{ $val->id }}</a></td>
-                        <td>{{ $val->name }}</td>
-                        <td>{{ $val->tel }}</td>
-                        <td>{{ $val->address }}</td>
-                        <td>{{ \App\Common\Agency\Definition\AgencyStatus::getName($val->status) }}</td>
-                        <td>{{ $val->agency_director }}</td>
-                        <td>{{ \Carbon\Carbon::parse($val->establishment_date)->format('Y/m/d') }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td class="text-center" colspan="4"><p>Không có kết quả </p></td>
-                    </tr>
-                @endforelse
-                </tbody>
-            </table></div>
+            <div class="table-responsive">
+                {!! Renderer::renderPaginator('include.pager') !!}
+                <table width="100%" class="table table-striped" id="dataTables-example">
+                    <thead>
+                        <tr>
+                            <th scope="col" width="50">ID</th>
+                            <th scope="col" width="150">Tên đại lý</th>
+                            <th scope="col" width="100">Số điện thoại</th>
+                            <th scope="col" width="300">Địa chỉ</th>
+                            <th scope="col" width="100">Trạng thái</th>
+                            <th scope="col" width="150">Giám đốc đại lý</th>
+                            <th scope="col" width="100">Ngày thành lập</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @forelse(Renderer::getPaginator() ?? [] as $val)
+                        <tr>
+                            <td><a href="{{ route('admin.agency.show', $val->id) }}" class="text-link">{{ $val->id }}</a></td>
+                            <td>{{ $val->name }}</td>
+                            <td>{{ $val->tel }}</td>
+                            <td>{{ $val->address }}</td>
+                            <td>{{ \App\Common\Agency\Definition\AgencyStatus::getName($val->status) }}</td>
+                            <td>{{ $val->agency_director }}</td>
+                            <td>{{ \Carbon\Carbon::parse($val->establishment_date)->format('Y/m/d') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td class="text-center" colspan="4"><p>Không có kết quả </p></td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
 
-            {!! Renderer::renderPaginator('include.pager') !!}
+                {!! Renderer::renderPaginator('include.pager') !!}
+            </div>
         </div>
     </div>
 @stop

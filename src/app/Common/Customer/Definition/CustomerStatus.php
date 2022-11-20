@@ -1,28 +1,28 @@
 <?php
-
-namespace App\Common\Database\Definition;
+namespace App\Common\Customer\Definition;
 
 /**
- * status definition
- * @package \App\Common\Database
+ * 利用状態を表す列挙型。
+ * @package \App\Common\Customer
  */
-enum StatusUser: string
+enum CustomerStatus: string
 {
-    /** active */
+    /** 利用中 */
     case ACTIVE = '01';
-    /** inactive */
+
+    /** 利用停止 */
     case INACTIVE = '02';
 
     /**
-     * get status's name
+     * 定義値に対応した名称を取得する。
      * @param  string $value
      * @return string
      */
     public static function getName(string $value): string
     {
         return match ($value) {
-            Status::ACTIVE->value     => 'Đang hoạt động',
-            Status::INACTIVE->value   => 'Ngừng hoạt động',
+            CustomerStatus::ACTIVE->value     => 'Đang hoạt động',
+            CustomerStatus::INACTIVE->value => 'Ngừng hoạt động',
         };
     }
 

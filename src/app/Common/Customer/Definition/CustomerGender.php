@@ -1,11 +1,11 @@
 <?php
-namespace App\Common\Database\Definition;
+namespace App\Common\Customer\Definition;
 
 /**
  * Gender of customer
- * @package \App\Common\Database
+ * @package \App\Common\Customer
  */
-enum Gender: string
+enum CustomerGender: string
 {
     /** man */
     case MALE = '01';
@@ -21,8 +21,8 @@ enum Gender: string
     public static function getName(string $value): string
     {
         return match ($value) {
-            Gender::MALE->value     => 'Nam',
-            Gender::FEMALE->value   => 'Nữ',
+            CustomerGender::MALE->value     => 'Nam',
+            CustomerGender::FEMALE->value   => 'Nữ',
         };
     }
 

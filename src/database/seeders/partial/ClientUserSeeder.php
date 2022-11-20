@@ -5,7 +5,7 @@ namespace Database\Seeders\Partial;
 use Illuminate\Database\Seeder;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\ClientUser\Model\ClientUser;
-use App\Common\Database\Definition\StatusUser;
+use App\Common\ClientUser\Definition\ClientStatus;
 use App\Common\Database\MysqlCryptorTrait;
 
 /**
@@ -32,7 +32,7 @@ class ClientUserSeeder extends Seeder
                 'email'        => 'tarou' . $i . '@dev.speedy',
                 'tel'          => $this->encrypt('090999' . rand(1000, 9999)),
                 'password'     => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'status'       => $i % 4 ? StatusUser::ACTIVE->value : StatusUser::INACTIVE->value,
+                'status'       => $i % 4 ? ClientStatus::ACTIVE->value : ClientStatus::INACTIVE->value,
                 'region_code'  => $i % 2 ? 10000 : 60000,
                 'hotline'      => $this->encrypt('090999' . rand(1000, 9999)),
             ])->save();

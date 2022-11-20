@@ -86,6 +86,12 @@ Route::middleware('auth')->name('admin.')->group(function () {
         Route::match(['get', 'post', 'put'], 'customer-user/{customer_user}/edit/confirm', 'CustomerUserController@updateConfirm')->name('customer-user.updateConfirm');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    // Bookmark
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Route::namespace('App\Admin\BookmarkLink\Controller')->group(function () {
+        Route::resource('bookmark', 'BookmarkLinkController')->only('index', 'store', 'destroy');
+    });
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Sample
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     Route::namespace('App\Admin\Sample\Controller')->prefix('sample')->group(function () {

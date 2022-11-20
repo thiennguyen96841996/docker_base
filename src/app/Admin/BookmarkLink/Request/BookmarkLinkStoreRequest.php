@@ -1,18 +1,16 @@
 <?php
+namespace App\Admin\BookmarkLink\Request;
 
-namespace App\Admin\CustomerUser\Request;
-
-use App\Common\Customer\Model\Customer;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
-use App\Common\Database\Definition\AvailableStatus;
+use Illuminate\Foundation\Http\FormRequest;
+use App\Common\BookmarkLink\Model\BookmarkLink;
 
 /**
- * Customer情報を登録する際のバリデーションを行うクラス。
- * @package \App\Admin\CustomerUser
+ * BookmarkLink情報を登録する際のバリデーションを行うクラス。
+ * @package \App\Admin\BookmarkLink
  */
-class CustomerUserUpdateRequest extends FormRequest
+class BookmarkLinkStoreRequest extends FormRequest
 {
     /**
      * リクエストが可能かどうかを返す。
@@ -30,16 +28,6 @@ class CustomerUserUpdateRequest extends FormRequest
      */
     public function validator(Factory $factory): Validator
     {
-        list($controller, $method) = explode('@', \Route::currentRouteAction());
-        switch ($method) {
-            case 'update':
-            case 'updateConfirm':
-                $this->redirect = route('admin.customer-user.edit', $this->input('id'));
-                break;
-            default:
-                break;
-        }
-
         $validator = $factory->make(
             $this->validationData(),
             $this->container->call([$this, 'rules']),
@@ -47,7 +35,7 @@ class CustomerUserUpdateRequest extends FormRequest
             $this->attributes()
         )->stopOnFirstFailure($this->stopOnFirstFailure);
 
-        $validator->after(function ($validator) {
+        $validator->after(function($validator) {
             /** @var \Illuminate\Validation\Validator $validator */
             // すでにエラーがある場合は確認しない。
             if ($validator->errors()->isNotEmpty()) {
@@ -63,7 +51,7 @@ class CustomerUserUpdateRequest extends FormRequest
      */
     public function validationData(): array
     {
-        return $this->only((new Customer())->getFillable());
+        return $this->only((new BookmarkLink())->getFillable());
     }
 
     /**
@@ -72,10 +60,10 @@ class CustomerUserUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rule = [];
-        $rule['status'] = 'in:' . join(',', AvailableStatus::values());
-
-        return $rule;
+        return [
+            'name'         => [ 'required', 'string', 'max:50' ],
+            'link'         => [ 'required', 'string', 'max:150' ],
+        ];
     }
 
     /**
@@ -86,9 +74,7 @@ class CustomerUserUpdateRequest extends FormRequest
     {
         // メッセージはlang下のファイルで管理する。
         // 上書きしたいメッセージがある場合にのみ設定すること。
-        return [
-            'tel' => 'The :attribute field is unvalid telephone'
-        ];
+        return [];
     }
 
     /**
@@ -97,6 +83,6 @@ class CustomerUserUpdateRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return Customer::getAttributeNames();
+        return BookmarkLink::getAttributeNames();
     }
 }
