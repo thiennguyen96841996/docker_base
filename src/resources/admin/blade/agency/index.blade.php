@@ -90,7 +90,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td class="text-center" colspan="4"><p>No results </p></td>
+                        <td class="text-center" colspan="7"><p>No results </p></td>
                     </tr>
                 @endforelse
                 </tbody>
