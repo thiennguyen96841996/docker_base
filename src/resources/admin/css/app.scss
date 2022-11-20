@@ -170,8 +170,8 @@ select:focus {
 [5. SearchForm / #sidebar] - see /components/sidebar/sidebar-default.css
 */
 .search-form {
-    input[readonly] {
-        background-color: white;
+    label {
+        min-width: 150px;
     }
 }
 
@@ -791,6 +791,10 @@ Custom bootstrap class
 @media (max-width: 768px) {
     .display-absolute {
         position: relative;
+    }
+
+    .search-form label {
+        padding-left: 0 !important;
     }
 }
 

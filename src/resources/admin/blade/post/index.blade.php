@@ -15,16 +15,22 @@
         <div class="card-body">
             <form class="mb-2" method="GET" action="{{ route('admin.post.index') }}">
                 <div class="row g-2">
-                    <div class="mb-3 col-md-4">
-                        <label for="id" class="col-form-label fw-bold">ID</label>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="id" class="col-form-label fw-bold">ID:</label>
                         <input type="number" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
                     </div>
-                    <div class="mb-3 col-md-4">
-                        <label for="client_id" class="col-form-label fw-bold">Client</label>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="client_id" class="col-form-label ps-3 fw-bold">Client:</label>
                         <input type="number" name="client_id" value="{{ Renderer::oldWithRequest('client_id') }}" class="form-control">
                     </div>
-                    <div class="mb-3 col-md-4">
-                        <label for="status" class="col-form-label fw-bold">Status</label>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="title" class="col-form-label fw-bold">Title:</label>
+                        <input type="text" name="title" value="{{ Renderer::oldWithRequest('title') }}" class="form-control">
+                    </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="status" class="col-form-label ps-3 fw-bold">Status:</label>
                         <select name="status" class="form-select">
                             <option value="">--</option>
                             @foreach(\App\Common\Post\Definition\PostStatus::cases() as $status)
@@ -38,12 +44,8 @@
                     </div>
                 </div>
                 <div class="row g-2">
-                    <div class="mb-3 col-md-6">
-                        <label for="title" class="col-form-label fw-bold">Title</label>
-                        <input type="text" name="title" value="{{ Renderer::oldWithRequest('title') }}" class="form-control">
-                    </div>
-                    <div class="mb-3 col-md-6">
-                        <label for="address" class="col-form-label fw-bold">Address: </label>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="address" class="col-form-label fw-bold">Address:</label>
                         <input type="text" name="address" class="form-control" value="{{ Renderer::oldWithRequest('address') }}">
                     </div>
                 </div>

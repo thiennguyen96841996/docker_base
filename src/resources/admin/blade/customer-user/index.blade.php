@@ -15,37 +15,21 @@
         <div class="card-body">
             <form class="mb-2" method="GET" action="{{ route('admin.customer-user.index') }}">
                 <div class="row g-2">
-                    <div class="mb-3 col-md-6">
-                        <div class="d-flex">
-                            <label for="id" class="col-form-label fw-bold">ID: </label>
-                            <div class="flex-fill">
-                                <input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
-                            </div>
-                        </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="id" class="col-form-label fw-bold">ID: </label>
+                        <input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <div class="d-flex">
-                            <label for="name" class="col-form-label fw-bold">Name: </label>
-                            <div class="flex-fill">
-                                <input type="text" name="name" value="{{ Renderer::oldWithRequest('name') }}" class="form-control">
-                            </div>
-                        </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="name" class="col-form-label ps-3 fw-bold">Name: </label>
+                        <input type="text" name="name" value="{{ Renderer::oldWithRequest('name') }}" class="form-control">
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <div class="d-flex">
-                            <label for="tel" class="col-form-label fw-bold">Tel: </label>
-                            <div class="flex-fill">
-                                <input type="text" name="tel" class="form-control" value="{{ Renderer::oldWithRequest('tel') }}">
-                            </div>
-                        </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="tel" class="col-form-label fw-bold">Tel: </label>
+                        <input type="text" name="tel" class="form-control" value="{{ Renderer::oldWithRequest('tel') }}">
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <div class="d-flex">
-                            <label for="address" class="col-form-label fw-bold">Address: </label>
-                            <div class="flex-fill">
-                                <input type="text" name="address" value="{{ Renderer::oldWithRequest('address') }}" class="form-control">
-                            </div>
-                        </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="address" class="col-form-label ps-3 fw-bold">Address: </label>
+                        <input type="text" name="address" value="{{ Renderer::oldWithRequest('address') }}" class="form-control">
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>

@@ -15,16 +15,28 @@
         <div class="card-body">
             <form class="mb-2" method="GET" action="{{ route('admin.client-user.index') }}">
                 <div class="row g-2">
-                    <div class="mb-3 col-md-4">
-                        <label for="id" class="form-label fw-bold">ID</label>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="id" class="form-label fw-bold">ID:</label>
                         <input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
                     </div>
-                    <div class="mb-3 col-md-4">
-                        <label for="tel" class="form-label fw-bold">Tel</label>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="tel" class="form-label ps-3 fw-bold">Tel:</label>
                         <input type="text" name="tel" class="form-control" value="{{ Renderer::oldWithRequest('tel') }}">
                     </div>
-                    <div class="mb-3 col-md-4">
-                        <label for="status" class="form-label fw-bold">Status</label>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="name" class="col-form-label fw-bold">Name:</label>
+                        <input type="text" name="name" value="{{ Renderer::oldWithRequest('name') }}" class="form-control">
+                    </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="email" class="col-form-label ps-3 fw-bold">Email:</label>
+                        <input type="text" name="email" value="{{ Renderer::oldWithRequest('email') }}" class="form-control">
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="status" class="form-label fw-bold">Status:</label>
                         <select name="status" class="form-select">
                             <option value="">--</option>
                             @foreach(\App\Common\ClientUser\Definition\ClientStatus::cases() as $status)
@@ -37,19 +49,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="row g-2">
-                    <div class="mb-3 col-md-6">
-                        <label for="name" class="col-form-label fw-bold">Name</label>
-                        <input type="text" name="name" value="{{ Renderer::oldWithRequest('name') }}" class="form-control">
-                    </div>
-                    <div class="mb-3 col-md-6">
-                        <label for="email" class="col-form-label fw-bold">Email</label>
-                        <input type="text" name="email" value="{{ Renderer::oldWithRequest('email') }}" class="form-control">
-                    </div>
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
-                    </div>  
-                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
+                </div>  
             </form>
         </div>    
     </div>

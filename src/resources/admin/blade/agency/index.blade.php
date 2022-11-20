@@ -15,70 +15,42 @@
         <div class="card-body">
             <form class="mb-2" method="GET" action="{{ route('admin.agency.index') }}">
                 <div class="row g-2">
-                    <div class="mb-3 col-md-6">
-                        <div class="d-flex">
-                            <label for="id" class="col-form-label fw-bold">ID: </label>
-                            <div class="flex-fill">
-                                <input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
-                            </div>
-                        </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="id" class="col-form-label fw-bold">ID: </label>
+                        <input type="text" name="id" value="{{ Renderer::oldWithRequest('id') }}" class="form-control">
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <div class="d-flex">
-                            <label for="name" class="col-form-label fw-bold">Tên đại lý: </label>
-                            <div class="flex-fill">
-                                <input type="text" name="name" value="{{ Renderer::oldWithRequest('name') }}" class="form-control">
-                            </div>
-                        </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="name" class="col-form-label ps-3 fw-bold">Tên đại lý: </label>
+                        <input type="text" name="name" value="{{ Renderer::oldWithRequest('name') }}" class="form-control">
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <div class="d-flex">
-                            <label for="is_available" class="col-form-label fw-bold">Trạng thái: </label>
-                            <div class="flex-fill">
-                                <select name="status" class="form-select">
-                                    <option value="" selected>--</option>
-                                    @foreach(\App\Common\Agency\Definition\AgencyStatus::cases() as $status)
-                                        @if (Renderer::oldWithRequest('status') == $status->value)
-                                            <option value="{{$status->value}}" selected>{{\App\Common\Agency\Definition\AgencyStatus::getName($status->value)}}</option>
-                                        @else
-                                            <option value="{{$status->value}}">{{\App\Common\Agency\Definition\AgencyStatus::getName($status->value)}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="is_available" class="col-form-label fw-bold">Trạng thái: </label>
+                        <select name="status" class="form-select">
+                            <option value="" selected>--</option>
+                            @foreach(\App\Common\Agency\Definition\AgencyStatus::cases() as $status)
+                                @if (Renderer::oldWithRequest('status') == $status->value)
+                                    <option value="{{$status->value}}" selected>{{\App\Common\Agency\Definition\AgencyStatus::getName($status->value)}}</option>
+                                @else
+                                    <option value="{{$status->value}}">{{\App\Common\Agency\Definition\AgencyStatus::getName($status->value)}}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <div class="d-flex">
-                            <label for="tel" class="col-form-label fw-bold">Sđt: </label>
-                            <div class="flex-fill">
-                                <input type="text" name="tel" class="form-control" value="{{ Renderer::oldWithRequest('tel') }}">
-                            </div>
-                        </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="tel" class="col-form-label ps-3 fw-bold">Sđt: </label>
+                        <input type="text" name="tel" class="form-control" value="{{ Renderer::oldWithRequest('tel') }}">
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <div class="d-flex">
-                            <label for="address" class="col-form-label fw-bold">Địa chỉ: </label>
-                            <div class="flex-fill">
-                                <input type="text" name="address" value="{{ Renderer::oldWithRequest('address') }}" class="form-control">
-                            </div>
-                        </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="address" class="col-form-label fw-bold">Địa chỉ: </label>
+                        <input type="text" name="address" value="{{ Renderer::oldWithRequest('address') }}" class="form-control">
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <div class="d-flex">
-                            <label for="tel" class="col-form-label fw-bold">Giám đốc đại lý: </label>
-                            <div class="flex-fill">
-                                <input type="text" name="agency_director" class="form-control" value="{{ Renderer::oldWithRequest('agency_director') }}">
-                            </div>
-                        </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="tel" class="col-form-label ps-3 fw-bold">Giám đốc đại lý: </label>
+                        <input type="text" name="agency_director" class="form-control" value="{{ Renderer::oldWithRequest('agency_director') }}">
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <div class="d-flex">
-                            <label for="address" class="col-form-label fw-bold">Ngày thành lập: </label>
-                            <div class="flex-fill">
-                                <input type="date" name="establishment_date" value="{{ Renderer::oldWithRequest('establishment_date') }}" class="form-control">
-                            </div>
-                        </div>
+                    <div class="mb-3 col-md-6 d-flex">
+                        <label for="address" class="col-form-label fw-bold">Ngày thành lập: </label>
+                        <input type="date" name="establishment_date" value="{{ Renderer::oldWithRequest('establishment_date') }}" class="form-control">
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Tìm kiếm</button>
