@@ -13,7 +13,7 @@
 
     <div class="page-title">
         <h3>
-            Customer Edit
+            Chỉnh sửa thông tin khách hàng
         </h3>
     </div>
     <div class="row">
@@ -26,7 +26,7 @@
                         <input type="hidden" name="id" value="{{ $customerUser->id }}">
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
-                                <label for="status" class="form-label fw-bold required-mark">Status</label>
+                                <label for="status" class="form-label fw-bold required-mark">Trạng thái </label>
                                 <select name="status" class="form-select">
                                     @foreach(\App\Common\Database\Definition\AvailableStatus::cases() as $status)
                                         @if ($status->value === Renderer::oldOrElse('status', $customerUser))
@@ -41,11 +41,11 @@
                         <div class="line my-3"></div>
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label fw-bold">Name</label>
+                                <label for="name" class="form-label fw-bold">Tên khách hàng</label>
                                 <input type="text" name="name" class="form-control" placeholder="Nguyễn Văn A" value="{{ $isBack ? $customerUser->name : $customerUser->getName() }}" readonly>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label fw-bold">Gender</label>
+                                <label class="form-label fw-bold">Giới tính</label>
                                 <input type="text" name="gender" class="form-control" value="{{ \App\Common\Database\Definition\Gender::getName($customerUser->getGender()) }}" readonly>
                             </div>
                         </div>
@@ -55,23 +55,23 @@
                                 <input type="text" name="email" class="form-control" value="{{ $customerUser->email }}" readonly>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="tel" class="form-label fw-bold">Tel</label>
+                                <label for="tel" class="form-label fw-bold">Số điện thoại</label>
                                 <input type="text" name="tel" placeholder="0123456789" class="form-control" value="{{ $isBack ? $customerUser->tel : $customerUser->getTel() }}" readonly>
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
-                                <label class="form-label fw-bold">Birthday</label>
+                                <label class="form-label fw-bold">Ngày sinh</label>
                                 <input type="text" name="birthday" class="form-control" value="{{ $isBack ? $customerUser->birthday : $customerUser->getBirthday() }}" readonly>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label fw-bold">Address</label>
+                                <label class="form-label fw-bold">Địa chỉ</label>
                                 <input type="text" name="address" class="form-control" value="{{ $customerUser->getAddress() }}" readonly>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end text-center mt-4">
-                            <a href="{{ route('admin.customer-user.show', $customerUser->id) }}" class="btn btn-outline-secondary me-2">Back to show</a>
-                            <button type="submit" class="btn btn-primary">Next</button>
+                            <a href="{{ route('admin.customer-user.show', $customerUser->id) }}" class="btn btn-outline-secondary me-2">Quay lại</a>
+                            <button type="submit" class="btn btn-primary">Tiếp theo</button>
                         </div>
                     </form>
                 </div>

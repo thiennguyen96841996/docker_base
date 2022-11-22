@@ -15,16 +15,16 @@
             </ul>
         </li> -->
         <li>
-            <a href="/agency" class="{{ str_contains(Route::current()->getName(), '.agency') ? 'active' : '' }}"><i class="fas fa-briefcase"></i> Agency</a>
+            <a href="/agency" class="{{ str_contains(Route::current()->getName(), '.agency') ? 'active' : '' }}"><i class="fas fa-briefcase"></i> ĐẠI LÝ</a>
         </li>
         <li>
-            <a href="/client-user" class="{{ str_contains(Route::current()->getName(), '.client-user') ? 'active' : '' }}"><i class="fas fa-user-tie"></i> Client User</a>
+            <a href="/client-user" class="{{ str_contains(Route::current()->getName(), '.client-user') ? 'active' : '' }}"><i class="fas fa-user-tie"></i> NHÂN VIÊN</a>
         </li>
         <li>
-            <a href="/customer-user" class="{{ str_contains(Route::current()->getName(), '.customer-user') ? 'active' : '' }}"><i class="fas fa-user"></i> Customer User</a>
+            <a href="/customer-user" class="{{ str_contains(Route::current()->getName(), '.customer-user') ? 'active' : '' }}"><i class="fas fa-user"></i> KHÁCH HÀNG</a>
         </li>
         <li>
-            <a href="/post" class="{{ str_contains(Route::current()->getName(), '.post') ? 'active' : '' }}"><i class="fas fa-building"></i> Post</a>
+            <a href="/post" class="{{ str_contains(Route::current()->getName(), '.post') ? 'active' : '' }}"><i class="fas fa-building"></i> BÀI ĐĂNG</a>
         </li>
     </ul>
 </nav>

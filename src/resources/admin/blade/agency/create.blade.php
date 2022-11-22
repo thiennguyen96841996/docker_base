@@ -22,7 +22,7 @@
                         <input type="text" name="name" class="form-control" placeholder="Nguyễn Văn A" value="{{ Renderer::oldOrElse('name', $agency) }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label for="tel" class="form-label fw-bold required-mark">Sđt</label>
+                        <label for="tel" class="form-label fw-bold required-mark">Số điện thoại</label>
                         <input type="text" name="tel" placeholder="0123456789" class="form-control" value="{{ Renderer::oldOrElse('tel', $agency) }}">
                     </div>
                     <div class="mb-3 col-md-6">
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end text-center mt-4">
-                    <a href="{{ route('admin.agency.index') }}" class="btn btn-outline-secondary me-2">Quay lại danh sách</a>
+                    <a href="{{ route('admin.agency.index') }}" class="btn btn-outline-secondary me-2">Quay lại</a>
                     <button type="submit" class="btn btn-primary">Tiếp tục</button>
                 </div>
             </form>

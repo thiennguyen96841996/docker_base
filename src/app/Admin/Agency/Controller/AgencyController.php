@@ -48,7 +48,7 @@ class AgencyController extends AbsController
      */
     public function index(Request $request): View
     {
-        Renderer::setPageTitle('Agency List');
+        Renderer::setPageTitle('Danh sách đại lý');
 
         Renderer::setPaginator($this->agencyService->getViewModelPaginator(url()->current(), $request->all()));
         Renderer::setSearchConditions($request->all());
@@ -63,7 +63,7 @@ class AgencyController extends AbsController
      */
     public function create(Request $request): View
     {
-        Renderer::setPageTitle('Agency Create');
+        Renderer::setPageTitle('Tạo mới đại lý');
 
         if (!empty($request->all())) {
             Renderer::set('agency', $request->all());
@@ -82,7 +82,7 @@ class AgencyController extends AbsController
     public function store(AgencyStoreRequest $request): \Illuminate\Http\RedirectResponse
     {
         $agency = $this->agencyService->storeModel($request->all());
-        return redirect()->route('admin.agency.show', ['agency' => $agency->id])->with('status', StatusMessage::STORE_SUCCESS);
+        return redirect()->route('admin.agency.show', ['agency' => $agency->id])->with('status', StatusMessage::SAVED_SUCCESS);
     }
 
     /**
@@ -94,7 +94,7 @@ class AgencyController extends AbsController
      */
     public function show(int $id): View
     {
-        Renderer::setPageTitle('Agency ' . $id);
+        Renderer::setPageTitle('Đại lý ' . $id);
 
         if (empty($agency = $this->agencyService->getViewModel(['id' => $id]))) {
             abort(404);
@@ -118,7 +118,7 @@ class AgencyController extends AbsController
      */
     public function edit(Request $request, int $id): View
     {
-        Renderer::setPageTitle('Agency Edit');
+        Renderer::setPageTitle('Sửa thông tin đại lý');
 
         if (empty($agency = $this->agencyService->getViewModel(['id' => $id]))) {
             abort(404);
@@ -142,7 +142,7 @@ class AgencyController extends AbsController
      */
     public function createConfirm(AgencyStoreRequest $request)
     {
-        Renderer::setPageTitle('Agency Create Confirm');
+        Renderer::setPageTitle('Xác nhận tạo mới');
 
         Renderer::set('request', $request);
 
@@ -158,7 +158,7 @@ class AgencyController extends AbsController
      */
     public function updateConfirm(AgencyUpdateRequest $request)
     {
-        Renderer::setPageTitle('Agency Update Confirm');
+        Renderer::setPageTitle('Xác nhận cập nhật');
 
         Renderer::set('request', $request);
 
@@ -180,7 +180,7 @@ class AgencyController extends AbsController
         }
         $this->agencyService->updateModel($agency, $request->all());
 
-        return redirect()->route('admin.agency.show', ['agency' => $id])->with('status', StatusMessage::UPDATE_SUCCESS);
+        return redirect()->route('admin.agency.show', ['agency' => $id])->with('status', StatusMessage::UPDATED_SUCCESS);
     }
 
     /**
@@ -197,6 +197,6 @@ class AgencyController extends AbsController
         }
         $this->agencyService->deleteModel($agency);
 
-        return redirect()->route('admin.agency.index')->with('status', StatusMessage::DELETE_SUCCESS);
+        return redirect()->route('admin.agency.index')->with('status', StatusMessage::DELETED_SUCCESS);
     }
 }

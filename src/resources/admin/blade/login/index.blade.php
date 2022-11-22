@@ -14,7 +14,7 @@
                     <div class="mb-4">
                         <img class="brand" style="max-width: 100px;" src="{{ busting('img/logo.png', 'admin') }}" alt="bootstraper logo">
                     </div>
-                    <h6 class="mb-4 text-muted">Đăng nhập vào tài khoản của bạn</h6>
+                    <h6 class="mb-4 text-muted">Đăng nhập với tài khoản của bạn</h6>
                     @if(!empty($errors->getMessages()))
                         <div class="text text-danger">
                             @foreach(Arr::collapse($errors->getMessages()) as $msg)
@@ -34,8 +34,8 @@
                         </div>
                         <button class="btn btn-primary shadow-2 mb-4">Đăng nhập</button>
                     </form>
-                    <p class="mb-2 text-muted">Quên mật khẩu? <a href="forgot-password.html">Reset</a></p>
-                    <p class="mb-0 text-muted">Chưa có tài khoản? <a href="signup.html">Đăng ký</a></p>
+                    <p class="mb-2 text-muted">Quên mật khẩu? <a href="forgot-password.html">Cài lại mật khẩu</a></p>
+                    <p class="mb-0 text-muted">Bạn chưa có tài khoản? <a href="signup.html">Đăng ký</a></p>
                 </div>
             </div>
         </div>

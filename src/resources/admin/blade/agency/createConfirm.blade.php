@@ -9,7 +9,7 @@
 
     <div class="page-title">
         <h3>
-        Xác nhận tạo mới đại lý
+            Xác nhận tạo mới đại lý
         </h3>
     </div>
     <div class="card">
@@ -22,7 +22,7 @@
                         <input type="text" name="name" class="form-control" value="{{ request()->input('name') }}" readonly>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label for="tel" class="form-label fw-bold required-mark">Sđt</label>
+                        <label for="tel" class="form-label fw-bold required-mark">Số điện thoại</label>
                         <input type="text" name="tel" class="form-control" value="{{ request()->input('tel') }}" readonly>
                     </div>
                     <div class="mb-3 col-md-6">

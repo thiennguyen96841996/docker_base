@@ -9,7 +9,7 @@
 
     <div class="page-title">
         <h3>
-            Client create Confirmation
+            Xác nhận tạo mới nhân viên
         </h3>
     </div>
     <div class="card">
@@ -18,17 +18,17 @@
                 @csrf
                 <div class="row g-2">
                     <div class="mb-3 col-md-6">
-                        <label for="name" class="form-label fw-bold required-mark">Name</label>
+                        <label for="name" class="form-label fw-bold required-mark">Tên nhân viên</label>
                         <input type="text" name="name" class="form-control" value="{{ request()->input('name') }}" readonly>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label for="region_code" class="form-label fw-bold required-mark">Region</label>
+                        <label for="region_code" class="form-label fw-bold required-mark">Khu vực</label>
                         <input type="text" name="region_code" class="form-control" value="{{ request()->input('region_code') }}" readonly>
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="mb-3 col-md-6">
-                        <label for="tel" class="form-label fw-bold required-mark">Tel</label>
+                        <label for="tel" class="form-label fw-bold required-mark">Số điện thoại</label>
                         <input type="text" name="tel" class="form-control" value="{{ request()->input('tel') }}" readonly>
                     </div>
                     <div class="mb-3 col-md-6">
@@ -39,7 +39,7 @@
                 <div class="row g-2">
                     <div class="mb-3 col-md-6">
                         <input type="hidden" name="status" value="{{ request()->input('status') }}">
-                        <label for="status" class="form-label fw-bold required-mark">Status</label>
+                        <label for="status" class="form-label fw-bold required-mark">Trạng thái</label>
                         <input type="text" name="status_text" class="form-control" value="{{ \App\Common\ClientUser\Definition\ClientStatus::getName(request()->input('status')) }}" readonly>
                     </div>
                     <div class="mb-3 col-md-6">
@@ -50,13 +50,13 @@
                 <div class="line my-3"></div>
                 <div class="row g-2">
                     <input type="hidden" name="agency_id" value="{{ request()->input('agency_id') }}"></br>
-                    <label for="agency_name" class="form-label fw-bold required-mark">Agency</label>
+                    <label for="agency_name" class="form-label fw-bold required-mark">Đại lý</label>
                     <input type="text" name="agency_name" class="form-control" value="{{ $agency->name }}" readonly>
                 </div>
                 
                 <div class="d-flex justify-content-end text-center mt-4">
-                    <a id="btn_back_to_edit" class="btn btn-outline-secondary me-2" href="#" data-post-url="{{ route('admin.client-user.create', ['agency_id' => request()->input('agency_id')]) }}">Back</a>
-                    <button type="submit" class="btn btn-primary" value="update"><i class="fas fa-save"></i> Create</button>
+                    <a id="btn_back_to_edit" class="btn btn-outline-secondary me-2" href="#" data-post-url="{{ route('admin.client-user.create', ['agency_id' => request()->input('agency_id')]) }}">Quay lại</a>
+                    <button type="submit" class="btn btn-primary" value="update"><i class="fas fa-save"></i> Tạo mới</button>
                 </div>
             </form>
         </div>

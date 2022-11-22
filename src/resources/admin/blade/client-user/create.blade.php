@@ -12,7 +12,7 @@
 
     <div class="page-title">
         <h3>
-            Client Create
+            Tạo mới nhân viên
         </h3>
     </div>
     <div class="row">
@@ -24,17 +24,17 @@
                         @csrf
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label fw-bold required-mark">Name</label>
+                                <label for="name" class="form-label fw-bold required-mark">Tên nhân viên</label>
                                 <input type="text" name="name" class="form-control" value="{{ Renderer::oldOrElse('name', $clientUser) }}">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="region_code" class="form-label fw-bold required-mark">Region</label>
+                                <label for="region_code" class="form-label fw-bold required-mark">Khu vực</label>
                                 <input type="text" name="region_code" class="form-control" value="{{ Renderer::oldOrElse('region_code', $clientUser) }}">
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
-                                <label for="tel" class="form-label fw-bold required-mark">Tel</label>
+                                <label for="tel" class="form-label fw-bold required-mark">Số điện thoại</label>
                                 <input type="text" name="tel" class="form-control" value="{{ Renderer::oldOrElse('tel', $clientUser) }}">
                             </div>
                             <div class="mb-3 col-md-6">
@@ -44,7 +44,7 @@
                         </div>
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
-                                <label for="status" class="form-label fw-bold required-mark">Status</label>
+                                <label for="status" class="form-label fw-bold required-mark">Trạng thái</label>
                                 <select name="status" class="form-select">
                                     @foreach(\App\Common\ClientUser\Definition\ClientStatus::cases() as $status)
                                         @if (!empty($clientUser) && Renderer::oldOrElse('status', $clientUser) == $status->value)
@@ -62,13 +62,13 @@
                         </div>
                         <div class="line my-3"></div>
                         <div class="mb-3">
-                            <label for="agency_name" class="form-label fw-bold">Agency</label>
+                            <label for="agency_name" class="form-label fw-bold">Đại lý</label>
                             <input type="text" name="agency_name" class="form-control" value="{{ $agency->name }}" readonly>
                             <input type="hidden" name="agency_id" class="form-control" value="{{ $agency->id }}">
                         </div>
                         <div class="d-flex justify-content-end text-center mt-4">
-                            <a href="{{ route('admin.client-user.index') }}" class="btn btn-outline-secondary me-2">Back to list</a>
-                            <button type="submit" class="btn btn-primary">Next</button>
+                            <a href="{{ route('admin.client-user.index') }}" class="btn btn-outline-secondary me-2">Quay lại</a>
+                            <button type="submit" class="btn btn-primary">Tiếp theo</button>
                         </div>
                     </form>
                 </div>

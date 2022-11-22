@@ -48,7 +48,7 @@ class ClientUserController extends AbsController
      */
     public function index(Request $request): View
     {
-        Renderer::setPageTitle('Client List');
+        Renderer::setPageTitle('Danh sách nhân viên');
 
         Renderer::setPaginator($this->clientUserService->getViewModelPaginator(url()->current(), $request->all()));
         Renderer::setSearchConditions($request->all());
@@ -64,7 +64,7 @@ class ClientUserController extends AbsController
      */
     public function create(Request $request): View
     {
-        Renderer::setPageTitle('Client Create');
+        Renderer::setPageTitle('Tạo mới nhân viên');
 
         if (!empty($request->all())) {
             Renderer::set('clientUser', $request->all());
@@ -82,7 +82,7 @@ class ClientUserController extends AbsController
      */
     public function createConfirm(ClientUserStoreRequest $request): View
     {
-        Renderer::setPageTitle('Client Create Confirm');
+        Renderer::setPageTitle('Xác nhận tạo mới');
 
         if (!empty($agency = $this->agencyService->getViewModel(['id' => $request->input('agency_id')]))) {
             Renderer::set('agency', $agency);
@@ -108,7 +108,7 @@ class ClientUserController extends AbsController
         $clientViewModel = $this->clientUserService->getViewModel(['id' => $clientUser->id]);
         $clientUser->notify(new SendPassword($clientViewModel, $storeData['password']));
 
-        return redirect()->route('admin.client-user.show', $clientUser->id)->with('status', StatusMessage::STORE_SUCCESS);
+        return redirect()->route('admin.client-user.show', $clientUser->id)->with('status', StatusMessage::SAVED_SUCCESS);
     }
 
     /**
@@ -120,7 +120,7 @@ class ClientUserController extends AbsController
      */
     public function show(string $id): View
     {
-        Renderer::setPageTitle('Client ' . $id);
+        Renderer::setPageTitle('Nhân viên ' . $id);
 
         if (empty($clientUser = $this->clientUserService->getViewModel(['id' => $id]))) {
             abort(404);
@@ -139,7 +139,7 @@ class ClientUserController extends AbsController
      */
     public function edit(Request $request, string $id): View
     {
-        Renderer::setPageTitle('Client Edit');
+        Renderer::setPageTitle('Sửa thông tin nhân viên');
 
         $isBack = false;
         if (empty($clientUser = $this->clientUserService->getViewModel(['id' => $id]))) {
@@ -167,7 +167,7 @@ class ClientUserController extends AbsController
      */
     public function updateConfirm(ClientUserUpdateRequest $request, string $id): View
     {
-        Renderer::setPageTitle('Client Update Confirm');
+        Renderer::setPageTitle('Xác nhận cập nhật');
 
         if (!empty($agency = $this->agencyService->getViewModel(['id' => $request->input('agency_id')]))) {
             Renderer::set('agency', $agency);
@@ -191,7 +191,7 @@ class ClientUserController extends AbsController
         }
         $this->clientUserService->updateModel($clientUser, $request->all());
 
-        return redirect()->route('admin.client-user.show', $id)->with('status', StatusMessage::UPDATE_SUCCESS);
+        return redirect()->route('admin.client-user.show', $id)->with('status', StatusMessage::UPDATED_SUCCESS);
     }
 
     /**
@@ -208,6 +208,6 @@ class ClientUserController extends AbsController
         }
         $this->clientUserService->deleteModel($clientUser);
 
-        return redirect()->route('admin.client-user.index')->with('status', StatusMessage::DELETE_SUCCESS);
+        return redirect()->route('admin.client-user.index')->with('status', StatusMessage::DELETED_SUCCESS);
     }
 }

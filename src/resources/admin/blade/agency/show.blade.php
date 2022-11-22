@@ -21,7 +21,7 @@
                     <input type="text" class="form-control" value="{{ $agency->name }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label for="tel" class="form-label fw-bold required-mark">Sđt</label>
+                    <label for="tel" class="form-label fw-bold required-mark">Số điện thoại</label>
                     <input type="text" class="form-control" value="{{ $agency->tel }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
@@ -44,10 +44,10 @@
         </div>
     </div>
     <div class="d-flex justify-content-between align-items-center">
-        <a href="{{ route('admin.agency.index') }}" class="btn btn-outline-secondary">Quay lại danh sách</a>
+        <a href="{{ route('admin.agency.index') }}" class="btn btn-outline-secondary">Quay lại</a>
         <div class="d-flex justify-content-start text-center">
             <div class="mx-1">
-                <a href="{{ route('admin.client-user.create', ['agency_id' => $agency->id]) }}" class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Thêm client</a>
+                <a href="{{ route('admin.client-user.create', ['agency_id' => $agency->id]) }}" class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Tạo mới nhân viên</a>
             </div>
             <div class="mx-1">
                 <a href="{{ route('admin.agency.edit', $agency->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Chỉnh sửa</a>
@@ -75,7 +75,7 @@
             <div class="table-responsive"><table width="100%" class="table table-striped" id="dataTables-example">
                     <thead>
                     <tr>
-                        <th scope="col" width="50">Id</th>
+                        <th scope="col" width="50">ID</th>
                         <th scope="col" width="150">Ngày kí kết hợp đồng</th>
                         <th scope="col" width="100">Ngày kết thúc hợp đồng</th>
                         <th scope="col" width="100">Thời hạn hợp đồng</th>
@@ -132,7 +132,7 @@
             <div class="table-responsive"><table width="100%" class="table table-striped" id="dataTables-example">
                     <thead>
                     <tr>
-                        <th scope="col" width="50">Id</th>
+                        <th scope="col" width="50">ID</th>
                         <th scope="col" width="150">Ngày kí kết hợp đồng</th>
                         <th scope="col" width="100">Ngày kết thúc hợp đồng</th>
                         <th scope="col" width="100">Thời hạn hợp đồng</th>

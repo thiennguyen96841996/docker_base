@@ -17,8 +17,9 @@ function delete_client_user(id, name) {
     // 確認ダイアログ用テキスト
     var confirm_txt = "";
     confirm_txt =
-        "Bạn có chắc chắn muốn xoá thông tin nhân viên đại lý dưới không?\n\n";
-    confirm_txt += id + " : " + name;
+        "Bạn có chắc chắn muốn xoá thông tin nhân viên bên dưới không?\n\n";
+    confirm_txt += "ID nhân viên: " + id + "\n";
+    confirm_txt += "Tên nhân viên: " + name;
     // 論理削除処理
     if (confirm(confirm_txt)) {
         document.delete_form.submit();

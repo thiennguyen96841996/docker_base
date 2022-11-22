@@ -9,9 +9,10 @@
 
 @section('CONTENTS')
     @include('include.msg.error-msg')
+    
     <div class="page-title">
         <h3>
-            Client Edit
+            Chỉnh sửa thông tin nhân viên
         </h3>
     </div>
     <div class="row">
@@ -24,17 +25,17 @@
                         <input type="hidden" name="id" value="{{ $clientUser->id }}">
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label fw-bold required-mark">Name</label>
+                                <label for="name" class="form-label fw-bold required-mark">Tên nhân viên</label>
                                 <input type="text" name="name" class="form-control" value="{{ $isBack ? Renderer::oldOrElse('name', $clientUser) : Renderer::oldOrElseForEncrypted('name', $clientUser->getName()) }}">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="region_code" class="form-label fw-bold required-mark">Region</label>
+                                <label for="region_code" class="form-label fw-bold required-mark">Khu vực</label>
                                 <input type="text" name="region_code" class="form-control" value="{{ Renderer::oldOrElse('region_code', $clientUser) }}">
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
-                                <label for="tel" class="form-label fw-bold required-mark">Tel</label>
+                                <label for="tel" class="form-label fw-bold required-mark">Số điện thoại</label>
                                 <input type="text" name="tel" class="form-control" value="{{ $isBack ? Renderer::oldOrElse('tel', $clientUser) : Renderer::oldOrElseForEncrypted('tel', $clientUser->getTel()) }}">
                             </div>
                             <div class="mb-3 col-md-6">
@@ -44,7 +45,7 @@
                         </div>
                         <div class="row g-2">
                             <div class="mb-3 col-md-6">
-                                <label for="status" class="form-label fw-bold required-mark">Status</label>
+                                <label for="status" class="form-label fw-bold required-mark">Trạng thái</label>
                                 <select name="status" class="form-select">
                                     @foreach(\App\Common\CLientUser\Definition\ClientStatus::cases() as $status)
                                         @if ($status->value === Renderer::oldOrElse('status', $clientUser))
@@ -63,14 +64,14 @@
                                 <input type="text" name="email" class="form-control" value="{{ $clientUser->email }}" readonly>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="agency_name" class="form-label fw-bold">Agency</label>
+                                <label for="agency_name" class="form-label fw-bold">Đại lý</label>
                                 <input type="text" name="agency_name" class="form-control" value="{{ $clientUser->agency_name }}" readonly>
                                 <input type="hidden" name="agency_id" value="{{ $clientUser->agency_id }}">
                             </div>
                         </div>
                         <div class="d-flex justify-content-end text-center mt-4">
-                            <a href="{{ route('admin.client-user.show', $clientUser->id) }}" class="btn btn-outline-secondary me-2">Back to show</a>
-                            <button type="submit" class="btn btn-primary">Next</button>
+                            <a href="{{ route('admin.client-user.show', $clientUser->id) }}" class="btn btn-outline-secondary me-2">Quay lại</a>
+                            <button type="submit" class="btn btn-primary">Tiếp theo</button>
                         </div>
                     </form>
                 </div>
