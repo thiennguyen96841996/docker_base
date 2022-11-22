@@ -57,7 +57,8 @@ class Customer extends User
         'password',
         'gender',
         'address',
-        'avatar'
+        'avatar',
+        'status'
     ];
 
     /**

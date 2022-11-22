@@ -114,7 +114,7 @@ class CustomerUserController extends AbsController
      * @param  string $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updateStatus(Request $request, string $id): RedirectResponse
+    public function updateStatus(CustomerUserUpdateRequest $request, string $id): RedirectResponse
     {
         $customer = $this->customerService->getModel(['id' => $id]);
         if (is_null($customer)) {
