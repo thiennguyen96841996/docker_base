@@ -74,12 +74,21 @@ class ClientUserRepository implements ClientUserRepositoryContract
      */
     public function encryptData(array $params): array
     {
-        $params['name']     = !empty($params['name']) ? $this->encrypt(Arr::get($params, 'name')) : null;
-        $params['tel']      = !empty($params['tel']) ? $this->encrypt(Arr::get($params, 'tel')) : null;
-        $params['hotline']  = !empty($params['hotline']) ? $this->encrypt(Arr::get($params, 'hotline')) : null;
-        $params['avatar']   = !empty($params['avatar']) ? $this->encrypt(Arr::get($params, 'avatar')) : null;
-        // $params['password'] = Hash::make($params['password']);
-        
+        foreach($params as $key => $value) {
+            switch ($key) {
+                case 'email':
+                case 'password':
+                case 'status':
+                case 'agency_id':
+                case 'region_code':
+                    $params[$key] = $value;
+                    break;
+                default :
+                    $params[$key] = $this->encrypt($value);
+                    break;
+
+            }
+        }
         return $params;
     }
 

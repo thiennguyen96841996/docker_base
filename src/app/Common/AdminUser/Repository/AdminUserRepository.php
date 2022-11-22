@@ -11,6 +11,7 @@ use App\Common\AdminUser\Model\AdminUser;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\Database\RepositoryConnection;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * AdminUserモデルのデータ操作を扱うクラス。
@@ -90,12 +91,21 @@ class AdminUserRepository implements AdminUserRepositoryContract
      */
     public function encryptData(AdminUser $adminUser, array $params): AdminUser
     {
-        $adminUser->name                    = $this->encrypt(Arr::get($params, 'first_name'));
-        $adminUser->email                   = $this->encrypt(Arr::get($params, 'email'));
-        $adminUser->password                = $this->encrypt(Arr::get($params, 'password'));
-        $adminUser->tel                     = $this->encrypt(Arr::get($params, 'tel'));
-        $adminUser->avatar                  = $this->encrypt(Arr::get($params, 'avatar'));
+        foreach($params as $key => $value) {
+            switch ($key) {
+                case 'password':
+                    $params[$key] = Hash::make(($params['password']));
+                    break;
+                case 'email':
+                case 'is_available':
+                    $params[$key] = $value;
+                    break;
+                default :
+                    $params[$key] = $this->encrypt($value);
+                    break;
 
+            }
+        }
         return $adminUser;
     }
 
