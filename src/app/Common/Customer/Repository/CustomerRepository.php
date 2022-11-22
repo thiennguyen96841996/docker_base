@@ -66,13 +66,20 @@ class CustomerRepository implements CustomerRepositoryContract
      */
     public function encryptData(array $params): array
     {
-        $params['name']     = !empty($params['name']) ? $this->encrypt(Arr::get($params, 'name')) : null;
-        $params['birthday'] = !empty($params['birthday']) ? $this->encrypt(Arr::get($params, 'birthday')) : null;
-        $params['address']  = !empty($params['address']) ? $this->encrypt(Arr::get($params, 'address')) : null;
-        $params['tel']      = !empty($params['tel']) ? $this->encrypt(Arr::get($params, 'tel')) : null;
-        $params['gender']   = !empty($params['gender']) ? $this->encrypt(Arr::get($params, 'gender')) : null;
-        $params['password'] = Hash::make(empty($params['password']) ? makeRandomStrForPassword() : $params['password']);
+        foreach($params as $key => $value) {
+            switch ($key) {
+                case 'password':
+                    $params[$key] = Hash::make(($params['password']));
+                    break;
+                case 'email':
+                    $params[$key] = $value;
+                    break;
+                default :
+                    $params[$key] = $this->encrypt($value);
+                    break;
 
+            }
+        }
         return $params;
     }
 
