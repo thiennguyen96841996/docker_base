@@ -74,6 +74,9 @@ class CustomerRepository implements CustomerRepositoryContract
                 case 'email':
                     $params[$key] = $value;
                     break;
+                case 'status':
+                    $params[$key] = $value;
+                    break;
                 default :
                     $params[$key] = $this->encrypt($value);
                     break;
@@ -109,20 +112,6 @@ class CustomerRepository implements CustomerRepositoryContract
     {
         $customer->setConnection(DatabaseDefs::CONNECTION_NAME_WRITE);
         $customer->update($this->encryptData($params));
-    }
-
-     /**
-     * Update user status
-     * @param  String $status
-     * @param  Customer $customer
-     * @return void
-     * @throws \Throwable
-     */
-    public function updateStatus(Customer $customer, String $status): void
-    {
-        $customer->status = $status;
-        $customer->setConnection(DatabaseDefs::CONNECTION_NAME_WRITE);
-        $customer->save();
     }
 
     /**

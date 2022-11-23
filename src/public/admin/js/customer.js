@@ -6,7 +6,7 @@
  function delete_customer_user(customer_id, customer_name) {
     // 確認ダイアログ用テキスト
     var confirm_txt = '';
-    confirm_txt  = 'Bạn có chắc chắn muốn xoá thông tin customer dưới không?\n\n';
+    confirm_txt  = 'Bạn có chắc chắn muốn xoá thông tin khách hàng dưới không?\n\n';
     confirm_txt += customer_id + ' : ' + customer_name;
     // 論理削除処理
     if(confirm(confirm_txt)) {
