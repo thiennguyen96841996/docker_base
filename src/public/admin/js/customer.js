@@ -7,7 +7,8 @@
     // 確認ダイアログ用テキスト
     var confirm_txt = '';
     confirm_txt  = 'Bạn có chắc chắn muốn xoá thông tin khách hàng dưới không?\n\n';
-    confirm_txt += customer_id + ' : ' + customer_name;
+    confirm_txt += "ID khách hàng: " + customer_id + "\n";
+    confirm_txt += "Tên khách hàng: " + customer_name;
     // 論理削除処理
     if(confirm(confirm_txt)) {
         document.delete_form.submit();
