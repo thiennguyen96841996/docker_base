@@ -11,6 +11,9 @@
     <div class="page-title">
         <h3>
             Đại lý {{ $agency->id }}
+            <div class="float-end">
+                <a href="{{ route('admin.client-user.create', ['agency_id' => $agency->id]) }}" class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Tạo mới nhân viên</a>
+            </div>
         </h3>
     </div>
     <div class="card">
@@ -47,16 +50,13 @@
         <a href="{{ route('admin.agency.index') }}" class="btn btn-outline-secondary">Quay lại</a>
         <div class="d-flex justify-content-start text-center">
             <div class="mx-1">
-                <a href="{{ route('admin.client-user.create', ['agency_id' => $agency->id]) }}" class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Tạo mới nhân viên</a>
-            </div>
-            <div class="mx-1">
                 <a href="{{ route('admin.agency.edit', $agency->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Chỉnh sửa</a>
             </div>
             <div>
-                <form method="POST" name="delete_form" action="{{ route('admin.agency.destroy', $agency->id) }}" onClick="delete_agency('{{ $agency->id }}', '{{ $agency->name }}'); return false;">
+                <form method="POST" id="agency_delete_form" action="{{ route('admin.agency.destroy', $agency->id) }}" onClick="delete_agency('{{ $agency->id }}', '{{ $agency->name }}'); return false;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Xoá</button>
+                    <button type="button" class="btn btn-danger agency-delete"><i class="fas fa-trash-alt"></i> Xoá</button>
                 </form>
             </div>
         </div>
@@ -94,21 +94,21 @@
                                 @else
                                     @if (\Carbon\Carbon::parse($val->start_date)->format('Y/m/d') <= \Carbon\Carbon::now()->format('Y/m/d'))
                                         <div>
-                                            <form method="POST" name="contract_cancel_form" action="{{ route('admin.agency-contract.cancel', ['agency_id' => $agency->id, 'agency_contract' => $val->id]) }}" onClick="contract_cancel('{{ $agency->name }}', '{{ $val->id }}'); return false;">
+                                            <form method="POST" id="agency_contract_cancel_form" name="contract_cancel_form" action="{{ route('admin.agency-contract.cancel', ['agency_id' => $agency->id, 'agency_contract' => $val->id]) }}" onClick="contract_cancel('{{ $agency->name }}', '{{ $val->id }}'); return false;">
                                                 @csrf
                                                 @method('PUT')
                                                 <input type="hidden" name="agency_id" value="{{ $agency->id }}">
                                                 <input type="hidden" name="end_date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                                 <input type="hidden" name="status" value="{{ \App\Common\Agency\Definition\AgencyStatus::INACTIVE->value }}">
-                                                <button type="submit" class="btn btn-dark"><i class="fas fa-trash-alt"></i>Huỷ hợp đồng</button>
+                                                <button type="button" class="btn btn-dark"><i class="fas fa-trash-alt"></i>Huỷ hợp đồng</button>
                                             </form>
                                         </div>
                                     @else
                                         <div class="mx-1">
-                                            <form method="POST" name="delete_contract_form" action="{{ route('admin.agency-contract.delete', ['agency_id' => $agency->id, 'agency_contract' => $val->id]) }}" onClick="delete_agency_contract('{{ $agency->name }}', '{{ $val->id }}'); return false;">
+                                            <form method="POST" id="agency_contract_delete_form" name="delete_contract_form" action="{{ route('admin.agency-contract.delete', ['agency_id' => $agency->id, 'agency_contract' => $val->id]) }}" onClick="delete_agency_contract('{{ $agency->name }}', '{{ $val->id }}'); return false;">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit" value="true" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Xoá hợp đồng</button>
+                                                <button type="button" value="true" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Xoá hợp đồng</button>
                                             </form>
                                         </div>
                                     @endif
@@ -157,6 +157,8 @@
             {!! Renderer::renderPaginator('include.pager') !!}
         </div>
     </div>
+
+    @include('include.modal.confirm')
 @stop
 
 @section ('JAVASCRIPT')

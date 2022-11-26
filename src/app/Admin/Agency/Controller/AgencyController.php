@@ -50,7 +50,11 @@ class AgencyController extends AbsController
     {
         Renderer::setPageTitle('Danh sách đại lý');
 
-        Renderer::setPaginator($this->agencyService->getViewModelPaginator(url()->current(), $request->all()));
+        Renderer::setPaginator($this->agencyService->getViewModelPaginator(
+            url()->current(),
+            $request->all(),
+            ['status' => 'asc', 'establishment_date' => 'desc']
+        ));
         Renderer::setSearchConditions($request->all());
 
         return view('agency.' . Arr::last(explode('.', Route::current()->getName())));

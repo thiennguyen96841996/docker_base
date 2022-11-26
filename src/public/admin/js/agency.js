@@ -4,16 +4,15 @@
  * @param {String} agency_name
  */
 function delete_agency(agency_id, agency_name) {
-    // 確認ダイアログ用テキスト
-    var confirm_txt = "";
-    confirm_txt =
-        "Bạn có chắc chắn muốn xoá thông tin đại lý bên dưới không?\n\n";
-    confirm_txt += "ID đại lý: " + agency_id + "\n";
-    confirm_txt += "Tên đại lý: " + agency_name;
-    // 論理削除処理
-    if (confirm(confirm_txt)) {
-        document.delete_form.submit();
-    }
+    $('.modal-title').text('Xác nhận xoá');
+    $('#confirm-title').text('Bạn có chắc chắn muốn xoá thông tin đại lý bên dưới không?');
+    $('#confirm-content').text(agency_id + ':' + agency_name);
+    $('#confirm-modal').modal('show');
+
+    var $delete_form = $("#agency_delete_form");
+    $('#button-confirm').on('click', function () {
+        $delete_form.submit();
+    });
 }
 
 // btn_back_to_create

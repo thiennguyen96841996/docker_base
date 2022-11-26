@@ -32,14 +32,15 @@ $('#contract_term').on('change', function () {
  * @param {String} agency_contract_id
  */
 function delete_agency_contract(agency_name, agency_contract_id) {
-    // 確認ダイアログ用テキスト
-    var confirm_txt = '';
-    confirm_txt  = 'Bạn có chắc chắn muốn xoá thông tin hợp đồng dưới không?\n\n';
-    confirm_txt += agency_name + ' : ' + agency_contract_id;
-    // 論理削除処理
-    if(confirm(confirm_txt)) {
-        document.delete_contract_form.submit();
-    }
+    $('.modal-title').text('Xác nhận xoá');
+    $('#confirm-title').text('Bạn có chắc chắn muốn xoá hợp đồng với đại lý ' + agency_name + ' không?');
+    $('#confirm-content').text('ID: ' + agency_contract_id);
+    $('#confirm-modal').modal('show');
+
+    var $delete_form = $("#agency_contract_delete_form");
+    $('#button-confirm').on('click', function () {
+        $delete_form.submit();
+    });
 }
 
 /**
@@ -48,12 +49,13 @@ function delete_agency_contract(agency_name, agency_contract_id) {
  * @param {String} agency_name
  */
 function contract_cancel(agency_name, agency_contract_id) {
-    // 確認ダイアログ用テキスト
-    var confirm_txt = '';
-    confirm_txt  = 'Bạn có chắc chắn muốn huỷ hợp đồng với đại lý dưới không?\n\n';
-    confirm_txt += agency_name + ' : ' + agency_contract_id;
-    // 論理削除処理
-    if(confirm(confirm_txt)) {
-        document.contract_cancel_form.submit();
-    }
+    $('.modal-title').text('Xác nhận huỷ');
+    $('#confirm-title').text('Bạn có chắc chắn muốn huỷ hợp đồng với đại lý ' + agency_name + ' không?');
+    $('#confirm-content').text('Hợp đồng : ' + agency_contract_id);
+    $('#confirm-modal').modal('show');
+
+    var $delete_form = $("#agency_contract_cancel_form");
+    $('#button-confirm').on('click', function () {
+        $delete_form.submit();
+    });
 }

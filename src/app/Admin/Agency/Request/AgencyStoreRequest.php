@@ -91,7 +91,7 @@ class AgencyStoreRequest extends FormRequest
         // メッセージはlang下のファイルで管理する。
         // 上書きしたいメッセージがある場合にのみ設定すること。
         return [
-            'tel.tel' => 'The :attribute field is unvalid telephone'
+            'tel.tel' => 'Mục :attribute không đúng định dạng.'
         ];
     }
 

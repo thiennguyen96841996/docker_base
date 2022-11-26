@@ -77,7 +77,7 @@ class Agency extends Model
         return [
             'id'                        => '「ID」',
             'name'                      => '「Tên」',
-            'tel'                       => '「Sđt」',
+            'tel'                       => '「Số điện thoại」',
             'address'                   => '「Địa chỉ」',
             'status'                    => '「Status」',
             'agency_director'           => '「Giám đốc đại lý」',
@@ -114,6 +114,22 @@ class Agency extends Model
             };
         }
 
+        return $builder;
+    }
+
+    /**
+     * 検索条件に合わせてOrder by句を設定する。
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $builder Builderオブジェクト
+     * @param  array $sortConditions ソート条件の配列
+     * @return \Illuminate\Database\Eloquent\Builder Builderオブジェクト
+     */
+    public function scopeSortMultiConditions(Builder $builder, array $sortConditions): Builder
+    {
+        // $key : カラム名 , $val : ソート順
+        foreach ($sortConditions as $key => $val) {
+            $builder->orderBy($key, $val);
+        }
         return $builder;
     }
 }

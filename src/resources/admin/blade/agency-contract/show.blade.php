@@ -71,27 +71,29 @@
             @else
                 @if (\Carbon\Carbon::parse($agencyContract->start_date)->format('Y/m/d') < \Carbon\Carbon::now()->format('Y/m/d'))
                     <div>
-                        <form method="POST" name="contract_cancel_form" action="{{ route('admin.agency-contract.cancel', ['agency_id' => $agency->id, 'agency_contract' => $agencyContract->id]) }}" onClick="contract_cancel('{{ $agency->name }}', '{{ $agencyContract->id }}'); return false;">
+                        <form method="POST" id="agency_contract_cancel_form" name="contract_cancel_form" action="{{ route('admin.agency-contract.cancel', ['agency_id' => $agency->id, 'agency_contract' => $agencyContract->id]) }}" onClick="contract_cancel('{{ $agency->name }}', '{{ $agencyContract->id }}'); return false;">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="agency_id" value="{{ $agency->id }}">
                             <input type="hidden" name="end_date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                             <input type="hidden" name="status" value="{{ \App\Common\Agency\Definition\AgencyStatus::INACTIVE->value }}">
-                            <button type="submit" class="btn btn-dark"><i class="fas fa-trash-alt"></i>Huỷ hợp đồng</button>
+                            <button type="button" class="btn btn-dark"><i class="fas fa-trash-alt"></i>Huỷ hợp đồng</button>
                         </form>
                     </div>
                 @else
                     <div>
-                        <form method="POST" name="delete_contract_form" action="{{ route('admin.agency-contract.delete', ['agency_id' => $agency->id, 'agency_contract' => $agencyContract->id]) }}" onClick="delete_agency_contract('{{ $agency->name }}', '{{ $agencyContract->id }}'); return false;">
+                        <form method="POST" id="agency_contract_delete_form" name="delete_contract_form" action="{{ route('admin.agency-contract.delete', ['agency_id' => $agency->id, 'agency_contract' => $agencyContract->id]) }}" onClick="delete_agency_contract('{{ $agency->name }}', '{{ $agencyContract->id }}'); return false;">
                             @method('DELETE')
                             @csrf
-                            <button type="submit" value="true" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Xoá hợp đồng</button>
+                            <button type="button" value="true" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Xoá hợp đồng</button>
                         </form>
                     </div>
                 @endif
             @endif
         </div>
     </div>
+
+    @include('include.modal.confirm')
 @stop
 
 @section ('JAVASCRIPT')

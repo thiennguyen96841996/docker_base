@@ -151,18 +151,19 @@ class AgencyService
     /**
      * ViewModelのデータをPaginatorとして取得する。
      *
-     * @param  string $path URLの元になるパス
-     * @param  int $perPage number of records in each page.
-     * @param  array $searchConditions 検索条件の配列
+     * @param string $path URLの元になるパス
+     * @param array $searchConditions 検索条件の配列
+     * @param array $sortConditions
+     * @param int $perPage number of records in each page.
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function getViewModelPaginator(string $path, array $searchConditions = [], int $perPage = 30): LengthAwarePaginator
+    public function getViewModelPaginator(string $path, array $searchConditions = [] , array $sortConditions = [], int $perPage = 30): LengthAwarePaginator
     {
         $builder =  Agency::on($this->getConnection(DatabaseDefs::CONNECTION_NAME_READ))
             ->addSelect([
                 Agency::TABLE_NAME.'.*',
             ])
-            ->orderBy('updated_at', 'desc')
+            ->sortMultiConditions($sortConditions)
         ;
 
         /** @var \Illuminate\Pagination\LengthAwarePaginator $paginator */
