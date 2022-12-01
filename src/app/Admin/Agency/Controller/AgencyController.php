@@ -2,6 +2,7 @@
 
 namespace App\Admin\Agency\Controller;
 
+use App\Admin\Agency\Request\AgencyCsvUploadRequest;
 use App\Admin\Agency\Request\AgencyStoreRequest;
 use App\Admin\Agency\Request\AgencyUpdateRequest;
 use App\Common\Agency\Service\AgencyService;
@@ -145,7 +146,7 @@ class AgencyController extends AbsController
      * @return View
      * @throws \Throwable
      */
-    public function createConfirm(AgencyStoreRequest $request)
+    public function createConfirm(AgencyStoreRequest $request) : View
     {
         Renderer::setPageTitle('Xác nhận tạo mới');
 
@@ -161,7 +162,7 @@ class AgencyController extends AbsController
      * @return View
      * @throws \Throwable
      */
-    public function updateConfirm(AgencyUpdateRequest $request)
+    public function updateConfirm(AgencyUpdateRequest $request) : View
     {
         Renderer::setPageTitle('Xác nhận cập nhật');
 
@@ -216,7 +217,7 @@ class AgencyController extends AbsController
         $fileName = 'agency-list' . Carbon::parse(now())->timestamp . '.csv';
         $csv = csv_download($fileName);
 
-        Log::debug('before:' . round(memory_get_usage(true)/1048576,2)." megabytes");
+        Log::debug('before:' . round(memory_get_usage(true) / 1048576, 2) . " megabytes");
         $csvViewModel = $this->agencyService->getCsvViewModelList(
             $request->all(),
             ['status' => 'asc', 'establishment_date' => 'desc']
@@ -225,5 +226,51 @@ class AgencyController extends AbsController
         $csv->setCsvViewModel($csvViewModel);
 
         return $csv->csvdownload();
+    }
+
+    /**
+     * csv upload
+     *
+     * @return View
+     */
+    public function csvUpload() : View
+    {
+        Renderer::setPageTitle('Upload thông tin đại lý');
+
+        return view('agency.' . Arr::last(explode('.', Route::current()->getName())));
+    }
+
+    /**
+     * csvConfirm
+     *
+     * @param AgencyCsvUploadRequest $request
+     * @return View
+     */
+    public function csvConfirm(AgencyCsvUploadRequest $request) : View
+    {
+        Renderer::set('str_data', $request->getUploadCsvAsJson());
+        Renderer::set('csv_row_num', $request->getUploadCsvDataCount());
+
+        return view('agency.' . Arr::last(explode('.', Route::current()->getName())));
+    }
+
+    /**
+     * csvUpdate
+     *
+     * @param AgencyCsvUploadRequest $request
+     * @return View
+     */
+    public function csvUpdate(AgencyCsvUploadRequest $request) : \Illuminate\Http\RedirectResponse
+    {
+        foreach ($request->getCsvParams() ?? [] as $params) {
+            if (!empty($params['id']) && !empty($this->agencyService->getViewModel(['id' => $params['id']]))) {
+                $this->agencyService->updateModel($this->agencyService->getModel(['id' => $params['id']]), $params);
+            } else {
+                unset($params['id']);
+                $this->agencyService->storeModel($params);
+            }
+        }
+
+        return redirect()->route('admin.agency.index')->with('status', StatusMessage::UPLOAD_SUCCESS);
     }
 }

@@ -43,11 +43,14 @@ Route::middleware('auth')->name('admin.')->group(function () {
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     Route::namespace('App\Admin\Agency\Controller')->group(function () {
         Route::get('agency/csv-download', 'AgencyController@csvDownload')->name('agency.csvDownload');
-        Route::resource('agency', 'AgencyController');
+        Route::resource('agency', 'AgencyController')->where(['agency' => '[1-9][0-9]{4,}']);
         Route::post('agency/create', 'AgencyController@create')->name('agency.create');
         Route::put('agency/{agency}/edit', 'AgencyController@edit')->name('agency.edit');
         Route::match(['get', 'post'], 'agency/create/confirm', 'AgencyController@createConfirm')->name('agency.createConfirm');
         Route::match(['get', 'post', 'put'], 'agency/{agency}/edit/confirm', 'AgencyController@updateConfirm')->name('agency.updateConfirm');
+        Route::get('agency/csv-upload', 'AgencyController@csvUpload')->name('agency.csv-upload');
+        Route::post('agency/csv-confirm', 'AgencyController@csvConfirm')->name('agency.csv-confirm');
+        Route::put('agency/csv-update', 'AgencyController@csvUpdate')->name('agency.csv-update');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Agency Contract

@@ -22,4 +22,9 @@ class StatusMessage
      * resource deleted successfully
      */
     const DELETED_SUCCESS = 'Đã xoá thành công';
+
+    /**
+     * resource upload successfully
+     */
+    const UPLOAD_SUCCESS = 'Đã upload thành công';
 }

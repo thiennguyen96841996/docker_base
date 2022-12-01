@@ -63,7 +63,12 @@
     </div>
     <div class="card mt-5">
         <div class="card-header">
-            <a href="{{ route('admin.agency.create') }}" class="btn btn-primary float-end"><i class="fas fa-plus-circle"></i> Tạo mới</a>
+            <div class="d-flex justify-content-between align-items-center float-end">
+                <div class="d-flex justify-content-start text-center">
+                    <div class="mx-1"><a href="{{ route('admin.agency.create') }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Tạo mới</a></div>
+                    <div><a href="{{ route('admin.agency.csv-upload') }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Csv Upload</a></div>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
