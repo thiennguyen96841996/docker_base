@@ -10,6 +10,7 @@ use App\Common\AgencyContract\Provider\ServiceProvider as AgencyContractServiceP
 use App\Common\BookmarkLink\Provider\ServiceProvider as BookmarkLinkServiceProvider;
 use App\Common\ClientUser\Provider\ServiceProvider as ClientUserServiceProvider;
 use App\Common\Post\Provider\ServiceProvider as PostServiceProvider;
+use App\Common\Project\Provider\ServiceProvider as ProjectServiceProvider;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use App\Common\Customer\Provider\ServiceProvider as CustomerServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -40,6 +41,7 @@ class AppRegistrant implements AppRegistrantContract
         ClientUserServiceProvider::class,
         CustomerServiceProvider::class,
         PostServiceProvider::class,
+        ProjectServiceProvider::class,
         BookmarkLinkServiceProvider::class
     ];
 

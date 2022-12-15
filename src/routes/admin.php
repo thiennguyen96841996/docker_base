@@ -54,7 +54,7 @@ Route::middleware('auth')->name('admin.')->group(function () {
     Route::namespace('App\Admin\AgencyContract\Controller')->group(function () {
         Route::get('agency-contract', 'AgencyContractController@index')->name('agency-contract.index');
         Route::get('{agency_id}/agency-contract/{agency_contract}', 'AgencyContractController@show')->name('agency-contract.show')->where(['agency_contract' => '[1-9][0-9]{4,}']);
-        Route::match(['get', 'post'],'{agency_id}/agency-contract/create', 'AgencyContractController@create')->name('agency-contract.create');
+        Route::match(['get', 'post'], '{agency_id}/agency-contract/create', 'AgencyContractController@create')->name('agency-contract.create');
         Route::match(['get', 'post'], '{agency_id}/agency-contract/create/confirm', 'AgencyContractController@createConfirm')->name('agency-contract.createConfirm');
         Route::post('{agency_id}/agency-contract/store', 'AgencyContractController@store')->name('agency-contract.store');
         Route::delete('{agency_id}/agency-contract/{agency_contract}', 'AgencyContractController@destroy')->name('agency-contract.delete')->where(['agency_contract' => '[1-9][0-9]{4,}']);
@@ -84,6 +84,12 @@ Route::middleware('auth')->name('admin.')->group(function () {
         Route::match(['post'], 'customer-user/{customer_user}/edit', 'CustomerUserController@edit')->name('customer-user.edit');
         Route::put('customer-user/{customer_user}/update-status', 'CustomerUserController@updateStatus')->name('customer-user.updateStatus');
         Route::match(['get', 'post', 'put'], 'customer-user/{customer_user}/edit/confirm', 'CustomerUserController@updateConfirm')->name('customer-user.updateConfirm');
+    });
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    // Project
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Route::namespace('App\Admin\Project\Controller')->group(function () {
+        Route::resource('project', 'ProjectController')->only('index', 'show');
     });
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Bookmark

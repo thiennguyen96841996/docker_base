@@ -18,13 +18,16 @@
             <a href="/agency" class="{{ str_contains(Route::current()->getName(), '.agency') ? 'active' : '' }}"><i class="fas fa-briefcase"></i> ĐẠI LÝ</a>
         </li>
         <li>
-            <a href="/client-user" class="{{ str_contains(Route::current()->getName(), '.client-user') ? 'active' : '' }}"><i class="fas fa-user-tie"></i> NHÂN VIÊN</a>
+            <a href="/client-user" class="{{ str_contains(Route::current()->getName(), '.client-user') ? 'active' : '' }}"><i class="fas fa-user-tie"></i> CLIENT</a>
         </li>
         <li>
             <a href="/customer-user" class="{{ str_contains(Route::current()->getName(), '.customer-user') ? 'active' : '' }}"><i class="fas fa-user"></i> KHÁCH HÀNG</a>
         </li>
         <li>
             <a href="/post" class="{{ str_contains(Route::current()->getName(), '.post') ? 'active' : '' }}"><i class="fas fa-building"></i> BÀI ĐĂNG</a>
+        </li>
+        <li>
+            <a href="/project" class="{{ str_contains(Route::current()->getName(), '.project') ? 'active' : '' }}"><i class="fas fa-building"></i> DỰ ÁN</a>
         </li>
         <li>
             <a href="/bookmark" class="{{ str_contains(Route::current()->getName(), '.bookmark') ? 'active' : '' }}"><i class="fas fa-bookmark"></i> Bookmark</a>

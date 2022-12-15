@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             \Database\Seeders\Partial\CustomerUserSeeder::class,
             \Database\Seeders\Partial\CityAndDistrictSeeder::class,
             \Database\Seeders\Partial\RegionMasterSeeder::class,
+            \Database\Seeders\Partial\ClientProjectSeeder::class,
+            \Database\Seeders\Partial\ProjectCategoryMasterSeeder::class,
             \Database\Seeders\Partial\SampleSeeder::class,
         ]);
     }
