@@ -2,7 +2,6 @@
 
 namespace App\Common\AWS;
 
-use App\Common\Post\Definition\PostAvatar;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -19,7 +18,7 @@ trait S3Trait
      */
     public static function display(string $folder, string $file): string
     {
-        return env('POST_IMAGE_LINK') . self::getEnvString() . '/' . $folder . $file;
+        return env('IMAGE_LINK') . self::getEnvString() . '/' . $folder . $file;
     }
 
     /**
@@ -29,7 +28,7 @@ trait S3Trait
      */
     public static function displayWebp(string $folder, string $file): string
     {
-        return env('POST_IMAGE_LINK') . self::getEnvString() . '/' . $folder . $file . '.webp';
+        return env('IMAGE_LINK') . self::getEnvString() . '/' . $folder . $file . '.webp';
     }
 
     /**
@@ -83,11 +82,13 @@ trait S3Trait
 
     /**
      * @param string $file
+     * @param int $width
+     * @param int $height
      * @return \Intervention\Image\Image
      */
-    public static function convertToWebp(string $file): \Intervention\Image\Image
+    public static function convertToWebp(string $file, int $width, int $height): \Intervention\Image\Image
     {
-        return Image::make($file)->encode('webp')->resize(PostAvatar::POST_WEBP_IMAGE_RESIZE_WIDTH, PostAvatar::POST_WEBP_IMAGE_RESIZE_HEIGHT);
+        return Image::make($file)->encode('webp')->resize($width, $height);
     }
 
     /**
