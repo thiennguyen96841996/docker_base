@@ -4,14 +4,13 @@ namespace App\Common\Agency\Service;
 use App\Common\Agency\ViewModel\AgencyViewModel;
 use App\Common\Database\Definition\DatabaseDefs;
 use App\Common\Repository\ViewModelRepositoryTrait;
-use App\Common\View\Contract\ViewModel as ViewModelContract;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use App\Common\Agency\Contract\AgencyRepository as AgencyRepositoryContract;
 use App\Common\Agency\Model\Agency;
 use App\Common\Database\RepositoryConnection;
+use App\Common\Agency\Contract\AgencyCsvViewModel as AgencyCsvViewModelContract;
 
 /**
  * Agency情報に関連する処理を行うクラス。
@@ -28,13 +27,19 @@ class AgencyService
     private AgencyRepositoryContract $repository;
 
     /**
+     * @var AgencyCsvViewModelContract
+     */
+    private AgencyCsvViewModelContract $csvViewModel;
+
+    /**
      * constructor.
      * @param AgencyRepositoryContract $repository
      */
-    public function __construct(AgencyRepositoryContract $repository)
+    public function __construct(AgencyRepositoryContract $repository, AgencyCsvViewModelContract $csvViewModel)
     {
         $this->repository = $repository;
         $this->setViewModel(new AgencyViewModel());
+        $this->csvViewModel = $csvViewModel;
     }
 
     /**
@@ -172,5 +177,23 @@ class AgencyService
         $paginator->setCollection($collection);
 
         return $paginator;
+    }
+
+    /**
+     * getCsvViewModelList
+     *
+     * @param array $searchConditions
+     * @param array $sortConditions
+     * @return AgencyCsvViewModelContract
+     */
+    public function getCsvViewModelList(array $searchConditions = [] , array $sortConditions = []): AgencyCsvViewModelContract
+    {
+        $builder =  Agency::on($this->getConnection(DatabaseDefs::CONNECTION_NAME_READ))
+            ->addSelect([
+                Agency::TABLE_NAME.'.*',
+            ])
+            ->sortMultiConditions($sortConditions)
+        ;
+        return $this->csvViewModel->setBuilder($builder->whereMultiConditions($searchConditions));
     }
 }

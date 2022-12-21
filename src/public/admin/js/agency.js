@@ -30,3 +30,13 @@ $("#btn_back_to_edit").on("click", function (e) {
     $input_form.attr("action", $(this).data("post-url"));
     $input_form.submit();
 });
+
+// csv download
+$('#btn_agency_csv').on('click', function(){
+    $('#search_form').attr('action', '/agency/csv-download').submit();
+});
+
+// button search
+$('#btn_search').on('click', function(){
+    $('#search_form').attr('action', '/agency').submit();
+});

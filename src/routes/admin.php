@@ -42,6 +42,7 @@ Route::middleware('auth')->name('admin.')->group(function () {
     // Agency
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     Route::namespace('App\Admin\Agency\Controller')->group(function () {
+        Route::get('agency/csv-download', 'AgencyController@csvDownload')->name('agency.csvDownload');
         Route::resource('agency', 'AgencyController');
         Route::post('agency/create', 'AgencyController@create')->name('agency.create');
         Route::put('agency/{agency}/edit', 'AgencyController@edit')->name('agency.edit');

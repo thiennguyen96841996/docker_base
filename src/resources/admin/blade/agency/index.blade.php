@@ -14,7 +14,7 @@
     <div class="search-form card">
         <div class="card-header">Tìm kiếm</div>
         <div class="card-body">
-            <form class="mb-2" method="GET" action="{{ route('admin.agency.index') }}">
+            <form id="search_form" class="mb-2" method="GET" action="{{ route('admin.agency.index') }}">
                 <div class="row g-2">
                     <div class="mb-3 col-md-6 d-flex">
                         <label for="id" class="col-form-label fw-bold">ID đại lý: </label>
@@ -54,7 +54,8 @@
                         <input type="date" name="establishment_date" value="{{ Renderer::oldWithRequest('establishment_date') }}" class="form-control">
                     </div>
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Tìm kiếm</button>
+                        <input id="btn_agency_csv" type="button" value="Csv Download" class="btn btn-outline-primary" />
+                        <button id="btn_search" type="button" class="btn btn-primary"><i class="fas fa-search"></i> Tìm kiếm</button>
                     </div>
                 </div>
             </form>
@@ -86,9 +87,9 @@
                             <td>{{ $val->name }}</td>
                             <td>{{ $val->tel }}</td>
                             <td>{{ $val->address }}</td>
-                            <td>{{ \App\Common\Agency\Definition\AgencyStatus::getName($val->status) }}</td>
+                            <td>{{ $val->getStatus() }}</td>
                             <td>{{ $val->agency_director }}</td>
-                            <td>{{ \Carbon\Carbon::parse($val->establishment_date)->format('Y/m/d') }}</td>
+                            <td>{{ $val->getEstablishmentDate() }}</td>
                         </tr>
                     @empty
                         <tr>
@@ -102,4 +103,8 @@
             </div>
         </div>
     </div>
+@stop
+
+@section ('JAVASCRIPT')
+    <script type="application/javascript" src="{{ busting('/js/agency.js', 'admin') }}"></script>
 @stop

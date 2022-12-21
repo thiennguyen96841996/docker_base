@@ -1,4 +1,7 @@
 <?php
+
+use App\Common\Csv\CsvDownLoad;
+
 /**
  * (キャッシュ対策として)最終更新日時パラメーターを付与したパスを作成する。
  * @param string $filePath パラメーターを付与したいpublicフォルダのファイルパス
@@ -59,4 +62,15 @@ function is_staging(): bool
 function is_production(): bool
 {
     return config('app.env') === 'production';
+}
+
+/**
+ * csv_download
+ *
+ * @param string $fileName
+ * @return mixed
+ */
+function csv_download(string $fileName): mixed
+{
+    return new CsvDownLoad($fileName);
 }

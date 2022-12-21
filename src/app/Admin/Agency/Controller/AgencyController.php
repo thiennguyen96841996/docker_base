@@ -10,6 +10,7 @@ use App\Common\Definition\StatusMessage;
 use App\Common\View\Facades\Renderer;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 use App\Common\Http\Controller\AbsController;
@@ -202,5 +203,27 @@ class AgencyController extends AbsController
         $this->agencyService->deleteModel($agency);
 
         return redirect()->route('admin.agency.index')->with('status', StatusMessage::DELETED_SUCCESS);
+    }
+
+    /**
+     * csvDownload
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     */
+    public function csvDownload(Request $request): \Symfony\Component\HttpFoundation\StreamedResponse
+    {
+        $fileName = 'agency-list' . Carbon::parse(now())->timestamp . '.csv';
+        $csv = csv_download($fileName);
+
+        Log::debug('before:' . round(memory_get_usage(true)/1048576,2)." megabytes");
+        $csvViewModel = $this->agencyService->getCsvViewModelList(
+            $request->all(),
+            ['status' => 'asc', 'establishment_date' => 'desc']
+        );
+
+        $csv->setCsvViewModel($csvViewModel);
+
+        return $csv->csvdownload();
     }
 }
